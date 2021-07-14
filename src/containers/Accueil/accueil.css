@@ -1,0 +1,30 @@
+.flex {
+    display: flex;
+    gap: 1%;
+}
+
+.flexitem {
+    height: 620px;
+    overflow: hidden;
+} 
+
+.slides {
+    /* width: calc(500px*3); */
+    animation: glisse 10s infinite;
+}
+
+@keyframes glisse {
+    0% {
+        transform: translateY(0)
+    }
+    33% {
+        transform: translateY(-150px);
+    }
+    66% {
+        transform: translateY(-310px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
