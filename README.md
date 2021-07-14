@@ -1,3 +1,3 @@
-# Création d'un site similaire à Allociné
+# Site MovieTrend
 
 Site fait avec React JS
