@@ -1,12 +1,13 @@
 import Genre from './containers/Genre/Genre'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Accueil from './containers/Accueil/Accueil'
 import PageGenre from './containers/PageGenre/PageGenre'
 import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import React, { useState } from "react";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import {
   orange,
   lightBlue,
@@ -30,7 +31,7 @@ function App() {
   const palletType = darkState ? "dark" : "light";
   const mainPrimaryColor = darkState ? orange[500] : lightBlue[600];
   const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
-  const darkTheme = createMuiTheme({
+  const darkTheme = createTheme({
     palette: {
       type: palletType,
       primary: {
@@ -60,6 +61,7 @@ function App() {
             </Container>
             </Switch>
       </Router>
+      <Footer />
     </ThemeProvider>
   );
 }

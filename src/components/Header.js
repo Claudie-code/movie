@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
       cursor: 'pointer',
     },
   },
+  middleBar: {
+    display: "flex",
+    margin: "auto"
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -80,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
+      alignItems: "center"
     },
   },
   sectionMobile: {
@@ -150,14 +155,6 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="primary">
-          <Badge badgeContent={11} >
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -176,44 +173,32 @@ export default function PrimarySearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="h6" noWrap color='inherit'>
           <a href='/' className={classes.linkTrend}>
             MovieTrend
           </a>
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <div className={classes.middleBar}>
+            <Button href='/genre' color="inherit">Categories</Button>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
           </div>
-          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-          <Button href='/genre' color="inherit">Categories</Button>
           <Switch checked={props.stateDark} onChange={() => props.funcDark(props.stateDark)} />
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} >
                 <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} >
-                <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton
@@ -238,7 +223,7 @@ export default function PrimarySearchAppBar(props) {
               <MoreIcon />
             </IconButton>
           </div>
-          <Button color="inherit">Log in</Button>
+          <Button href='/login' color="inherit">Log in</Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
