@@ -3,6 +3,7 @@ import Rating from '@material-ui/lab/Rating';
 import React, { useEffect, useState } from 'react';
 import Title from "../../components/Title";
 import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,12 +41,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PageGenre(props) {
-    const { id, name } = props.match.params;
-    const [genreMovie, setGenreMovie] = useState([]) 
     const classes = useStyles();
+    const { id, name } = props.match.params;
 
+    const [genreMovie, setGenreMovie] = useState([]) 
+    const [page, setPage] = React.useState(1);
+    const handleChange = (event, value) => {
+      setPage(value);
+    };
+    console.log(page)
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_UNSPLASH_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${id}&with_watch_monetization_types=flatrate`, {
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_UNSPLASH_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${id}&with_watch_monetization_types=flatrate`, {
         "method": "GET",
         "headers": {
             "Content-type": "application/json",
@@ -59,13 +65,13 @@ function PageGenre(props) {
     .catch(err => {
         console.error(err);
     });
-    }, [])
+    }, [page])
 
-console.log(genreMovie)
+
     return (
         <React.Fragment>
             <Title>Films {name}</Title>
-                <Grid container spacing={3}>
+                <Grid container justifyContent="center" spacing={3}>
                     {genreMovie.map(movie => (
                         <Grid item xs={12}>
                             <Card className={classes.root}>
@@ -98,6 +104,8 @@ console.log(genreMovie)
                             </Card>
                         </Grid>
                     ))}
+                    <Pagination count={10} page={page} onChange={handleChange} />
+
                 </Grid>
         </React.Fragment>
     );
