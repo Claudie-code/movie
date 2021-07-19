@@ -1,12 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Grid, TextField, Button, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useAuth } from '../../contexts/AuthContext';
+import Title from "../../components/Title";
+import Alert from '@material-ui/lab/Alert';
+
 /*https://www.youtube.com/watch?v=PKwu15ldZ7k*/
 
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
       justifyContent: 'center',
+      flexDirection: 'column',
+      textAlign: 'center',
       width: '50%',
       margin: '13.5rem auto'
     },
@@ -14,13 +20,35 @@ const useStyles = makeStyles((theme) => ({
 
 function Signup(props) {
     const classes = useStyles();
+    const lnameRef = useRef();
+    const fnameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
+    const { signup } = useAuth();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Passwords do not match');
+        }
+        try {
+            setLoading(true);
+            setError('');
+            await signup(emailRef.current.value, passwordRef.current.value);
+        } catch {
+            setError('Failed to create an account');
+        }
+        setLoading(false);
+    };
 
     return (
         <Box className={classes.root}>
-            <form action="">
+            <Title>Inscription</Title>
+            {error && <Alert severity="error">{error}</Alert>}
+            <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -32,6 +60,7 @@ function Signup(props) {
                             id="prenom"
                             label="Prénom"
                             autoFocus
+                            inputRef={fnameRef}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -44,6 +73,7 @@ function Signup(props) {
                             id="nom"
                             label="Nom"
                             autoFocus
+                            inputRef={lnameRef}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -55,6 +85,7 @@ function Signup(props) {
                             label="Adresse email"
                             name="email"
                             autoComplete="email"
+                            inputRef={emailRef}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -67,6 +98,7 @@ function Signup(props) {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            inputRef={passwordRef}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -78,23 +110,25 @@ function Signup(props) {
                             label="Confirmer le mot de passe"
                             type="password"
                             id="passwordConfirm"
-                            autoComplete="current-password"
+                            autoComplete="current-passwordConfirm"
+                            inputRef={passwordConfirmRef}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
+                            disabled={loading}
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
                         >
-                            Sign Up
+                            S'incrire
                         </Button>
                     </Grid>
                 </Grid>
                 <Grid container justifyContent="flex-end" spacing={2}>
                     <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="/login" variant="body2">
                         Déjà inscrit? Se connecter ici
                     </Link>
                     </Grid>

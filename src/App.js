@@ -16,6 +16,7 @@ import {
   deepOrange
 } from "@material-ui/core/colors";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { AuthProvider } from './contexts/AuthContext';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -50,21 +51,23 @@ function App() {
 
   /*https://codesandbox.io/s/dark-theme-switch-tp37c?from-embed=&file=/src/Dashboard/Dashboard.js*/
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Header stateDark={darkState} funcDark={handleThemeChange}/>
-      <Router >
-            <Switch>
-            <Container maxWidth="lg" className={classes.container}>
-              <Route exact path="/" component={Accueil}/>
-              <Route exact path="/genre" component={Genre}/>
-              <Route exact path="/genre/:id/:name" component={PageGenre}/>
-              <Route exact path="/signup" component={Signup}/>
-            </Container>
-            </Switch>
-      </Router>
-      <Footer />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Header stateDark={darkState} funcDark={handleThemeChange}/>
+        <Router >
+              <Switch>
+              <Container maxWidth="lg" className={classes.container}>
+                <Route exact path="/" component={Accueil}/>
+                <Route exact path="/genre" component={Genre}/>
+                <Route exact path="/genre/:id/:name" component={PageGenre}/>
+                <Route exact path="/signup" component={Signup}/>
+              </Container>
+              </Switch>
+        </Router>
+        <Footer />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
