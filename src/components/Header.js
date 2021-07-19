@@ -224,6 +224,7 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
           </div>
           <Button href='/login' color="inherit">Log in</Button>
+          <Button href='/signup' color="inherit">Sign up</Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

@@ -49,9 +49,9 @@ function PageGenre(props) {
     const handleChange = (event, value) => {
       setPage(value);
     };
-    console.log(page)
+
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_UNSPLASH_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${id}&with_watch_monetization_types=flatrate`, {
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${id}&with_watch_monetization_types=flatrate`, {
         "method": "GET",
         "headers": {
             "Content-type": "application/json",
@@ -66,7 +66,6 @@ function PageGenre(props) {
         console.error(err);
     });
     }, [page])
-
 
     return (
         <React.Fragment>

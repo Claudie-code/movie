@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Accueil from './containers/Accueil/Accueil'
 import PageGenre from './containers/PageGenre/PageGenre'
+import Signup from './containers/Signup/Signup'
 import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
@@ -58,6 +59,7 @@ function App() {
               <Route exact path="/" component={Accueil}/>
               <Route exact path="/genre" component={Genre}/>
               <Route exact path="/genre/:id/:name" component={PageGenre}/>
+              <Route exact path="/signup" component={Signup}/>
             </Container>
             </Switch>
       </Router>

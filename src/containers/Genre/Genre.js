@@ -18,7 +18,7 @@ function Genre(props) {
     const [genre, setGenre] = useState([]) 
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_UNSPLASH_KEY}&language=fr-FR`, {
+        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, {
         "method": "GET",
         "headers": {
             "Content-type": "application/json",

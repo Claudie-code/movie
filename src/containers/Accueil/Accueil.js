@@ -29,7 +29,7 @@ function Accueil(props) {
     const [movies, setMovies] = useState(null);
     useEffect(() => {
         fetch(`
-        https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_UNSPLASH_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&with_watch_monetization_types=flatrate`, 
+        https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&with_watch_monetization_types=flatrate`, 
         {
         "method": "GET",
         "headers": {
@@ -50,7 +50,7 @@ function Accueil(props) {
     const [series, setSeries] = useState(null);
     useEffect(() => {
         fetch(`
-        https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_UNSPLASH_KEY}&language=fr-FR&page=1`, 
+        https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1`, 
         {
         "method": "GET",
         "headers": {
