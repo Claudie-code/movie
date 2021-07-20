@@ -4,6 +4,9 @@ import Footer from './components/Footer'
 import Accueil from './containers/Accueil/Accueil'
 import PageGenre from './containers/PageGenre/PageGenre'
 import Signup from './containers/Signup/Signup'
+import Login from './containers/Login/Login'
+import Profile from './containers/Profile/Profile'
+import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
 import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
@@ -17,6 +20,7 @@ import {
 } from "@material-ui/core/colors";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -62,6 +66,9 @@ function App() {
                 <Route exact path="/genre" component={Genre}/>
                 <Route exact path="/genre/:id/:name" component={PageGenre}/>
                 <Route exact path="/signup" component={Signup}/>
+                <Route exact path="/login" component={Login}/>
+                <Route exact path="/forgot-password" component={ForgotPassword}/>
+                <PrivateRoute exact path="/profile" component={Profile}/>
               </Container>
               </Switch>
         </Router>

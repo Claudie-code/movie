@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
+import { useHistory } from 'react-router-dom';
 
 /*https://www.youtube.com/watch?v=PKwu15ldZ7k*/
 
@@ -28,6 +29,7 @@ function Signup(props) {
     const { signup } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -38,8 +40,9 @@ function Signup(props) {
             setLoading(true);
             setError('');
             await signup(emailRef.current.value, passwordRef.current.value);
+            history.push('/')
         } catch {
-            setError('Failed to create an account');
+            setError('Erreur lors de la création du compte');
         }
         setLoading(false);
     };
@@ -47,9 +50,11 @@ function Signup(props) {
     return (
         <Box className={classes.root}>
             <Title>Inscription</Title>
-            {error && <Alert severity="error">{error}</Alert>}
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        {error && <Alert severity="error">{error}</Alert>}
+                    </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             autoComplete="fname"

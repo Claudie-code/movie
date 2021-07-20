@@ -1,5 +1,5 @@
-import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,15 +8,14 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Switch from "@material-ui/core/Switch";
-import { Link } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -46,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -99,9 +98,23 @@ export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const history = useHistory();
+  const { currentUser, logout } = useAuth();
+  const [error, setError] = useState("");
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  async function handleLogout() {
+    setError('');
+    try {
+      console.log('test')
+      await logout();
+      history.push('/login')
+    } catch {
+      setError('Failed to log out')
+    }
+  }
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -225,6 +238,7 @@ export default function PrimarySearchAppBar(props) {
           </div>
           <Button href='/login' color="inherit">Log in</Button>
           <Button href='/signup' color="inherit">Sign up</Button>
+          { currentUser && <Button onClick={handleLogout} color="inherit">Log out</Button>}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
