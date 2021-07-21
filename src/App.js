@@ -9,7 +9,7 @@ import Profile from './containers/Profile/Profile'
 import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
 import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import React, { useState } from "react";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import {
@@ -58,21 +58,21 @@ function App() {
     <AuthProvider>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Header stateDark={darkState} funcDark={handleThemeChange}/>
         <Router >
-              <Switch>
-              <Container maxWidth="lg" className={classes.container}>
-                <Route exact path="/" component={Accueil}/>
-                <Route exact path="/genre" component={Genre}/>
-                <Route exact path="/genre/:id/:name" component={PageGenre}/>
-                <Route exact path="/signup" component={Signup}/>
-                <Route exact path="/login" component={Login}/>
-                <Route exact path="/forgot-password" component={ForgotPassword}/>
-                <PrivateRoute exact path="/profile" component={Profile}/>
-              </Container>
-              </Switch>
+          <Header stateDark={darkState} funcDark={handleThemeChange}/>
+          <Switch>
+          <Container maxWidth="lg" className={classes.container}>
+            <Route exact path="/" component={Accueil}/>
+            <Route exact path="/genre" component={Genre}/>
+            <Route exact path="/genre/:id/:name" component={PageGenre}/>
+            <Route exact path="/signup" component={Signup}/>
+            <Route exact path="/login" component={Login}/>
+            <Route exact path="/forgot-password" component={ForgotPassword}/>
+            <PrivateRoute exact path="/profile" component={Profile}/>
+          </Container>
+          </Switch>
+          <Footer />
         </Router>
-        <Footer />
       </ThemeProvider>
     </AuthProvider>
   );

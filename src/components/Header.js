@@ -26,16 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'none',
+    cursor: 'pointer',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
-    },
-  },
-  linkTrend: {
-    color: 'white',
-    '&:hover': {
-      color: 'white',
-      textDecoration: 'none',
-      cursor: 'pointer',
     },
   },
   middleBar: {
@@ -100,7 +93,7 @@ export default function PrimarySearchAppBar(props) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const history = useHistory();
   const { currentUser, logout } = useAuth();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -133,6 +126,12 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleMenuClick = pageURL => {
+    history.push(pageURL);
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -144,8 +143,8 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={() => handleMenuClick("/profile")}>Profile</MenuItem>
+      <MenuItem onClick={() => handleMenuClick("/account")}>My account</MenuItem>
     </Menu>
   );
 
@@ -186,13 +185,11 @@ export default function PrimarySearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap color='inherit'>
-          <a href='/' className={classes.linkTrend}>
+          <Typography className={classes.title} variant="h6" noWrap>
             MovieTrend
-          </a>
           </Typography>
           <div className={classes.middleBar}>
-            <Button href='/genre' color="inherit">Categories</Button>
+            <Button onClick={() => handleMenuClick('/genre')} color="inherit">Categories</Button>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -209,21 +206,12 @@ export default function PrimarySearchAppBar(props) {
           </div>
           <div className={classes.sectionDesktop}>
           <Switch checked={props.stateDark} onChange={() => props.funcDark(props.stateDark)} />
-            <IconButton aria-label="show 4 new mails" color="inherit">
+            {currentUser && <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} >
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            }
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -236,9 +224,26 @@ export default function PrimarySearchAppBar(props) {
               <MoreIcon />
             </IconButton>
           </div>
-          <Button href='/login' color="inherit">Log in</Button>
-          <Button href='/signup' color="inherit">Sign up</Button>
-          { currentUser && <Button onClick={handleLogout} color="inherit">Log out</Button>}
+          { currentUser ? 
+          <div>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton> 
+            <Button onClick={handleLogout} color="inherit">Log out</Button>
+          </div>:
+          <div>
+            <Button href='/login' color="inherit">Log in</Button>
+            <Button href='/signup' color="inherit">Sign up</Button>
+          </div>}
+
+
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
