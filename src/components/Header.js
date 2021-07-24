@@ -239,8 +239,8 @@ export default function PrimarySearchAppBar(props) {
             <Button onClick={handleLogout} color="inherit">Log out</Button>
           </div>:
           <div>
-            <Button href='/login' color="inherit">Log in</Button>
-            <Button href='/signup' color="inherit">Sign up</Button>
+            <Button onClick={() => handleMenuClick("/login")} color="inherit">Log in</Button>
+            <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Sign up</Button>
           </div>}
 
 

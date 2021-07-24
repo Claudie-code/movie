@@ -6,8 +6,6 @@ import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 
-/*https://www.youtube.com/watch?v=PKwu15ldZ7k*/
-
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
