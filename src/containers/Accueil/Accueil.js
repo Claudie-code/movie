@@ -38,10 +38,8 @@ function Accueil(props) {
         })
         .then(response => response.json())
         .then(json => {
-            
             const data = json;
             const arrMovies = data.results
-            console.log(arrMovies)
             setMovies(arrMovies)
         })
         .catch(err => {
@@ -52,7 +50,7 @@ function Accueil(props) {
     const [series, setSeries] = useState(null);
     useEffect(() => {
         fetch(`
-        https://swapi.dev/api/people/2/`, 
+        https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1`, 
         {
         "method": "GET",
         "headers": {
