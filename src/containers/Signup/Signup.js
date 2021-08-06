@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Box, Grid, TextField, Button, Link } from '@material-ui/core';
+import { Paper, Grid, TextField, Button, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
@@ -8,12 +8,13 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      textAlign: 'center',
-      width: '50%',
-      margin: '13.5rem auto'
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        textAlign: 'center',
+        width: '50%',
+        margin: '13.5rem auto',
+        padding: "3rem"
     },
 }));
 
@@ -24,7 +25,7 @@ function Signup(props) {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup } = useAuth();
+    const { signup, createDisplayName } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -38,7 +39,9 @@ function Signup(props) {
             setLoading(true);
             setError('');
             await signup(emailRef.current.value, passwordRef.current.value);
+            await createDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`);
             history.push('/')
+
         } catch {
             setError('Erreur lors de la création du compte');
         }
@@ -46,7 +49,7 @@ function Signup(props) {
     };
 
     return (
-        <Box className={classes.root}>
+        <Paper className={classes.root}>
             <Title>Inscription</Title>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
@@ -137,7 +140,7 @@ function Signup(props) {
                     </Grid>
                 </Grid>
             </form>
-        </Box>
+        </Paper>
     );
 }
 

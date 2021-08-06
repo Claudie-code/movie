@@ -4,11 +4,12 @@ import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
 
 export default function Profile() {
-    const { currentUser, logout } = useAuth();
+    const { currentUser } = useAuth();
+    console.log(currentUser)
     return (
         <>
             <Card>
-                <Title>Profil de {currentUser.email}</Title>
+                <Title>Profil de {currentUser.displayName}</Title>
             </Card>
         </>
     )

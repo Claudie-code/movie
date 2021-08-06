@@ -101,7 +101,6 @@ export default function PrimarySearchAppBar(props) {
   async function handleLogout() {
     setError('');
     try {
-      console.log('test')
       await logout();
       history.push('/login')
     } catch {

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import CarouselAcc from './CarouselAcc'
 import Sorties from './Sorties';
 import Series from './Series';
-import Container from '@material-ui/core/Container';
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Paper from "@material-ui/core/Paper";

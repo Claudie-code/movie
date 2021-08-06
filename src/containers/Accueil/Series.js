@@ -1,7 +1,7 @@
 import React from 'react';
 import TopSeries from './TopSeries';
 import Title from "../../components/Title";
-import { Grid, Box } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 function Series(props) {
     return (
