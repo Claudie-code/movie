@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CarouselAcc from './CarouselAcc'
+import CarouselAccueil from './CarouselAccueil'
 import Sorties from './Sorties';
 import Series from './Series';
 import { makeStyles } from "@material-ui/core/styles";
@@ -72,7 +72,7 @@ function Accueil(props) {
         <main>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        {movies && <Paper className={fixedHeightPaper}><CarouselAcc moviesCar={movies} /></Paper>}
+                        {movies && <Paper className={fixedHeightPaper}><CarouselAccueil moviesCar={movies} /></Paper>}
                     </Grid>
                     <Grid item xs={12}>
                         {movies && <Paper className={fixedHeightPaper}><Sorties moviesSort={movies} /></Paper>}

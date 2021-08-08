@@ -8,7 +8,7 @@ import Title from "../../components/Title";
 /*https://react-bootstrap.github.io/components/carousel/*/
 
 
-function CarouselAcc(props) {
+function CarouselAccueil(props) {
     const movies = props.moviesCar[0]
     const movies2 = props.moviesCar[1]
     const movies3 = props.moviesCar[2]
@@ -25,13 +25,14 @@ function CarouselAcc(props) {
                   src={`https://image.tmdb.org/t/p/w${taille}${movies && movies.backdrop_path}`}
                   alt="First slide"
                 />
-                </Link>
+                
                 <Carousel.Caption>
                   <Typography variant="h3" gutterBottom>{movies && movies.title}</Typography>
                   <Typography variant="body1" gutterBottom>
                     {movies && movies.overview} <br/> Sortie le {movies && movies.release_date}
                   </Typography>
                 </Carousel.Caption>
+                </Link>
               </Carousel.Item>
               <Carousel.Item>
                 <img
@@ -67,5 +68,5 @@ function CarouselAcc(props) {
     );
 }
 
-export default CarouselAcc;
+export default CarouselAccueil;
 

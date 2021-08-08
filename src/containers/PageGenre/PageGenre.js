@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Title from "../../components/Title";
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 function PageGenre(props) {
     const classes = useStyles();
     const { id, name } = props.match.params;
+    const history = useHistory();
 
     const [genreMovie, setGenreMovie] = useState([]) 
     const [page, setPage] = React.useState(1);
@@ -74,7 +76,7 @@ function PageGenre(props) {
                     {genreMovie.map(movie => (
                         <Grid item xs={12}>
                             <Card className={classes.root}>
-                                <CardActionArea className={classes.mediaRoot}>
+                                <CardActionArea href={`/${movie.id}`} className={classes.mediaRoot}>
                                     <CardMedia
                                         className={classes.cover}
                                         image={`https://image.tmdb.org/t/p/w780${movie && movie.poster_path}`}
