@@ -44,7 +44,7 @@ export default function PageMovie(props) {
         {movie &&
         <Paper className={classes.paper}>
             <Title>{movie.title}</Title>
-            <BandeAnnonce movieBa={movie}/>
+            <BandeAnnonce movieBa={movie} width='100%' height="500px"/>
             <div>bnojour</div>
         </Paper>
         }

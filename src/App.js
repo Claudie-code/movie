@@ -15,6 +15,8 @@ import React, { useState } from "react";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import {
   orange,
+  cyan,
+  amber,
   lightBlue,
   deepPurple,
   deepOrange
@@ -22,6 +24,7 @@ import {
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
+import { blueGrey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -36,7 +39,7 @@ function App() {
 
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? "dark" : "light";
-  const mainPrimaryColor = darkState ? orange[500] : lightBlue[600];
+  const mainPrimaryColor = darkState ? orange[600] : cyan[600];
   const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
   const darkTheme = createTheme({
     palette: {
