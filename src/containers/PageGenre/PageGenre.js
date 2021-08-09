@@ -76,7 +76,7 @@ function PageGenre(props) {
                     {genreMovie.map(movie => (
                         <Grid item xs={12} key={movie.id}>
                             <Card className={classes.root}>
-                                <CardActionArea href={`/${movie.id}`} className={classes.mediaRoot}>
+                                <CardActionArea href={`/movie/${movie.id}`} className={classes.mediaRoot}>
                                     <CardMedia
                                         className={classes.cover}
                                         image={`https://image.tmdb.org/t/p/w780${movie && movie.poster_path}`}

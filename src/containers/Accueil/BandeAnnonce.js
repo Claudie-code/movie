@@ -1,5 +1,6 @@
+import { Box } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
 
 function BandeAnnonce(props) {
     const movBa = props.movieBa.id
@@ -26,7 +27,7 @@ function BandeAnnonce(props) {
     }, [])
 
     return (
-        <ReactPlayer width={"100%"} height={"400px"} url={`https://www.youtube.com/watch?v=${urlBa}`} />
+        <ReactPlayer width={props.width} height={props.height} url={`https://www.youtube.com/watch?v=${urlBa}`} />
     );
 }
 

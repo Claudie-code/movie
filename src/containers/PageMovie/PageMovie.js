@@ -1,7 +1,8 @@
-import { makeStyles, Paper } from '@material-ui/core'
+import { makeStyles, Paper } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
+import BandeAnnonce from "../Accueil/BandeAnnonce";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -39,11 +40,14 @@ export default function PageMovie(props) {
 
     console.log(movie)
     return (
-
+        <>
+        {movie &&
         <Paper className={classes.paper}>
             <Title>{movie.title}</Title>
-
+            <BandeAnnonce movieBa={movie}/>
+            <div>bnojour</div>
         </Paper>
-
+        }
+        </>
     )
 }

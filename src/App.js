@@ -66,7 +66,7 @@ function App() {
             <Route exact path="/" component={Accueil}/>
             <Route exact path="/genre" component={Genre}/>
             <Route exact path="/genre/:id/:name" component={PageGenre}/>
-            <Route exact path="/:id" component={PageMovie}/>
+            <Route exact path="/movie/:id" component={PageMovie}/>
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/forgot-password" component={ForgotPassword}/>

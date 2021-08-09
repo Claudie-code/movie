@@ -5,17 +5,30 @@ import Grid from '@material-ui/core/Grid';
 import ImageFilm from './ImageFilm';
 import "./accueil.css";
 import Title from "../../components/Title";
+import { Box, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+    flex: {
+        display: "flex",
+        gap: "1%"
+    },
+    flexItem: {
+        height: "620px",
+        overflow: "hidden"
+    },
+}));
 
 function Sorties(props) {
+    const classes = useStyles();
 
     return (
         <React.Fragment>
             <Title>Bandes annonces à ne pas manquer</Title>
-            <div className="flex">
-                <div className="flexitem" style={{width: '59%'}}>
+            <Box className={classes.flex}>
+                <Box className={classes.flexItem} style={{width: '59%'}}>
                     <Grid container spacing={3} >
                         <Grid item xs={12}>
-                            <BandeAnnonce movieBa={props.moviesSort[3]}/>
+                            <BandeAnnonce movieBa={props.moviesSort[3]} height="400px" width="100%"/>
                         </Grid>
                         <Grid item xs={3}>
                             <ImageFilm movieFi={props.moviesSort[4]}/>
@@ -30,8 +43,8 @@ function Sorties(props) {
                             <ImageFilm movieFi={props.moviesSort[7]}/>
                         </Grid>
                     </Grid>
-                </div>
-                <div className="flexitem" style={{width: '39%'}}>
+                </Box>
+                <Box className={classes.flexItem} style={{width: '39%'}}>
                     <div className="slides">
                         <ButtonMovie movieBu={props.moviesSort[8]}/>
                         <ButtonMovie movieBu={props.moviesSort[9]}/>
@@ -40,8 +53,8 @@ function Sorties(props) {
                         <ButtonMovie movieBu={props.moviesSort[12]}/>
                         <ButtonMovie movieBu={props.moviesSort[13]}/>
                     </div>
-                </div>
-            </div>
+                </Box>
+            </Box>
         </React.Fragment>
     );
 }

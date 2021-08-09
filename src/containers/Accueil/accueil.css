@@ -1,15 +1,4 @@
-.flex {
-    display: flex;
-    gap: 1%;
-}
-
-.flexitem {
-    height: 620px;
-    overflow: hidden;
-} 
-
 .slides {
-    /* width: calc(500px*3); */
     animation: glisse 10s infinite;
 }
 
