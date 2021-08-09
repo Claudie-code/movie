@@ -15,7 +15,7 @@ function Sorties(props) {
                 <div className="flexitem" style={{width: '59%'}}>
                     <Grid container spacing={3} >
                         <Grid item xs={12}>
-                            <BandeAnnonce movieBa={props.moviesSort}/>
+                            <BandeAnnonce movieBa={props.moviesSort[3]}/>
                         </Grid>
                         <Grid item xs={3}>
                             <ImageFilm movieFi={props.moviesSort[4]}/>

@@ -6,6 +6,7 @@ import PageGenre from './containers/PageGenre/PageGenre'
 import Signup from './containers/Signup/Signup'
 import Login from './containers/Login/Login'
 import Profile from './containers/Profile/Profile'
+import PageMovie from './containers/PageMovie/PageMovie'
 import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
 import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
@@ -65,6 +66,7 @@ function App() {
             <Route exact path="/" component={Accueil}/>
             <Route exact path="/genre" component={Genre}/>
             <Route exact path="/genre/:id/:name" component={PageGenre}/>
+            <Route exact path="/:id" component={PageMovie}/>
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/forgot-password" component={ForgotPassword}/>

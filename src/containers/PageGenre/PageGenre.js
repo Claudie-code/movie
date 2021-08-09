@@ -74,7 +74,7 @@ function PageGenre(props) {
             <Title>Films {name}</Title>
                 <Grid container justifyContent="center" spacing={3}>
                     {genreMovie.map(movie => (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={movie.id}>
                             <Card className={classes.root}>
                                 <CardActionArea href={`/${movie.id}`} className={classes.mediaRoot}>
                                     <CardMedia

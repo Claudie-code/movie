@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
 
 function BandeAnnonce(props) {
-    const movBa = props.movieBa[3].id
+    const movBa = props.movieBa.id
     const [urlBa, setUrlBa] = useState(null)
 
     useEffect(() => {

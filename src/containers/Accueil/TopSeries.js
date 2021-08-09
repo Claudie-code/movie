@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 function TopSeries(props) {
     const classes = useStyles();
-    console.log(props)
+    console.log("serie",props.serieTop)
     return (
         <Box>
             <CardActionArea className={classes.root}>
