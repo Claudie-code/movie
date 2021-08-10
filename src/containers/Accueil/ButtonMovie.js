@@ -6,6 +6,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,7 +71,7 @@ export default function MediaControlCard(props) {
               {props.movieBu && props.movieBu.title}
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
-              Sortie le {props.movieBu && props.movieBu.release_date}
+              Sortie le {props.movieBu && dayjs(props.movieBu.release_date).locale('fr').format("DD MMMM YYYY")}
             </Typography>
           </CardContent>
 

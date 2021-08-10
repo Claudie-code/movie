@@ -7,6 +7,8 @@ import GenreListButton from "../../components/GenreListButton";
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -65,7 +67,7 @@ export default function MoviePage(props) {
             <BandeAnnonce movieBa={movie} width='100%' height="620px"/>
             <GenreListButton genres={movie.genres} />
             <Typography variant="subtitle1" gutterBottom>
-                Sortie le {movie.release_date}
+                Sortie le {dayjs(movie.release_date).locale('fr').format("DD MMMM YYYY")}
             </Typography>
             <Typography variant="body1" gutterBottom>
                 {movie.overview}
