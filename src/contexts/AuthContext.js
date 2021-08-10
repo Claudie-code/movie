@@ -17,9 +17,7 @@ export function AuthProvider({children}) {
     };
 
     function createUserCollection() {
-        return db.collection("users").doc(auth.currentUser.uid).set({
-            favorites: []
-        });
+        return db.collection('users').doc(auth.currentUser.uid).set({favorites:[]});
     };
 
     function signup(email, password) {

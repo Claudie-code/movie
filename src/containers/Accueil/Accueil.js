@@ -66,7 +66,7 @@ function Accueil() {
             console.error(err);
         });
     }, [])
-
+    console.log(series)
 
     return (
         <main>

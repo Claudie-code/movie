@@ -50,7 +50,7 @@ function TopSeries(props) {
         .then(response => response.json())
         .then(json => {
             const data = json;
-            const genreTarget = data.genres.find(element => idGenre == element.id);
+            const genreTarget = data.genres.find(element => idGenre === element.id);
             setGenre(genreTarget)
         })
         .catch(err => {
@@ -72,7 +72,7 @@ function TopSeries(props) {
                         {props.serieTop.name}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" component="p">
-                        {genre.name}
+                        {genre && genre.name}
                     </Typography>
                 </CardContent>         
             </CardActionArea>
