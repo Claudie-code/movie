@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function Genre(props) {
+function Genres(props) {
     const classes = useStyles();
     const [genre, setGenre] = useState([]) 
     const history = useHistory();
@@ -53,4 +53,4 @@ function Genre(props) {
     );
 }
 
-export default Genre;
+export default Genres;

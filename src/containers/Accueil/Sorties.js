@@ -1,5 +1,5 @@
 import React from 'react';
-import BandeAnnonce from "./BandeAnnonce"
+import BandeAnnonce from "../../components/BandeAnnonce"
 import ButtonMovie from "./ButtonMovie"
 import Grid from '@material-ui/core/Grid';
 import ImageFilm from './ImageFilm';

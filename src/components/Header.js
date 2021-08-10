@@ -16,7 +16,6 @@ import Button from '@material-ui/core/Button';
 import Switch from "@material-ui/core/Switch";
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -188,7 +187,7 @@ export default function PrimarySearchAppBar(props) {
           <MenuItem onClick={() => handleMenuClick('/')} style={{fontSize: "1.7rem"}}>MovieTrend</MenuItem>
           </Typography>
           <div className={classes.middleBar}>
-            <Button onClick={() => handleMenuClick('/genre')} color="inherit">Categories</Button>
+            <Button onClick={() => handleMenuClick('/genre')} color="inherit">Catégories</Button>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />

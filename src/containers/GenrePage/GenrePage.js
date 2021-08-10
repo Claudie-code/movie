@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Title from "../../components/Title";
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,10 +40,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function PageGenre(props) {
+function GenrePage(props) {
     const classes = useStyles();
     const { id, name } = props.match.params;
-    const history = useHistory();
 
     const [genreMovie, setGenreMovie] = useState([]) 
     const [page, setPage] = React.useState(1);
@@ -67,7 +65,7 @@ function PageGenre(props) {
     .catch(err => {
         console.error(err);
     });
-    }, [page])
+    }, [page, id])
 
     return (
         <React.Fragment>
@@ -112,4 +110,4 @@ function PageGenre(props) {
     );
 }
 
-export default PageGenre;
+export default GenrePage;

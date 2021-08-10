@@ -2,7 +2,7 @@ import { makeStyles, Paper } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
-import BandeAnnonce from "../Accueil/BandeAnnonce";
+import BandeAnnonce from "../../components/BandeAnnonce";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function PageMovie(props) {
+export default function MoviePage(props) {
     const classes = useStyles();
     const { currentUser } = useAuth();
     const { id } = props.match.params;
@@ -36,7 +36,7 @@ export default function PageMovie(props) {
     .catch(err => {
         console.error(err);
     });
-    }, [])
+    }, [id])
 
     console.log(movie)
     return (
