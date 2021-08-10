@@ -1,9 +1,12 @@
-import { makeStyles, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Box, Checkbox } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
 import BandeAnnonce from "../../components/BandeAnnonce";
 import GenreListButton from "../../components/GenreListButton";
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -11,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         overflowX: "auto",
         flexDirection: "column",
-        minHeight: 450
+        minHeight: 500
     },
     margin: {
         marginTop: theme.spacing(2),
@@ -25,7 +28,12 @@ export default function MoviePage(props) {
     const { currentUser } = useAuth();
     const { id } = props.match.params;
     const [ movie, setMovie ] = useState(null);
+    const [ checkboxFavorite, setCheckboxFavorite ] = useState(true)
 
+    const handleChange = (event) => {
+        setCheckboxFavorite(event.target.checked);
+    };
+    console.log(checkboxFavorite)
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, {
         "method": "GET",
@@ -48,8 +56,13 @@ export default function MoviePage(props) {
         <>
         {movie &&
         <Paper className={classes.paper}>
-            <Title>{movie.title}</Title>
-            <BandeAnnonce movieBa={movie} width='100%' height="500px"/>
+            <Box display="Flex" justifyContent="space-between">
+                <Title>{movie.title}</Title>
+                <FormControlLabel
+                    control={<Checkbox icon={<FavoriteBorder fontSize="large"/>} color="primary" onChange={handleChange} checkedIcon={<Favorite fontSize="large"/>} />}
+                />
+            </Box>
+            <BandeAnnonce movieBa={movie} width='100%' height="620px"/>
             <GenreListButton genres={movie.genres} />
             <Typography variant="subtitle1" gutterBottom>
                 Sortie le {movie.release_date}
