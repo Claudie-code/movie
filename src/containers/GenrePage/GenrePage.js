@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Title from "../../components/Title";
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import GenreListButton from '../../components/GenreListButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,7 +67,7 @@ function GenrePage(props) {
         console.error(err);
     });
     }, [page, id])
-
+    console.log(genreMovie)
     return (
         <React.Fragment>
             <Title>Films {name}</Title>
@@ -94,7 +95,7 @@ function GenrePage(props) {
                                     <Typography variant="body1" color="textSecondary" component="p">
                                         {movie.overview}
                                     </Typography>
-                                    
+                                    <GenreListButton genres={movie.genres} />
                                 </CardContent>
                                 <div className={classes.rating}>
                                     <Rating name="size-medium" value={(movie.vote_average * 5) / 10} readOnly/>

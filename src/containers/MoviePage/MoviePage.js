@@ -1,8 +1,9 @@
-import { makeStyles, Paper } from '@material-ui/core';
+import { makeStyles, Paper, Typography } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
 import BandeAnnonce from "../../components/BandeAnnonce";
+import GenreListButton from "../../components/GenreListButton";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -11,6 +12,11 @@ const useStyles = makeStyles(theme => ({
         overflowX: "auto",
         flexDirection: "column",
         minHeight: 450
+    },
+    margin: {
+        marginTop: theme.spacing(2),
+        marginRight: theme.spacing(1),
+        marginBottom: theme.spacing(2)
     },
 }));
 
@@ -30,7 +36,6 @@ export default function MoviePage(props) {
     .then(response => response.json())
     .then(json => {
         const data = json;
-        console.log("data", data.title)
         setMovie(data)
     })
     .catch(err => {
@@ -45,7 +50,13 @@ export default function MoviePage(props) {
         <Paper className={classes.paper}>
             <Title>{movie.title}</Title>
             <BandeAnnonce movieBa={movie} width='100%' height="500px"/>
-            <div>bnojour</div>
+            <GenreListButton genres={movie.genres} />
+            <Typography variant="subtitle1" gutterBottom>
+                Sortie le {movie.release_date}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+                {movie.overview}
+            </Typography>
         </Paper>
         }
         </>

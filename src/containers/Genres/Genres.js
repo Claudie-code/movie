@@ -33,8 +33,7 @@ function Genres(props) {
     });
     }, [])
 
-    const onClickCategorie = (urlID, urlName) => {
-        console.log('test')
+    const onClickGenre = (urlID, urlName) => {
         history.push(`/genre/${urlID}/${urlName}`)
     };
 
@@ -43,7 +42,7 @@ function Genres(props) {
         <Grid container  direction="row"  alignItems="center" spacing={2}>
         {genre.map(genre => (
             <Grid item >
-                <Button onClick={() => onClickCategorie(genre.id, genre.name)} variant="contained" color="primary" className={classes.padding}>
+                <Button onClick={() => onClickGenre(genre.id, genre.name)} variant="contained" color="primary" className={classes.padding}>
                     {genre.name}
                 </Button>
             </Grid>
