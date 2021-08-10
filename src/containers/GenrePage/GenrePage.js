@@ -1,47 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Title from "../../components/Title";
-import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import { Grid } from '@material-ui/core';
 import MovieCardList from './MovieCardList';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      height: 400,
-    },
-    mediaRoot: {
-        margin: 5,
-        width: 250,
-        height: 390
-    },
-    details: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    content: {
-      flex: '1 0 auto',
-      gap: '5%',
-      display: "flex",
-      flexDirection: "column"
-    },
-    cover: {
-        width: 250,
-        height: 390,
-        display: 'flex',
-        justifyContent: "center",
-        alignItems: 'center',
-    },
-    rating: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingLeft: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-    },
-}));
-
 function GenrePage(props) {
-    const classes = useStyles();
     const { id, name } = props.match.params;
 
     const [moviesGenre, setMoviesGenre] = useState([]) 

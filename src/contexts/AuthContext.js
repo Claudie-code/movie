@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { auth } from '../firebase'
+import { auth, db } from '../firebase';
 
 const AuthContext = React.createContext();
 
@@ -14,6 +14,12 @@ export function AuthProvider({children}) {
 
     function createDisplayName(newName) {
         return auth.currentUser.updateProfile({displayName: newName})
+    };
+
+    function createUserCollection() {
+        return db.collection("users").doc(auth.currentUser.uid).set({
+            favorites: []
+        });
     };
 
     function signup(email, password) {
@@ -40,6 +46,7 @@ export function AuthProvider({children}) {
 
     const value = {
         currentUser,
+        createUserCollection,
         createDisplayName,
         login,
         signup,

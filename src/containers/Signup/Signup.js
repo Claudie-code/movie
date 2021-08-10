@@ -13,9 +13,12 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         textAlign: 'center',
         width: '50%',
-        margin: '13.5rem auto',
-        padding: "3rem"
+        margin: '6rem auto',
+        padding: theme.spacing(13)
     },
+    margin: {
+        marginTop: theme.spacing(4)
+    }
 }));
 
 function Signup(props) {
@@ -25,7 +28,7 @@ function Signup(props) {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, createDisplayName } = useAuth();
+    const { signup, createDisplayName, createUserCollection } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -40,6 +43,7 @@ function Signup(props) {
             setError('');
             await signup(emailRef.current.value, passwordRef.current.value);
             await createDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`);
+            await createUserCollection();
             history.push('/')
 
         } catch {
@@ -132,7 +136,7 @@ function Signup(props) {
                         </Button>
                     </Grid>
                 </Grid>
-                <Grid container justifyContent="flex-end" spacing={2}>
+                <Grid container justifyContent="flex-end" spacing={2} className={classes.margin}>
                     <Grid item>
                     <Link href="/login" variant="body2">
                         Déjà inscrit? Se connecter ici

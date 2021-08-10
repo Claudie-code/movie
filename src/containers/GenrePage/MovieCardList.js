@@ -1,10 +1,7 @@
 import { Box, CardMedia, Grid, Typography, Card, CardContent, CardActionArea } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import React, { useEffect, useState } from 'react';
-import Title from "../../components/Title";
 import { makeStyles } from '@material-ui/core/styles';
-import Pagination from '@material-ui/lab/Pagination';
-import GenreListButton from '../../components/GenreListButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {

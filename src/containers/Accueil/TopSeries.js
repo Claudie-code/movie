@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cover: {
       width: 150,
-      height: 200,
+      height: 230,
       display: 'flex',
       justifyContent: "center",
       alignItems: 'center',
@@ -28,11 +28,36 @@ const useStyles = makeStyles((theme) => ({
         border: "2px solid" + theme.palette.primary.main,
       }
     },
+    padding: {
+        padding: theme.spacing(0.5)
+    }
   }));
 
 function TopSeries(props) {
     const classes = useStyles();
-    console.log("serie",props.serieTop)
+    const idGenre = props.serieTop.genre_ids[0];
+    const [ genre, setGenre ] = useState(null)
+
+    useEffect(() => {
+        fetch(`
+        https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&name="aventure"`, 
+        {
+        "method": "GET",
+        "headers": {
+            "Content-type": "application/json",
+        }
+        })
+        .then(response => response.json())
+        .then(json => {
+            const data = json;
+            const genreTarget = data.genres.find(element => idGenre == element.id);
+            setGenre(genreTarget)
+        })
+        .catch(err => {
+            console.error(err);
+        });
+    }, [idGenre])
+
     return (
         <Box>
             <CardActionArea className={classes.root}>
@@ -42,12 +67,12 @@ function TopSeries(props) {
                 title={props.serieTop.name}
                 >
                 </CardMedia> 
-                <CardContent>
+                <CardContent className={classes.padding}>
                     <Typography gutterBottom variant="subtitle1" component="h3">
                         {props.serieTop.name}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" component="p">
-                        Aventure
+                        {genre.name}
                     </Typography>
                 </CardContent>         
             </CardActionArea>

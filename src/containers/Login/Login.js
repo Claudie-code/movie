@@ -13,9 +13,12 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'column',
       textAlign: 'center',
       width: '50%',
-      margin: '13.5rem auto',
-      padding: "3rem"
+      margin: '7rem auto',
+      padding: theme.spacing(13)
     },
+    margin: {
+        marginTop: theme.spacing(4)
+    }
 }));
 
 function Login(props) {
@@ -73,8 +76,8 @@ function Login(props) {
                                 inputRef={passwordRef}
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <Button
+                        <Grid item xs={12} >
+                            <Button 
                                 disabled={loading}
                                 type="submit"
                                 fullWidth
@@ -85,7 +88,7 @@ function Login(props) {
                             </Button>
                         </Grid>
                     </Grid>
-                    <Grid container justifyContent="flex-end" spacing={2}>
+                    <Grid container justifyContent="flex-end" alignItems="flex-end" direction="column" spacing={1}className={classes.margin}>
                         <Grid item>
                             <Link href="/forgot-password" variant="body2">
                                 Mot de passe oublié?
