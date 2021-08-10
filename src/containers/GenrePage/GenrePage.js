@@ -1,10 +1,9 @@
-import { Box, CardMedia, Grid, Typography, Card, CardContent, CardActionArea } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
 import React, { useEffect, useState } from 'react';
 import Title from "../../components/Title";
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
-import GenreListButton from '../../components/GenreListButton';
+import { Grid } from '@material-ui/core';
+import MovieCardList from './MovieCardList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +44,7 @@ function GenrePage(props) {
     const classes = useStyles();
     const { id, name } = props.match.params;
 
-    const [genreMovie, setGenreMovie] = useState([]) 
+    const [moviesGenre, setMoviesGenre] = useState([]) 
     const [page, setPage] = React.useState(1);
     const handleChange = (event, value) => {
       setPage(value);
@@ -61,51 +60,19 @@ function GenrePage(props) {
     .then(response => response.json())
     .then(json => {
         const data = json;
-        setGenreMovie(data.results)
+        setMoviesGenre(data.results)
     })
     .catch(err => {
         console.error(err);
     });
-    }, [page, id])
-    console.log(genreMovie)
+    }, [page])
+    console.log(moviesGenre)
     return (
         <React.Fragment>
             <Title>Films {name}</Title>
                 <Grid container justifyContent="center" spacing={3}>
-                    {genreMovie.map(movie => (
-                        <Grid item xs={12} key={movie.id}>
-                            <Card className={classes.root}>
-                                <CardActionArea href={`/movie/${movie.id}`} className={classes.mediaRoot}>
-                                    <CardMedia
-                                        className={classes.cover}
-                                        image={`https://image.tmdb.org/t/p/w780${movie && movie.poster_path}`}
-                                        title={movie.title}
-                                    />
-                                </CardActionArea>
-                                <div className={classes.details}>
-                                <CardContent className={classes.content}>
-                                    <Box>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            {movie.title}
-                                        </Typography>
-                                        <Typography variant="subtitle1" color="textSecondary" component="p">
-                                            {movie.release_date}
-                                        </Typography>
-                                    </Box>
-                                    <Typography variant="body1" color="textSecondary" component="p">
-                                        {movie.overview}
-                                    </Typography>
-                                    <GenreListButton genres={movie.genres} />
-                                </CardContent>
-                                <div className={classes.rating}>
-                                    <Rating name="size-medium" value={(movie.vote_average * 5) / 10} readOnly/>
-                                </div>
-                                </div>
-                            </Card>
-                        </Grid>
-                    ))}
+                    <MovieCardList movies={moviesGenre} />
                     <Pagination count={10} page={page} onChange={handleChange} />
-
                 </Grid>
         </React.Fragment>
     );
