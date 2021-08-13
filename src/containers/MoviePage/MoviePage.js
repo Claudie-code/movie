@@ -27,13 +27,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function MoviePage(props) {
     const classes = useStyles();
-    const { currentUser } = useAuth();
+    const { currentUser, addFavoritesUserCollection, removeFavoritesUserCollection } = useAuth();
     const { id } = props.match.params;
     const [ movie, setMovie ] = useState(null);
     const [ checkboxFavorite, setCheckboxFavorite ] = useState(true)
-
-    const handleChange = (event) => {
+    console.log(currentUser)
+    const handleChange = async (event) => {
         setCheckboxFavorite(event.target.checked);
+        if (movie ) {
+            await addFavoritesUserCollection(id);
+        } else {
+            await removeFavoritesUserCollection(id);
+        }
     };
     console.log(checkboxFavorite)
     useEffect(() => {

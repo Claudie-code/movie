@@ -10,14 +10,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function GenreList(props) {
+export default function GenreListButton(props) {
     const classes = useStyles();
     const history = useHistory();
 
     return (
         <Box>
             {props.genres.map(genre => (
-                <Button size="large" variant="outlined" color="primary" className={classes.margin} onClick={()=> {history.replace(`/genre/${genre.id}/${genre.name}`)}}>
+                <Button key={genre.id} size="large" variant="outlined" color="primary" className={classes.margin} onClick={()=> {history.replace(`/genre/${genre.id}/${genre.name}`)}}>
                     {genre.name}
                 </Button>
             ))}

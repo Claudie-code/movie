@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Genres(props) {
     const classes = useStyles();
-    const [genre, setGenre] = useState([]) 
+    const [genres, setGenres] = useState([]) 
     const history = useHistory();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function Genres(props) {
     .then(response => response.json())
     .then(json => {
         const data = json;
-        setGenre(data.genres)
+        setGenres(data.genres)
     })
     .catch(err => {
         console.error(err);
@@ -40,7 +40,7 @@ function Genres(props) {
     return (
         <main >
         <Grid container  direction="row"  alignItems="center" spacing={2}>
-        {genre.map(genre => (
+        {genres.map(genre => (
             <Grid item >
                 <Button onClick={() => onClickGenre(genre.id, genre.name)} variant="contained" color="primary" className={classes.padding}>
                     {genre.name}

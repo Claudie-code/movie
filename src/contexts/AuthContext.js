@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { auth, db } from '../firebase';
+import { auth, db, firestore } from '../firebase';
 
 const AuthContext = React.createContext();
 
@@ -18,6 +18,18 @@ export function AuthProvider({children}) {
 
     function createUserCollection() {
         return db.collection('users').doc(auth.currentUser.uid).set({favorites:[]});
+    };
+
+    function addFavoritesUserCollection(movieId) {
+        return db.collection('users').doc(auth.currentUser.uid).update({
+            favorites: firestore.FieldValue.arrayUnion(movieId)
+        });
+    };
+
+    function removeFavoritesUserCollection(movieId) {
+        return db.collection('users').doc(auth.currentUser.uid).update({
+            favorites: firestore.FieldValue.arrayRemove(movieId)
+        });
     };
 
     function signup(email, password) {
@@ -44,6 +56,8 @@ export function AuthProvider({children}) {
 
     const value = {
         currentUser,
+        addFavoritesUserCollection,
+        removeFavoritesUserCollection,
         createUserCollection,
         createDisplayName,
         login,
