@@ -28,8 +28,8 @@ function GenrePage(props) {
     .catch(err => {
         console.error(err);
     });
-    }, [page])
-    console.log(moviesGenre)
+    }, [page, id])
+
     return (
         <React.Fragment>
             <Title>Films {name}</Title>

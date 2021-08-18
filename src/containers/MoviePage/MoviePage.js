@@ -27,20 +27,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function MoviePage(props) {
     const classes = useStyles();
-    const { currentUser, addFavoritesUserCollection, removeFavoritesUserCollection } = useAuth();
+    const { addFavoritesUserCollection, removeFavoritesUserCollection } = useAuth();
     const { id } = props.match.params;
     const [ movie, setMovie ] = useState(null);
-    const [ checkboxFavorite, setCheckboxFavorite ] = useState(true)
-    console.log(currentUser)
+
     const handleChange = async (event) => {
-        setCheckboxFavorite(event.target.checked);
-        if (movie ) {
+        if (event.target.checked) {
             await addFavoritesUserCollection(id);
         } else {
             await removeFavoritesUserCollection(id);
         }
     };
-    console.log(checkboxFavorite)
+
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, {
         "method": "GET",
@@ -58,7 +56,6 @@ export default function MoviePage(props) {
     });
     }, [id])
 
-    console.log(movie)
     return (
         <>
         {movie &&
