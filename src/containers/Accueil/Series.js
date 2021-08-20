@@ -1,16 +1,16 @@
 import React from 'react';
-import TopSeries from './TopSeries';
+import CardWithTitleAndGenre from '../../components/CardWithTitleAndGenre';
 import Title from "../../components/Title";
 import { Box } from '@material-ui/core';
+
 function Series(props) {
+    const sliceProps = props.seriesTop.slice(0, 8);
 
     return (
         <React.Fragment>
             <Title>Top Series</Title>
             <Box display="flex">
-                {props.seriesTop.slice(0,9).map((propsSerie, index) => (
-                    <TopSeries key={index} serieTop={propsSerie}/>
-                ))}
+                <CardWithTitleAndGenre seriesAndMovies={sliceProps}/>
             </Box>
         </React.Fragment>
     );
