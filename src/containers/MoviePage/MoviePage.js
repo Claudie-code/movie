@@ -31,11 +31,11 @@ export default function MoviePage(props) {
     const { id } = props.match.params;
     const [ movie, setMovie ] = useState(null);
 
-    const handleChange = async (event) => {
+    const handleChange = async (event, movie) => {
         if (event.target.checked) {
-            await addFavoritesUserCollection(id);
+            await addFavoritesUserCollection(movie);
         } else {
-            await removeFavoritesUserCollection(id);
+            await removeFavoritesUserCollection(movie);
         }
     };
 
@@ -63,7 +63,8 @@ export default function MoviePage(props) {
             <Box display="Flex" justifyContent="space-between">
                 <Title>{movie.title}</Title>
                 <FormControlLabel
-                    control={<Checkbox icon={<FavoriteBorder fontSize="large"/>} color="primary" onChange={handleChange} checkedIcon={<Favorite fontSize="large"/>} />}
+                    control={<Checkbox icon={<FavoriteBorder fontSize="large"/>} color="primary" 
+                    onChange={event => handleChange(event, movie)} checkedIcon={<Favorite fontSize="large"/>} />}
                 />
             </Box>
             <BandeAnnonce movieBa={movie} width='100%' height="620px"/>

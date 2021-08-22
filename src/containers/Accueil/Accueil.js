@@ -22,10 +22,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Accueil() {
+    const [genres, setGenres] = useState(null);
+    const [movies, setMovies] = useState(null);
+    const [series, setSeries] = useState(null);
+    
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    
-    const [movies, setMovies] = useState(null);
+
     useEffect(() => {
         fetch(`
         https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&with_watch_monetization_types=flatrate`, 
@@ -46,7 +49,26 @@ function Accueil() {
         });
     }, [])
 
-    const [series, setSeries] = useState(null);
+    useEffect(() => {
+        fetch(`
+        https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, 
+        {
+        "method": "GET",
+        "headers": {
+            "Content-type": "application/json",
+        }
+        })
+        .then(response => response.json())
+        .then(json => {
+            const data = json;
+            const arrGenres = data.genres
+            setGenres(arrGenres);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+    }, [])
+
     useEffect(() => {
         fetch(`
         https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1`, 
@@ -66,7 +88,6 @@ function Accueil() {
             console.error(err);
         });
     }, [])
-    console.log(series)
 
     return (
         <main>
@@ -78,7 +99,7 @@ function Accueil() {
                         {movies && <Paper className={fixedHeightPaper}><Sorties moviesSort={movies} /></Paper>}
                     </Grid>
                     <Grid item xs={12} >
-                        {series && <Paper className={fixedHeightPaper}><Series seriesTop={series} /></Paper> }
+                        {series && <Paper className={fixedHeightPaper}><Series seriesTop={series} genres={genres} /></Paper> }
                     </Grid>
                 </Grid>
         </main>

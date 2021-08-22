@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import { Box, CardContent, Typography } from '@material-ui/core';
+import { CardContent, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,49 +33,30 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function CardWithTitleAndGenre({ seriesAndMovies }) {
-    const [genres, setGenres] = useState()
+function CardWithTitleAndGenre({ seriesAndMovies, genres }) {
     const classes = useStyles();
 
     const findGenre = (genreId) => {
-        return genres.find(genre => genre.id == genreId);
+        const result = genres.filter(genre => genre.id === genreId);  
+        return result[0].name;
     }
-
-    useEffect(() => {
-        fetch(`
-        https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, 
-        {
-        "method": "GET",
-        "headers": {
-            "Content-type": "application/json",
-        }
-        })
-        .then(response => response.json())
-        .then(json => {
-            const data = json;
-            setGenres(data);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-    }, [])
 
     return (
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (
-                <CardActionArea className={classes.root}>
+                <CardActionArea key={element.id} className={classes.root}>
                     <CardMedia
                         className={classes.cover}
-                        image={`https://image.tmdb.org/t/p/w780${element.poster_path}`}
-                        title={element.name}
+                        image={`https://image.tmdb.org/t/p/w780${element.poster_path && element.poster_path}`}
+                        title={element.name && element.name}
                     >
                     </CardMedia> 
                     <CardContent className={classes.padding}>
                         <Typography gutterBottom variant="subtitle1" component="h3">
-                            {element.name}
+                            {element.name ? element.name : element.title}
                         </Typography>
                         <Typography variant="body1" color="textSecondary" component="p">
-                            {findGenre(element.genre_ids[0])}
+                            {element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name}
                         </Typography>
                     </CardContent>         
                 </CardActionArea>
