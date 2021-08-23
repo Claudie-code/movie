@@ -5,7 +5,7 @@ import { Box } from '@material-ui/core';
 
 function Series(props) {
     const sliceProps = props.seriesTop.slice(0, 8);
-    console.log(sliceProps)
+    console.log("serie genre", props.genre)
     return (
         <React.Fragment>
             <Title>Top Series</Title>

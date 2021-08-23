@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default function MoviePage({ movie }) {
     const { getFavorites, addFavoritesUserCollection, removeFavoritesUserCollection } = useAuth();
-    const [ favorites, setFavorites ] = useState();
     const [ checked, setChecked ] = useState(false);
 
     const handleChange = async (event, movie) => {
@@ -18,7 +17,7 @@ export default function MoviePage({ movie }) {
         }
     };
 
-    const isFavorites = () => {
+    const isFavorite = (favorites) => {
         if(favorites.find(favorite => favorite.id == movie.id)) {
             setChecked(true)
         } else {
@@ -31,8 +30,7 @@ export default function MoviePage({ movie }) {
             const docRef = await getFavorites();
 
             if (docRef.exists) {
-                setFavorites(docRef.data().favorites);
-                isFavorites();
+                if (docRef.data().favorites) isFavorite(docRef.data().favorites);
             } else {
                 console.log("Cette collection n'existe pas");
             }
@@ -42,9 +40,14 @@ export default function MoviePage({ movie }) {
 
     return (
         <FormControlLabel
-            control={<Checkbox icon={<FavoriteBorder fontSize="large"/>} color="primary" 
-            onChange={event => handleChange(event, movie)} checkedIcon={<Favorite fontSize="large"/>} 
-            checked={checked}/>}
+            control={
+                <Checkbox 
+                    icon={<FavoriteBorder fontSize="large"/>} 
+                    color="primary" 
+                    onChange={event => handleChange(event, movie)} 
+                    checkedIcon={<Favorite fontSize="large"/>} 
+                    checked={checked}
+                />}
         />
     )
 }

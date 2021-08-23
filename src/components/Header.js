@@ -240,8 +240,6 @@ export default function PrimarySearchAppBar(props) {
             <Button onClick={() => handleMenuClick("/login")} color="inherit">Log in</Button>
             <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Sign up</Button>
           </div>}
-
-
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
