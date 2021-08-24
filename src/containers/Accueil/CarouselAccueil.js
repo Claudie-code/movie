@@ -19,12 +19,7 @@ function CarouselAccueil(props) {
           <Title>Populaires en ce moment</Title>
             <Carousel >
               <Carousel.Item>
-                <Link to={{
-                        pathname: `/movie/${movie1.id}`,
-                        state: {
-                          movie: movie1,
-                        },
-                }}>
+                <Link to={`/movie/${movie1.id}`}>
                   <img
                     className="d-block w-100"
                     src={`https://image.tmdb.org/t/p/w${taille}${movie1 && movie1.backdrop_path}`}
@@ -39,7 +34,7 @@ function CarouselAccueil(props) {
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
-                <Link href={`/movie/${movie2.id}`}>
+                <Link to={`/movie/${movie1.id}`}>
                   <img
                     className="d-block w-100"
                     src={`https://image.tmdb.org/t/p/w${taille}${movie2 && movie2.backdrop_path}`}
@@ -54,7 +49,7 @@ function CarouselAccueil(props) {
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-              <Link href={`/movie/${movie3.id}`}>
+              <Link to={`/movie/${movie1.id}`}>
                 <img
                   className="d-block w-100"
                   src={`https://image.tmdb.org/t/p/w${taille}${movie3 && movie3.backdrop_path}`}

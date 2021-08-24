@@ -67,7 +67,7 @@ function Accueil() {
             console.error(err);
         });
     }, [])
-    
+    console.log(movies)
     return (
         <main>
                 <Grid container spacing={3}>
