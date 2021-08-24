@@ -18,8 +18,21 @@ export default function Profile() {
     const classes = useStyles();
     const { currentUser, getFavorites } = useAuth();
     const [ favorites, setFavorites ] = useState();
+    const [ genres, setGenres ] = useState();
+    const [ genresSeries, setGenresSeries ] = useState();
 
+    useEffect(() => {
+        async function fetchData() {
+            const docRef = await getFavorites();
 
+            if (docRef.exists) {
+                setFavorites(docRef.data().favorites);
+            } else {
+                console.log("Cette collection n'existe pas");
+            }
+        }
+        fetchData();
+    }, []);
     
     return (
 

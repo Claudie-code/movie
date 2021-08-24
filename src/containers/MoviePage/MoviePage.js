@@ -4,12 +4,10 @@ import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
 import BandeAnnonce from "../../components/BandeAnnonce";
 import GenreListButton from "../../components/GenreListButton";
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import Rating from '@material-ui/lab/Rating';
+import FavoriteCheckBox from '../../components/FavoriteCheckbox';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -56,17 +54,14 @@ export default function MoviePage(props) {
         console.error(err);
     });
     }, [id])
-    console.log(movie)
+
     return (
         <>
         {movie &&
         <Paper className={classes.paper}>
             <Box display="Flex" justifyContent="space-between">
                 <Title>{movie.title}</Title>
-                <FormControlLabel
-                    control={<Checkbox icon={<FavoriteBorder fontSize="large"/>} color="primary" 
-                    onChange={event => handleChange(event, movie)} checkedIcon={<Favorite fontSize="large"/>} />}
-                />
+                <FavoriteCheckBox movie={movie}/>
             </Box>
             <BandeAnnonce movieBa={movie} width='100%' height="620px"/>
             <Box display="flex" alignItems="center" justifyContent="space-between">

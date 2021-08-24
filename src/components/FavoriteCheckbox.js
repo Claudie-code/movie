@@ -11,10 +11,11 @@ export default function MoviePage({ movie }) {
 
     const handleChange = async (event, movie) => {
         if (event.target.checked) {
-            console.log(movie)
             await addFavoritesUserCollection(movie);
+            setChecked(true)
         } else {
             await removeFavoritesUserCollection(movie);
+            setChecked(false)
         }
     };
 
@@ -31,6 +32,7 @@ export default function MoviePage({ movie }) {
             const docRef = await getFavorites();
 
             if (docRef.exists) {
+                console.log(docRef.data().favorites)
                 if (docRef.data().favorites) isFavorite(docRef.data().favorites);
             } else {
                 console.log("Cette collection n'existe pas");
