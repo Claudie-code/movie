@@ -11,6 +11,7 @@ export default function MoviePage({ movie }) {
 
     const handleChange = async (event, movie) => {
         if (event.target.checked) {
+            console.log(movie)
             await addFavoritesUserCollection(movie);
         } else {
             await removeFavoritesUserCollection(movie);
@@ -18,7 +19,7 @@ export default function MoviePage({ movie }) {
     };
 
     const isFavorite = (favorites) => {
-        if(favorites.find(favorite => favorite.id == movie.id)) {
+        if(favorites.find(favorite => favorite.id === movie.id)) {
             setChecked(true)
         } else {
             setChecked(false)

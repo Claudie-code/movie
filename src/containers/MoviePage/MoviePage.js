@@ -9,6 +9,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr'
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -29,7 +30,8 @@ export default function MoviePage(props) {
     const classes = useStyles();
     const { addFavoritesUserCollection, removeFavoritesUserCollection } = useAuth();
     const { id } = props.match.params;
-    const [ movie, setMovie ] = useState(null);
+    const location = useLocation()
+    const { movie } = location.state;
 
     const handleChange = async (event, movie) => {
         if (event.target.checked) {
@@ -38,23 +40,6 @@ export default function MoviePage(props) {
             await removeFavoritesUserCollection(movie);
         }
     };
-
-    useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, {
-        "method": "GET",
-        "headers": {
-            "Content-type": "application/json",
-        }
-    })
-    .then(response => response.json())
-    .then(json => {
-        const data = json;
-        setMovie(data)
-    })
-    .catch(err => {
-        console.error(err);
-    });
-    }, [id])
 
     return (
         <>
@@ -68,7 +53,7 @@ export default function MoviePage(props) {
                 />
             </Box>
             <BandeAnnonce movieBa={movie} width='100%' height="620px"/>
-            <GenreListButton genres={movie.genres} />
+            {/* <GenreListButton genres={movie.genres} /> */}
             <Typography variant="subtitle1" gutterBottom>
                 Sortie le {dayjs(movie.release_date).locale('fr').format("DD MMMM YYYY")}
             </Typography>

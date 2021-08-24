@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -23,15 +23,35 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function CardWithTitleAndGenre({ seriesAndMovies, genres }) {
+function CardWithTitleAndGenre({ seriesAndMovies }) {
     const classes = useStyles();
+    const [ seriesGenres, setGenresSeries ] = useState([]);
 
-    const findGenre = (genreId) => {
-        console.log(genreId)
-        const result = genres.filter(genre => genre.id === genreId);  
+    /*const findGenre = (genreId) => {
+        const result = seriesGenres.filter(genre => genre.id === genreId);  
         return result[0].name;
-    }
-    console.log(genres)
+    }*/
+    
+    useEffect(() => {
+        fetch(`
+        https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1`, 
+        {
+        "method": "GET",
+        "headers": {
+            "Content-type": "application/json",
+        }
+        })
+        .then(response => response.json())
+        .then(json => {
+            const data = json;
+            const arrGenresSeries = data.results
+            setGenresSeries(arrGenresSeries);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+    }, [])
+
     return (
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (
@@ -48,7 +68,7 @@ function CardWithTitleAndGenre({ seriesAndMovies, genres }) {
                             {element.name ? element.name : element.title}
                         </Typography>
                         <Typography variant="body1" color="textSecondary" component="p">
-                            {element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name}
+                            {/*element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name*/}
                         </Typography>
                     </CardContent>         
                 </CardActionArea>

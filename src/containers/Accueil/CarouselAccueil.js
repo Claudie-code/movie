@@ -1,7 +1,7 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Title from "../../components/Title";
 
@@ -19,7 +19,12 @@ function CarouselAccueil(props) {
           <Title>Populaires en ce moment</Title>
             <Carousel >
               <Carousel.Item>
-                <Link href={`/movie/${movie1.id}`}>
+                <Link to={{
+                        pathname: `/movie/${movie1.id}`,
+                        state: {
+                          movie: movie1,
+                        },
+                }}>
                   <img
                     className="d-block w-100"
                     src={`https://image.tmdb.org/t/p/w${taille}${movie1 && movie1.backdrop_path}`}

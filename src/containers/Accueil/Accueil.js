@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Accueil() {
-    const [genres, setGenres] = useState(null);
     const [movies, setMovies] = useState(null);
     const [series, setSeries] = useState(null);
     
@@ -51,26 +50,6 @@ function Accueil() {
 
     useEffect(() => {
         fetch(`
-        https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, 
-        {
-        "method": "GET",
-        "headers": {
-            "Content-type": "application/json",
-        }
-        })
-        .then(response => response.json())
-        .then(json => {
-            const data = json;
-            const arrGenres = data.genres
-            setGenres(arrGenres);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-    }, [])
-
-    useEffect(() => {
-        fetch(`
         https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1`, 
         {
         "method": "GET",
@@ -88,7 +67,7 @@ function Accueil() {
             console.error(err);
         });
     }, [])
-
+    
     return (
         <main>
                 <Grid container spacing={3}>
@@ -99,7 +78,7 @@ function Accueil() {
                         {movies && <Paper className={fixedHeightPaper}><Sorties moviesSort={movies} /></Paper>}
                     </Grid>
                     <Grid item xs={12} >
-                        {series && <Paper className={fixedHeightPaper}><Series seriesTop={series} genres={genres} /></Paper> }
+                        {series && <Paper className={fixedHeightPaper}><Series seriesTop={series} /></Paper> }
                     </Grid>
                 </Grid>
         </main>

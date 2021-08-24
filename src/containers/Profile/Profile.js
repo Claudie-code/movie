@@ -18,47 +18,15 @@ export default function Profile() {
     const classes = useStyles();
     const { currentUser, getFavorites } = useAuth();
     const [ favorites, setFavorites ] = useState();
-    const [ genres, setGenres ] = useState();
 
-    useEffect(() => {
-        async function fetchData() {
-            const docRef = await getFavorites();
 
-            if (docRef.exists) {
-                setFavorites(docRef.data().favorites);
-            } else {
-                console.log("Cette collection n'existe pas");
-            }
-        }
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        fetch(`
-        https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, 
-        {
-        "method": "GET",
-        "headers": {
-            "Content-type": "application/json",
-        }
-        })
-        .then(response => response.json())
-        .then(json => {
-            const data = json;
-            const arrGenres = data.genres
-            setGenres(arrGenres);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-    }, [])
-    console.log(favorites)
+    
     return (
 
         <Paper className={classes.paper}>
             <Title>Profil de {currentUser.displayName}</Title>
             <Box display="flex">
-                <CardWithTitleAndGenre seriesAndMovies={favorites} genres={genres} /> 
+                <CardWithTitleAndGenre seriesAndMovies={favorites}/> 
             </Box>
         </Paper>
 
