@@ -8,14 +8,21 @@ import FavoriteCheckbox from './FavoriteCheckbox';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 150,
-        height: 200,
-        margin: 10
+        height: 230,
+        margin: 10,
+        position: 'relative'
+    },
+    checkbox: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        margin: 0
     },
     cover: {
       width: 150,
       height: 230,
       display: 'flex',
-      justifyContent: "center",
+      justifyContent: 'center',
       alignItems: 'center',
     },
     padding: {

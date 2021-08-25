@@ -24,8 +24,7 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: theme.spacing(4)
   },
 }));
-/*https://material-ui.com/customization/palette/#dark-mode*/
-/*https://medium.com/heuristics/react-dark-mode-switch-in-material-ui-dashboard-82fcf1cded66*/
+
 function App() {
   const classes = useStyles();
 
@@ -49,7 +48,6 @@ function App() {
     setDarkState(!darkState);
   };
 
-  /*https://codesandbox.io/s/dark-theme-switch-tp37c?from-embed=&file=/src/Dashboard/Dashboard.js*/
   return (
     <AuthProvider>
       <ThemeProvider theme={darkTheme}>
