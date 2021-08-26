@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Sorties(props) {
+function Sorties({ popularMovies }) {
     const classes = useStyles();
 
     return (
@@ -28,30 +28,20 @@ function Sorties(props) {
                 <Box className={classes.flexItem} style={{width: '59%'}}>
                     <Grid container spacing={3} >
                         <Grid item xs={12}>
-                            <BandeAnnonce movieBa={props.moviesSort[3]} height="400px" width="100%"/>
+                            <BandeAnnonce popularMovie={popularMovies[3]} height="400px" width="100%"/>
                         </Grid>
-                        <Grid item xs={3}>
-                            <ImageFilm movieFi={props.moviesSort[4]}/>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <ImageFilm movieFi={props.moviesSort[5]}/>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <ImageFilm movieFi={props.moviesSort[6]}/>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <ImageFilm movieFi={props.moviesSort[7]}/>
-                        </Grid>
+                        {popularMovies.slice(4, 7).map(popularMovie => (
+                            <Grid item xs={3}>
+                                <ImageFilm popularMovie={popularMovie}/>
+                            </Grid>
+                        ))}
                     </Grid>
                 </Box>
                 <Box className={classes.flexItem} style={{width: '39%'}}>
                     <div className="slides">
-                        <ButtonMovie movieBu={props.moviesSort[8]}/>
-                        <ButtonMovie movieBu={props.moviesSort[9]}/>
-                        <ButtonMovie movieBu={props.moviesSort[10]}/>
-                        <ButtonMovie movieBu={props.moviesSort[11]}/>
-                        <ButtonMovie movieBu={props.moviesSort[12]}/>
-                        <ButtonMovie movieBu={props.moviesSort[13]}/>
+                        {popularMovies.slice(8, 13).map(popularMovie => (
+                            <ButtonMovie popularMovie={popularMovie}/>
+                        ))}
                     </div>
                 </Box>
             </Box>

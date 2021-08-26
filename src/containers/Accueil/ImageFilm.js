@@ -30,15 +30,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ImageFilm(props) {
+function ImageFilm({ popularMovie }) {
     const classes = useStyles();
 
     return (
         <CardActionArea className={classes.root}>
             <CardMedia
             className={classes.cover}
-            image={`https://image.tmdb.org/t/p/w780${props.movieFi && props.movieFi.poster_path}`}
-            title={props.movieFi.title}
+            image={`https://image.tmdb.org/t/p/w780${popularMovie.poster_path}`}
+            title={popularMovie.title}
             >
                 <IconButton aria-label="play/pause">
                     <PlayArrowIcon className={classes.playIcon} />

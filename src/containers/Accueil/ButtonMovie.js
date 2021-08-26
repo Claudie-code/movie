@@ -50,15 +50,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 /*https://github.com/react-component/slider*/
-export default function MediaControlCard(props) {
+export default function MediaControlCard({ popularMovie }) {
   const classes = useStyles();
   
   return (
       <CardActionArea className={classes.root}>
         <CardMedia
           className={classes.cover}
-          image={`https://image.tmdb.org/t/p/w780${props.movieBu && props.movieBu.poster_path}`}
-          title={props.movieBu && props.movieBu.original_title}
+          image={`https://image.tmdb.org/t/p/w780${popularMovie.poster_path}`}
+          title={popularMovie.original_title}
         />
         <div className={classes.details}>
           <div className={classes.controls}>
@@ -68,10 +68,10 @@ export default function MediaControlCard(props) {
           </div>
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">
-              {props.movieBu && props.movieBu.title}
+              {popularMovie.title}
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
-              Sortie le {props.movieBu && dayjs(props.movieBu.release_date).locale('fr').format("DD MMMM YYYY")}
+              Sortie le {dayjs(popularMovie.release_date).locale('fr').format("DD MMMM YYYY")}
             </Typography>
           </CardContent>
 

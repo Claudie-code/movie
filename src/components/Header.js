@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar(props) {
+export default function PrimarySearchAppBar({ darkState, setDarkState}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -187,7 +187,7 @@ export default function PrimarySearchAppBar(props) {
           <MenuItem onClick={() => handleMenuClick('/')} style={{fontSize: "1.7rem"}}>MovieTrend</MenuItem>
           </Typography>
           <div className={classes.middleBar}>
-            <Button onClick={() => handleMenuClick('/genre')} color="inherit">Catégories</Button>
+            <Button onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -203,7 +203,7 @@ export default function PrimarySearchAppBar(props) {
             </div>
           </div>
           <div className={classes.sectionDesktop}>
-          <Switch checked={props.stateDark} onChange={() => props.funcDark(props.stateDark)} />
+          <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
             {currentUser && <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} >
                 <MailIcon />

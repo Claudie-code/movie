@@ -32,32 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 function CardWithTitleAndGenre({ seriesAndMovies }) {
     const classes = useStyles();
-    const [ seriesGenres, setGenresSeries ] = useState([]);
 
     /*const findGenre = (genreId) => {
         const result = seriesGenres.filter(genre => genre.id === genreId);  
         return result[0].name;
     }*/
-    
-    useEffect(() => {
-        fetch(`
-        https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1`, 
-        {
-        "method": "GET",
-        "headers": {
-            "Content-type": "application/json",
-        }
-        })
-        .then(response => response.json())
-        .then(json => {
-            const data = json;
-            const arrGenresSeries = data.results
-            setGenresSeries(arrGenresSeries);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-    }, [])
 
     return (
         <>

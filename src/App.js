@@ -17,6 +17,7 @@ import { orange, cyan, deepPurple, deepOrange } from "@material-ui/core/colors";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
+import { useApiData } from './hooks/useApiData';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -26,6 +27,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
+  const popularMovies = useApiData(`
+    https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&with_watch_monetization_types=flatrate
+  `);
+  const topRatedSeries = useApiData(`
+    https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1
+  `);
+  const moviesGenres = useApiData(`
+    https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
+  `);
+
   const classes = useStyles();
 
   const [darkState, setDarkState] = useState(false);
@@ -53,18 +64,34 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Router >
-          <Header stateDark={darkState} funcDark={handleThemeChange}/>
+          <Header darkState={darkState} setDarkState={setDarkState}/>
           <Container maxWidth="lg" className={classes.container}>
-          <Switch>
-            <Route exact path="/" component={Accueil}/>
-            <Route exact path="/genre" component={Genres}/>
-            <Route exact path="/genre/:id/:name" component={GenrePage}/>
-            <Route exact path="/movie/:id" component={MoviePage}/>
-            <Route exact path="/signup" component={Signup}/>
-            <Route exact path="/login" component={Login}/>
-            <Route exact path="/forgot-password" component={ForgotPassword}/>
-            <PrivateRoute exact path="/profile" component={Profile}/>
-          </Switch>
+            <Switch>
+              <Route exact path="/">
+                <Accueil popularMovies={popularMovies} topRatedSeries={topRatedSeries} moviesGenres={moviesGenres} />
+              </Route>
+              <Route exact path="/genres">
+                <Genres genres={moviesGenres} />
+              </Route>
+              <Route exact path="/genres/:id/:name">
+                <GenrePage />
+              </Route>
+              <Route exact path="/movie/:id">
+                <MoviePage />
+              </Route>
+              <Route exact path="/signup">
+                <Signup />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/forgot-password">
+                <ForgotPassword />
+              </Route>
+              <PrivateRoute exact path="/profile">
+                <Profile />
+              </PrivateRoute>
+            </Switch>
           </Container>
           <Footer />
         </Router>

@@ -34,7 +34,7 @@ function Genres(props) {
     }, [])
 
     const onClickGenre = (urlID, urlName) => {
-        history.push(`/genre/${urlID}/${urlName}`)
+        history.push(`/genres/${urlID}/${urlName}`)
     };
 
     return (

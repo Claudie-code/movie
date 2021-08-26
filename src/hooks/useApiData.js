@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const useApiData = (url) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
 
     useEffect(() => {
         fetch(url, {
@@ -12,8 +12,7 @@ export const useApiData = (url) => {
         })
         .then(response => response.json())
         .then(json => {
-            setData(json)
-            console.log(json)
+            setData(json.results)
         })
         .catch(err => {
             console.error(err);
