@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -16,7 +15,8 @@ import Button from '@material-ui/core/Button';
 import Switch from "@material-ui/core/Switch";
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-
+import { Autocomplete } from '@material-ui/lab';
+import { InputBase, TextField } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -58,19 +58,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
@@ -84,9 +71,25 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
 }));
 
-export default function PrimarySearchAppBar({ darkState, setDarkState}) {
+export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkState}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -188,19 +191,31 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
           </Typography>
           <div className={classes.middleBar}>
             <Button onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
+
+              <Autocomplete
+                id="movies_select"
+                options={popularMovies}
+                getOptionLabel={(option) => option.title}
+                style={{ width: 300 }}
+                renderInput={params => (
+                  <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                      <SearchIcon />
+                    </div>
+                    <InputBase
+                      {...params}
+                      placeholder="Search…"
+                      classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                      }}
+                      inputProps={{ 'aria-label': 'search' }}
+                    />
+                  </div>
+                )}
               />
-            </div>
+
+
           </div>
           <div className={classes.sectionDesktop}>
           <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />

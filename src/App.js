@@ -64,7 +64,7 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Router >
-          <Header darkState={darkState} setDarkState={setDarkState}/>
+          <Header popularMovies={popularMovies} darkState={darkState} setDarkState={setDarkState}/>
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
               <Route exact path="/">

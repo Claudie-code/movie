@@ -30,7 +30,7 @@ function Sorties({ popularMovies }) {
                         <Grid item xs={12}>
                             <BandeAnnonce popularMovie={popularMovies[3]} height="400px" width="100%"/>
                         </Grid>
-                        {popularMovies.slice(4, 7).map(popularMovie => (
+                        {popularMovies.slice(4, 8).map(popularMovie => (
                             <Grid item xs={3}>
                                 <ImageFilm popularMovie={popularMovie}/>
                             </Grid>
@@ -39,7 +39,7 @@ function Sorties({ popularMovies }) {
                 </Box>
                 <Box className={classes.flexItem} style={{width: '39%'}}>
                     <div className="slides">
-                        {popularMovies.slice(8, 13).map(popularMovie => (
+                        {popularMovies.slice(8, 14).map(popularMovie => (
                             <ButtonMovie popularMovie={popularMovie}/>
                         ))}
                     </div>

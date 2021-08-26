@@ -3,8 +3,8 @@ import CardWithTitleAndGenre from '../../components/CardWithTitleAndGenre';
 import Title from "../../components/Title";
 import { Box } from '@material-ui/core';
 
-function Series({ series }) {
-    const sliceProps = series.slice(0, 8);
+function Series({ topRatedSeries }) {
+    const sliceProps = topRatedSeries.slice(0, 9);
 
     return (
         <React.Fragment>
