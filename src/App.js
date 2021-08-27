@@ -6,6 +6,7 @@ import GenrePage from './containers/GenrePage/GenrePage'
 import Signup from './containers/Signup/Signup'
 import Login from './containers/Login/Login'
 import Profile from './containers/Profile/Profile'
+import SearchPage from './containers/SearchPage/SearchPage'
 import MoviePage from './containers/MoviePage/MoviePage'
 import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
 import { makeStyles } from "@material-ui/core/styles";
@@ -74,6 +75,10 @@ function App() {
               </Route>
               <Route exact path="/movie/:id">
                 <MoviePage />
+              </Route>
+              <Route exact path="/movie?title=:title">
+                {console.log('test')}
+                <SearchPage />
               </Route>
               <Route exact path="/signup">
                 <Signup />
