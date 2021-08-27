@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import React, { useState, useRef } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -56,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkState}) {
   const classes = useStyles();
+  const titleRef = useRef();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const history = useHistory();
@@ -96,6 +96,15 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
     history.push(pageURL);
     setAnchorEl(null);
     handleMobileMenuClose();
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(titleRef.current.value)
+    history.push({
+      pathname: '/movie',
+      search: `?title=${titleRef.current.value}`,
+    });
   }
 
   const menuId = 'primary-search-account-menu';
@@ -155,22 +164,23 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
               style={{ width: 500 }}
               renderOption={(option) => (
                 <>
-                {console.log(option.backgr)}
                   <img className={classes.marginRight} 
                     src={`https://image.tmdb.org/t/p/w92${option.backdrop_path}`} alt={option.title} />
                   {option.title}
                 </>
               )}
               renderInput={params => (
-                <form className={classes.search}>
+                <form className={classes.search} onSubmit={handleSubmit}>
                   <TextField {...params}
                     variant="outlined"
                     label="Recherche un film, une série..."
                     size="small"
                     color="secondary"
+                    inputRef={titleRef}
                   />
                   <IconButton 
-                    aria-label="delete"
+                    type="submit"
+                    aria-label="search"
                     color="secondary">
                     <SearchIcon />
                   </IconButton>
@@ -193,7 +203,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
                 <AccountCircle />
               </IconButton> 
               <Button onClick={handleLogout} color="inherit">Log out</Button>
-            </div>:
+            </div> :
             <div>
               <Button onClick={() => handleMenuClick("/login")} color="inherit">Log in</Button>
               <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Sign up</Button>
