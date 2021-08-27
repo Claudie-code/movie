@@ -27,7 +27,7 @@ function BandeAnnonce({ popularMovie, width, height }) {
         <ReactPlayer 
             width={width} 
             height={height} 
-            url={`https://www.youtube.com/watch?v=${trailerUrl}`} 
+            url={`https://www.youtube.com/watch?v=${trailerUrl ? trailerUrl : "ebffrCkW-Dw"}`} 
         />
     );
 }

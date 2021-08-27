@@ -3,8 +3,7 @@ import Sorties from './Sorties';
 import Series from './Series';
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import { Paper,Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     container: {

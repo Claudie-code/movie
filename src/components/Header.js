@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button';
-import Switch from "@material-ui/core/Switch";
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Autocomplete } from '@material-ui/lab';
-import { InputBase, TextField } from '@material-ui/core';
+import { 
+  TextField, AppBar, Toolbar, MenuItem, Badge, Menu, Typography, IconButton, Button, Switch 
+} from '@material-ui/core';
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -30,33 +24,12 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
+  fontSize: {
+    fontSize: "1.7rem"
+  },
   middleBar: {
     display: "flex",
     margin: "auto"
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   sectionDesktop: {
     display: 'none',
@@ -71,22 +44,14 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  inputRoot: {
-    color: 'inherit',
+  border: {
+    '&:focus' : {
+      border: "1px solid black"
+    }
   },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
+  marginRight: {
+    marginRight: theme.spacing(2)
+  }
 }));
 
 export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkState}) {
@@ -187,35 +152,32 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
       <AppBar position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
-          <MenuItem onClick={() => handleMenuClick('/')} style={{fontSize: "1.7rem"}}>MovieTrend</MenuItem>
+          <MenuItem className={classes.fontSize} onClick={() => handleMenuClick('/')}>MovieTrend</MenuItem>
           </Typography>
           <div className={classes.middleBar}>
-            <Button onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
-
-              <Autocomplete
-                id="movies_select"
-                options={popularMovies}
-                getOptionLabel={(option) => option.title}
-                style={{ width: 300 }}
-                renderInput={params => (
-                  <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                      <SearchIcon />
-                    </div>
-                    <InputBase
-                      {...params}
-                      placeholder="Search…"
-                      classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                      }}
-                      inputProps={{ 'aria-label': 'search' }}
-                    />
-                  </div>
-                )}
-              />
-
-
+            <Button className={classes.marginRight} onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
+            <Autocomplete
+              id="movies_select"
+              options={popularMovies}
+              getOptionLabel={option => option.title}
+              style={{ width: 500 }}
+              renderOption={(option) => (
+                <>
+                {console.log(option.backgr)}
+                  <img className={classes.marginRight} 
+                    src={`https://image.tmdb.org/t/p/w92${option.backdrop_path}`} alt={option.title} />
+                  {option.title}
+                </>
+              )}
+              renderInput={params => (
+                <TextField {...params}
+                  variant="outlined"
+                  label="Recherche un film, une série..."
+                  size="small"
+                  color="secondary"
+                />
+              )}
+            />
           </div>
           <div className={classes.sectionDesktop}>
           <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
@@ -238,23 +200,24 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
             </IconButton>
           </div>
           { currentUser ? 
-          <div>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> 
-            <Button onClick={handleLogout} color="inherit">Log out</Button>
-          </div>:
-          <div>
-            <Button onClick={() => handleMenuClick("/login")} color="inherit">Log in</Button>
-            <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Sign up</Button>
-          </div>}
+            <div>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton> 
+              <Button onClick={handleLogout} color="inherit">Log out</Button>
+            </div>:
+            <div>
+              <Button onClick={() => handleMenuClick("/login")} color="inherit">Log in</Button>
+              <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Sign up</Button>
+            </div>
+          }
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

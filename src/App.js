@@ -55,10 +55,6 @@ function App() {
     }
   });
 
-  const handleThemeChange = () => {
-    setDarkState(!darkState);
-  };
-
   return (
     <AuthProvider>
       <ThemeProvider theme={darkTheme}>
