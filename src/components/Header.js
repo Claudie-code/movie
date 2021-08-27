@@ -44,20 +44,20 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  border: {
-    '&:focus' : {
-      border: "1px solid black"
-    }
-  },
   marginRight: {
     marginRight: theme.spacing(2)
+  },
+  search: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1)
   }
 }));
 
 export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkState}) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const history = useHistory();
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState('');
@@ -125,14 +125,6 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="primary">
-          <Badge badgeContent={4} >
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -170,35 +162,24 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
                 </>
               )}
               renderInput={params => (
-                <TextField {...params}
-                  variant="outlined"
-                  label="Recherche un film, une série..."
-                  size="small"
-                  color="secondary"
-                />
+                <form className={classes.search}>
+                  <TextField {...params}
+                    variant="outlined"
+                    label="Recherche un film, une série..."
+                    size="small"
+                    color="secondary"
+                  />
+                  <IconButton 
+                    aria-label="delete"
+                    color="secondary">
+                    <SearchIcon />
+                  </IconButton>
+                </form>
               )}
             />
           </div>
           <div className={classes.sectionDesktop}>
           <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
-            {currentUser && <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} >
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            }
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
           { currentUser ? 
             <div>
               <IconButton
@@ -218,6 +199,18 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
               <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Sign up</Button>
             </div>
           }
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

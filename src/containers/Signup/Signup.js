@@ -33,8 +33,8 @@ function Signup(props) {
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    async function handleSubmit(event) {
+        event.preventDefault();
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError('Passwords do not match');
         }
