@@ -102,7 +102,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
     event.preventDefault();
     console.log(titleRef.current.value)
     history.push({
-      pathname: '/movie',
+      pathname: '/rechercher',
       search: `?title=${titleRef.current.value}`,
     });
   }

@@ -11,7 +11,7 @@ import MoviePage from './containers/MoviePage/MoviePage'
 import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
 import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Route, Switch} from 'react-router-dom';
 import React, { useState } from "react";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { orange, cyan, deepPurple, deepOrange } from "@material-ui/core/colors";
@@ -60,7 +60,6 @@ function App() {
     <AuthProvider>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Router >
           <Header popularMovies={popularMovies} darkState={darkState} setDarkState={setDarkState}/>
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
@@ -76,8 +75,7 @@ function App() {
               <Route exact path="/movie/:id">
                 <MoviePage />
               </Route>
-              <Route exact path="/movie?title=:title">
-                {console.log('test')}
+              <Route exact path="/rechercher">
                 <SearchPage />
               </Route>
               <Route exact path="/signup">
@@ -95,7 +93,6 @@ function App() {
             </Switch>
           </Container>
           <Footer />
-        </Router>
       </ThemeProvider>
     </AuthProvider>
   );

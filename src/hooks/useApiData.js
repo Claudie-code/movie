@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useApiData = (url) => {
+export const useApiData = (url, page) => {
     const [data, setData] = useState();
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export const useApiData = (url) => {
         .catch(err => {
             console.error(err);
         });
-    }, [])
+    }, [page])
 
     return data;
 };

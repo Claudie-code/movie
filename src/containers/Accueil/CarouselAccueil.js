@@ -16,7 +16,7 @@ function CarouselAccueil({ popularMovies }) {
           <Title>Populaires en ce moment</Title>
             <Carousel >
               {popularMovies && popularMovies.slice(0, 2).map(popularMovie => (
-                <Carousel.Item>
+                <Carousel.Item key={popularMovie.id}>
                   <Link to={`/movie/${popularMovie.id}`}>
                     <img
                       className="d-block w-100"
