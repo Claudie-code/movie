@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useApiData = (url, page) => {
+export const useApiData = (url, page, search) => {
     const [data, setData] = useState();
 
     useEffect(() => {
