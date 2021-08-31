@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useApiData = (url, page, search) => {
+export const useApiData = (url, search, page) => {
     const [data, setData] = useState();
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export const useApiData = (url, page, search) => {
         .catch(err => {
             console.error(err);
         });
-    }, [page])
+    }, [page, search])
 
     return data;
 };

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Autocomplete } from '@material-ui/lab';
 import { 
@@ -64,7 +64,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  console.log(popularMovies)
   async function handleLogout() {
     setError('');
     try {
@@ -101,10 +101,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(titleRef.current.value)
-    history.push({
-      pathname: '/rechercher',
-      search: `?title=${titleRef.current.value}`,
-    });
+    history.push(`/search/${titleRef.current.value}`);
   }
 
   const menuId = 'primary-search-account-menu';
@@ -166,7 +163,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
                 <>
                   <img className={classes.marginRight} 
                     src={`https://image.tmdb.org/t/p/w92${option.backdrop_path}`} alt={option.title} />
-                  {option.title}
+                  <Link to={`/movie/${option.id}`}>{option.title}</Link>
                 </>
               )}
               renderInput={params => (

@@ -41,7 +41,7 @@ function Genres(props) {
         <main >
         <Grid container  direction="row"  alignItems="center" spacing={2}>
         {genres.map(genre => (
-            <Grid item >
+            <Grid item key={genre.id}>
                 <Button onClick={() => onClickGenre(genre.id, genre.name)} variant="contained" color="primary" className={classes.padding}>
                     {genre.name}
                 </Button>

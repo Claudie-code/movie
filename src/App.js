@@ -9,13 +9,12 @@ import Profile from './containers/Profile/Profile'
 import SearchPage from './containers/SearchPage/SearchPage'
 import MoviePage from './containers/MoviePage/MoviePage'
 import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
-import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
-import {BrowserRouter as Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import React, { useState } from "react";
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { orange, cyan, deepPurple, deepOrange } from "@material-ui/core/colors";
+import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { orange, cyan, deepPurple, deepOrange } from "@material-ui/core/colors";
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import { useApiData } from './hooks/useApiData';
@@ -59,40 +58,32 @@ function App() {
   return (
     <AuthProvider>
       <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
+      <CssBaseline />
+      <Router>
           <Header popularMovies={popularMovies} darkState={darkState} setDarkState={setDarkState}/>
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
-              <Route exact path="/">
-                <Accueil popularMovies={popularMovies} topRatedSeries={topRatedSeries} moviesGenres={moviesGenres} />
-              </Route>
-              <Route exact path="/genres">
-                <Genres genres={moviesGenres} />
-              </Route>
-              <Route exact path="/genres/:id/:name">
-                <GenrePage />
-              </Route>
-              <Route exact path="/movie/:id">
-                <MoviePage />
-              </Route>
-              <Route exact path="/rechercher">
-                <SearchPage />
-              </Route>
-              <Route exact path="/signup">
-                <Signup />
-              </Route>
-              <Route exact path="/login">
-                <Login />
-              </Route>
-              <Route exact path="/forgot-password">
-                <ForgotPassword />
-              </Route>
-              <PrivateRoute exact path="/profile">
-                <Profile />
-              </PrivateRoute>
+              <Route exact path="/" 
+                render={props => (
+                  <Accueil {...props}
+                    popularMovies={popularMovies} 
+                    topRatedSeries={topRatedSeries} 
+                    moviesGenres={moviesGenres} 
+                  />
+                )}
+              />
+              <Route exact path="/genres" render={props => <Genres {...props} genres={moviesGenres} />} />
+              <Route exact path="/genres/:id/:name" component={GenrePage} />
+              <Route exact path="/movie/:id" component={MoviePage} />
+              <Route exact path="/search/:search" component={SearchPage} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/forgot-password" component={ForgotPassword} />
+              <PrivateRoute exact path="/profile" component={Profile} />
             </Switch>
           </Container>
           <Footer />
+          </Router>
       </ThemeProvider>
     </AuthProvider>
   );
