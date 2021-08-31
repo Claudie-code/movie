@@ -47,7 +47,6 @@ function CardWithTitleAndGenre({ seriesAndMovies }) {
                         title={element.name ? element.name : element.title}
                     >
                     </CardMedia>
-                    <FavoriteCheckbox movie={element}/>
                     <CardContent className={classes.padding}>
                         <Typography variant="subtitle1" component="h3">
                             {element.name ? element.name : element.title}
@@ -55,6 +54,7 @@ function CardWithTitleAndGenre({ seriesAndMovies }) {
                         <Typography variant="body1" color="textSecondary" component="p">
                             {/*element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name*/}
                         </Typography>
+                        <FavoriteCheckbox movie={element}/>
                     </CardContent>         
                 </CardActionArea>
             ))}

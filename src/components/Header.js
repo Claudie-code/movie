@@ -64,7 +64,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  console.log(popularMovies)
+
   async function handleLogout() {
     setError('');
     try {
@@ -100,7 +100,6 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(titleRef.current.value)
     history.push(`/search/${titleRef.current.value}`);
   }
 

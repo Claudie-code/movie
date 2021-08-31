@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 function GenrePage(props) {
     const classes = useStyles();
-    console.log(props.movies)
+
     return (
         <React.Fragment>
         {props.movies.map(movie => (
