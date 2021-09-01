@@ -41,12 +41,11 @@ export default function MoviePage({ movie }) {
     }, []);
 
     return (
-        <FormControlLabel 
+        <FormControlLabel style={{margin: 0}}
             control={
                 <Checkbox 
                     icon={<FavoriteBorder fontSize="large" />} 
                     color="primary" 
-                    
                     onChange={event => handleChange(event, movie)} 
                     checkedIcon={<Favorite fontSize="large" />} 
                     checked={checked}

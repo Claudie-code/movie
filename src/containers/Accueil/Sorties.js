@@ -26,7 +26,7 @@ function Sorties({ popularMovies }) {
             <Title>Bandes annonces à ne pas manquer</Title>
             <Box className={classes.flex}>
                 <Box className={classes.flexItem} style={{width: '59%'}}>
-                    <Grid container spacing={3} >
+                    <Grid container spacing={2} >
                         <Grid item xs={12}>
                             <BandeAnnonce movieOrSerie={popularMovies[4]} height="400px" width="100%"/>
                         </Grid>

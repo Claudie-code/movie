@@ -1,13 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import { Typography, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
+import PlayButton from '../../components/PlayButton';
 import dayjs from 'dayjs';
-import 'dayjs/locale/fr'
+import 'dayjs/locale/fr';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,23 +29,8 @@ const useStyles = makeStyles((theme) => ({
     width: 100,
     height: 150
   },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  playIcon: {
-    color: theme.palette.action.active,
-    height: 40,
-    width: 40,
-    border: "2px solid" + theme.palette.action.active,
-    borderRadius: "50%",
-    '&:hover': {
-      color: theme.palette.primary.main,
-      border: "2px solid" + theme.palette.primary.main,
-    }
-  },
 }));
-/*https://github.com/react-component/slider*/
+
 export default function MediaControlCard({ popularMovie }) {
   const classes = useStyles();
   
@@ -61,10 +42,8 @@ export default function MediaControlCard({ popularMovie }) {
           title={popularMovie.original_title}
         />
         <div className={classes.details}>
-          <div className={classes.controls}>
-            <IconButton aria-label="play/pause">
-              <PlayArrowIcon className={classes.playIcon} />
-            </IconButton>
+          <div>
+            <PlayButton />
           </div>
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">
@@ -74,7 +53,6 @@ export default function MediaControlCard({ popularMovie }) {
               Sortie le {dayjs(popularMovie.release_date).locale('fr').format("DD MMMM YYYY")}
             </Typography>
           </CardContent>
-
         </div>
       </CardActionArea>
   );

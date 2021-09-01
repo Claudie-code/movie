@@ -1,11 +1,25 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { CardContent, Typography, CardMedia, CardActionArea, Card, CardActions } from '@material-ui/core';
+import { CardContent, Typography, CardMedia, CardActionArea, Paper, CardActions } from '@material-ui/core';
 import FavoriteCheckbox from './FavoriteCheckbox';
+import PlayButton from "./PlayButton";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 200,
-    }
+        display:"inline-block",
+        width: 230,
+        marginRight: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "flex-start"
+    },
+    margin: {
+        marginRight: 1,
+    },
+    cover: {
+        height: 330,
+        borderRadius: ".2rem .2rem 0 0"
+    },
 }));
 
 function CardWithTitleAndGenre({ seriesAndMovies }) {
@@ -19,8 +33,8 @@ function CardWithTitleAndGenre({ seriesAndMovies }) {
     return (
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (
-                <Card key={element.id} className={classes.root}>
-                    <CardActionArea >
+                <Paper key={element.id} className={classes.root}>
+                    <CardActionArea key={element.id} className={classes.root} >
                         <CardMedia
                             component="img"
                             alt={element.name ? element.name : element.title}
@@ -41,9 +55,10 @@ function CardWithTitleAndGenre({ seriesAndMovies }) {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-                        <FavoriteCheckbox movie={element}/>
+                        <FavoriteCheckbox movie={element} />
+                        <PlayButton /> 
                     </CardActions>         
-                </Card>
+                </Paper>
             ))}
         </>
     );
