@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Accueil({ popularMovies, topRatedSeries }) {
+function Accueil({ popularMovies, topRatedSeries, seriesGenres }) {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     
@@ -43,7 +43,7 @@ function Accueil({ popularMovies, topRatedSeries }) {
                     <Grid item xs={12} >
                         {topRatedSeries && 
                             <Paper className={fixedHeightPaper}>
-                                <Series topRatedSeries={topRatedSeries} />
+                                <Series seriesGenres={seriesGenres} topRatedSeries={topRatedSeries} />
                             </Paper> 
                         }
                     </Grid>

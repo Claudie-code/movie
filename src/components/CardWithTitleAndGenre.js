@@ -13,46 +13,50 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         alignItems: "flex-start"
     },
-    margin: {
-        marginRight: 1,
-    },
     cover: {
+        width: 230,
         height: 330,
-        borderRadius: ".2rem .2rem 0 0"
+        borderRadius: ".2rem .2rem 0 0",
+        display: "flex",
+        alignItems: "flex-end"
     },
+    content: {
+        paddingTop: "2rem",
+        background: "linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 15%, rgba(0,0,0,.45) 35%, rgba(0,0,0,.60) 50%, rgba(0,0,0,.75) 75%, rgba(0,0,0,0.90) 100%)",
+        color: "#fff",
+        width: "100%",
+    }
 }));
 
-function CardWithTitleAndGenre({ seriesAndMovies }) {
+function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres }) {
     const classes = useStyles();
 
-    /*const findGenre = (genreId) => {
+    const findGenre = (genreId) => {
         const result = seriesGenres.filter(genre => genre.id === genreId);  
         return result[0].name;
-    }*/
+    }
 
     return (
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (
                 <Paper key={element.id} className={classes.root}>
-                    <CardActionArea key={element.id} className={classes.root} >
+                    <CardActionArea key={element.id}>
                         <CardMedia
-                            component="img"
                             alt={element.name ? element.name : element.title}
-                            height="140"
-                            width="140"
                             className={classes.cover}
                             image={`https://image.tmdb.org/t/p/w780${element.poster_path && element.poster_path}`}
                             title={element.name ? element.name : element.title}
                         >
+
+                            <CardContent className={classes.content}>
+                                <Typography variant="subtitle1" component="h3">
+                                    {element.name ? element.name : element.title}
+                                </Typography>
+                                <Typography variant="body1" color="textSecondary" component="p">
+                                    {/*element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name*/}
+                                </Typography>
+                            </CardContent>
                         </CardMedia>
-                        <CardContent>
-                            <Typography variant="subtitle1" component="h3">
-                                {element.name ? element.name : element.title}
-                            </Typography>
-                            <Typography variant="body1" color="textSecondary" component="p">
-                                {/*element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name*/}
-                            </Typography>
-                        </CardContent>
                     </CardActionArea>
                     <CardActions>
                         <FavoriteCheckbox movie={element} />

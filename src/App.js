@@ -37,6 +37,10 @@ function App() {
     https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
   `);
 
+  const seriesGenres = useApiData(`
+    https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
+  `);
+
   const classes = useStyles();
 
   const [darkState, setDarkState] = useState(false);
@@ -57,6 +61,7 @@ function App() {
 
   return (
     <AuthProvider>
+        {console.log(moviesGenres)}
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Router>
@@ -69,6 +74,7 @@ function App() {
                     popularMovies={popularMovies} 
                     topRatedSeries={topRatedSeries} 
                     moviesGenres={moviesGenres} 
+                    seriesGenres={seriesGenres}
                   />
                 )}
               />
