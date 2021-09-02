@@ -18,6 +18,7 @@ import { orange, cyan, deepPurple, deepOrange } from "@material-ui/core/colors";
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import { useApiData } from './hooks/useApiData';
+import { useApiDataGenres } from './hooks/useApiDataGenres';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,11 +34,11 @@ function App() {
   const topRatedSeries = useApiData(`
     https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1
   `);
-  const moviesGenres = useApiData(`
+  const moviesGenres = useApiDataGenres(`
     https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
   `);
 
-  const seriesGenres = useApiData(`
+  const seriesGenres = useApiDataGenres(`
     https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
   `);
 
@@ -61,7 +62,6 @@ function App() {
 
   return (
     <AuthProvider>
-        {console.log(moviesGenres)}
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Router>
@@ -78,7 +78,7 @@ function App() {
                   />
                 )}
               />
-              <Route exact path="/genres" render={props => <Genres {...props} genres={moviesGenres} />} />
+              <Route exact path="/genres" render={props => <Genres {...props} moviesGenres={moviesGenres} />} />
               <Route exact path="/genres/:id/:name" component={GenrePage} />
               <Route exact path="/movie/:id" component={MoviePage} />
               <Route exact path="/search/:search" component={SearchPage} />

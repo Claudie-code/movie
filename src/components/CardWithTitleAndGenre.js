@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
         background: "linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 15%, rgba(0,0,0,.45) 35%, rgba(0,0,0,.60) 50%, rgba(0,0,0,.75) 75%, rgba(0,0,0,0.90) 100%)",
         color: "#fff",
         width: "100%",
+        padding: theme.spacing(1),
+        paddingBottom: theme.spacing(1)
     }
 }));
 
@@ -35,12 +37,12 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres }) {
         const result = seriesGenres.filter(genre => genre.id === genreId);  
         return result[0].name;
     }
-
+    console.log(seriesAndMovies)
     return (
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (
-                <Paper key={element.id} className={classes.root}>
-                    <CardActionArea key={element.id}>
+                <Paper elevation={3} key={element.id} className={classes.root}>
+                    <CardActionArea key={element.id} href={`/movie/${element.id}`}>
                         <CardMedia
                             alt={element.name ? element.name : element.title}
                             className={classes.cover}
@@ -52,8 +54,8 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres }) {
                                 <Typography variant="subtitle1" component="h3">
                                     {element.name ? element.name : element.title}
                                 </Typography>
-                                <Typography variant="body1" color="textSecondary" component="p">
-                                    {/*element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name*/}
+                                <Typography variant="overline" component="p">
+                                    {element.genre_ids? findGenre(element.genre_ids[0]) : element.genres[0].name}
                                 </Typography>
                             </CardContent>
                         </CardMedia>

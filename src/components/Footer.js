@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
-      padding: 10
+      padding: 10,
+      boxShadow: "rgb(0 0 0 / 50%) 5px -9px 9px -6px"
     },
 }));
 
