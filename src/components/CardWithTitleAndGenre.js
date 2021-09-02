@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres }) {
+function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, movie }) {
     const classes = useStyles();
 
     const findGenre = (genreId) => {
@@ -42,14 +42,13 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres }) {
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (
                 <Paper elevation={3} key={element.id} className={classes.root}>
-                    <CardActionArea key={element.id} href={`/movie/${element.id}`}>
+                    <CardActionArea key={element.id} href={movie ? `/movie/${element.id} : /serie/${element.id}`}>
                         <CardMedia
                             alt={element.name ? element.name : element.title}
                             className={classes.cover}
                             image={`https://image.tmdb.org/t/p/w780${element.poster_path && element.poster_path}`}
                             title={element.name ? element.name : element.title}
                         >
-
                             <CardContent className={classes.content}>
                                 <Typography variant="subtitle1" component="h3">
                                     {element.name ? element.name : element.title}
