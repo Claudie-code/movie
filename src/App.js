@@ -8,6 +8,7 @@ import Login from './containers/Login/Login'
 import Profile from './containers/Profile/Profile'
 import SearchPage from './containers/SearchPage/SearchPage'
 import MoviePage from './containers/MoviePage/MoviePage'
+import SeriePage from './containers/SeriePage/SeriePage'
 import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
 import Container from '@material-ui/core/Container';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -81,6 +82,7 @@ function App() {
               <Route exact path="/genres" render={props => <Genres {...props} moviesGenres={moviesGenres} />} />
               <Route exact path="/genres/:id/:name" component={GenrePage} />
               <Route exact path="/movie/:id" component={MoviePage} />
+              <Route exact path="/serie/:id" component={SeriePage} />
               <Route exact path="/search/:search" component={SearchPage} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
