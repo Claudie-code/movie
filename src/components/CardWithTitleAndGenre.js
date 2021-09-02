@@ -42,7 +42,7 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, movie }) {
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (
                 <Paper elevation={3} key={element.id} className={classes.root}>
-                    <CardActionArea key={element.id} href={movie ? `/movie/${element.id} : /serie/${element.id}`}>
+                    <CardActionArea key={element.id} href={movie ? `/movie/${element.id}` : `/serie/${element.id}`}>
                         <CardMedia
                             alt={element.name ? element.name : element.title}
                             className={classes.cover}

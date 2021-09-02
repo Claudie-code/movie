@@ -1,9 +1,7 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
 import PlayButton from '../../components/PlayButton';
-import dayjs from 'dayjs';
-import 'dayjs/locale/fr';
+import ReleaseDate from '../../components/ReleaseDate';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,9 +47,7 @@ export default function MediaControlCard({ popularMovie }) {
             <Typography component="h5" variant="h5">
               {popularMovie.title}
             </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              Sortie le {dayjs(popularMovie.release_date).locale('fr').format("DD MMMM YYYY")}
-            </Typography>
+            <ReleaseDate>{popularMovie.release_date}</ReleaseDate>
           </CardContent>
         </div>
       </CardActionArea>

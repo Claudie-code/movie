@@ -23,8 +23,6 @@ export default function MoviePage(props) {
     }, [id])
 
     return (
-        <>
-            <MovieSerieDetails movieOrSerie={movie} />
-        </>
+        <MovieSerieDetails movieOrSerie={movie} />
     )
 }

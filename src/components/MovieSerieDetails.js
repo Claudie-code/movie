@@ -1,11 +1,10 @@
 import { makeStyles, Paper, Typography, Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import Title from "./components/Title";
-import BandeAnnonce from "./components/BandeAnnonce";
-import GenreListButton from "./components/GenreListButton";
-import FavoriteCheckBox from './components/FavoriteCheckbox';
-import dayjs from 'dayjs';
-import 'dayjs/locale/fr';
+import Title from "./Title";
+import BandeAnnonce from "./BandeAnnonce";
+import GenreListButton from "./GenreListButton";
+import FavoriteCheckBox from './FavoriteCheckbox';
+import ReleaseDate from './ReleaseDate';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -22,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MoviePage({ movieOrSerie }) {
+export default function MovieSerieDetails({ movieOrSerie }) {
     const classes = useStyles();
 
     return (
@@ -38,9 +37,7 @@ export default function MoviePage({ movieOrSerie }) {
                 <GenreListButton genres={movieOrSerie.genres} />
                 <Rating name="size-medium" value={(movieOrSerie.vote_average * 5) / 10} readOnly />
             </Box>
-            <Typography variant="subtitle1" gutterBottom>
-                Sortie le {dayjs(movieOrSerie.release_date).locale('fr').format("DD MMMM YYYY")}
-            </Typography>
+            <ReleaseDate releaseDate={movieOrSerie.release_date} />
             <Typography variant="body1" gutterBottom>
                 {movieOrSerie.overview}
             </Typography>
