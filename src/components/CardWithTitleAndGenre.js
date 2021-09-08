@@ -5,7 +5,6 @@ import PlayButton from "./PlayButton";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display:"inline-block",
         width: 230,
         marginRight: 20,
         display: "flex",
@@ -37,7 +36,7 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, movie }) {
         const result = seriesGenres.filter(genre => genre.id === genreId);  
         return result[0].name;
     }
-    console.log(seriesAndMovies)
+    console.log(seriesGenres)
     return (
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (

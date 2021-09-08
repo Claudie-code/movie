@@ -14,12 +14,10 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Profile() {
+export default function Profile({ seriesGenres }) {
     const classes = useStyles();
     const { currentUser, getFavorites } = useAuth();
     const [ favorites, setFavorites ] = useState();
-    const [ genres, setGenres ] = useState();
-    const [ genresSeries, setGenresSeries ] = useState();
 
     useEffect(() => {
         async function fetchData() {
@@ -33,13 +31,13 @@ export default function Profile() {
         }
         fetchData();
     }, []);
-    
+
     return (
 
         <Paper className={classes.paper}>
             <Title>Profil de {currentUser.displayName}</Title>
             <Box display="flex">
-                <CardWithTitleAndGenre seriesAndMovies={favorites}/> 
+                <CardWithTitleAndGenre seriesAndMovies={favorites} seriesGenres={seriesGenres}/> 
             </Box>
         </Paper>
 
