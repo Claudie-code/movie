@@ -59,7 +59,7 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, movie }) {
                         </CardMedia>
                     </CardActionArea>
                     <CardActions>
-                        <FavoriteCheckbox movie={element} />
+                        <FavoriteCheckbox serieAndMovie={element} />
                         <PlayButton /> 
                     </CardActions>         
                 </Paper>

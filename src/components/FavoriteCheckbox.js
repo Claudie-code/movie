@@ -5,22 +5,22 @@ import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-export default function MoviePage({ movie }) {
-    const { getFavorites, addFavoritesUserCollection, removeFavoritesUserCollection } = useAuth();
+export default function MoviePage({ serieAndMovie }) {
+    const { getFavorites, addFavoritesUserCollection, removeFavoritesUserCollection, currentUser } = useAuth();
     const [ checked, setChecked ] = useState(false);
 
-    const handleChange = async (event, movie) => {
+    const handleChange = async (event, serieAndMovie) => {
         if (event.target.checked) {
-            await addFavoritesUserCollection(movie);
+            await addFavoritesUserCollection(serieAndMovie);
             setChecked(true)
         } else {
-            await removeFavoritesUserCollection(movie);
+            await removeFavoritesUserCollection(serieAndMovie);
             setChecked(false)
         }
     };
 
     const isFavorite = (favorites) => {
-        if(favorites.find(favorite => favorite.id === movie.id)) {
+        if(favorites.find(favorite => favorite.id === serieAndMovie.id)) {
             setChecked(true)
         } else {
             setChecked(false)
@@ -37,19 +37,23 @@ export default function MoviePage({ movie }) {
                 console.log("Cette collection n'existe pas");
             }
         }
-        fetchData();
+        if( currentUser ) { fetchData(); }
     }, []);
 
     return (
-        <FormControlLabel style={{margin: 0}}
-            control={
-                <Checkbox 
-                    icon={<FavoriteBorder fontSize="large" />} 
-                    color="primary" 
-                    onChange={event => handleChange(event, movie)} 
-                    checkedIcon={<Favorite fontSize="large" />} 
-                    checked={checked}
-                />}
-        />
+        <>
+            {currentUser && 
+                <FormControlLabel style={{margin: 0}}
+                    control={
+                        <Checkbox 
+                            icon={<FavoriteBorder fontSize="large" />} 
+                            color="primary" 
+                            onChange={event => handleChange(event, serieAndMovie)} 
+                            checkedIcon={<Favorite fontSize="large" />} 
+                            checked={checked}
+                        />}
+                />
+            }
+        </>
     )
 }

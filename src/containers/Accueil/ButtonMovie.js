@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
 import PlayButton from '../../components/PlayButton';
 import ReleaseDate from '../../components/ReleaseDate';
+import FavoriteCheckbox from '../../components/FavoriteCheckbox';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,7 @@ export default function MediaControlCard({ popularMovie }) {
         <div className={classes.details}>
           <div>
             <PlayButton />
+            <FavoriteCheckbox serieAndMovie={popularMovie} />
           </div>
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">
