@@ -28,7 +28,7 @@ function Signup(props) {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, createDisplayName, createUserCollection } = useAuth();
+    const { signup, createDisplayName, createUserCollection, getFavorites } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -44,7 +44,8 @@ function Signup(props) {
             await signup(emailRef.current.value, passwordRef.current.value);
             await createDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`);
             await createUserCollection();
-            history.push('/')
+            getFavorites();
+            history.push('/');
 
         } catch {
             setError('Erreur lors de la création du compte');

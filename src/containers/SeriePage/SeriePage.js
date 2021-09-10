@@ -7,7 +7,7 @@ export default function SeriePage(props) {
     const serieDetails = useApiDataDetails(`
         https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
     `);
-    console.log(serieDetails)
+
     return (
         <MovieSerieDetails movieOrSerie={serieDetails} />
     )

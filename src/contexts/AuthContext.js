@@ -13,7 +13,8 @@ export function useAuth() {
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
-
+    const [favorites, setFavorites] = useState();
+    console.log("context favorites", favorites)
     function createDisplayName(newName) {
         return auth.currentUser.updateProfile({displayName: newName})
     };
@@ -22,8 +23,14 @@ export function AuthProvider({children}) {
         return usersRef.doc(auth.currentUser.uid).set({favorites:[]});
     };
 
-    function getFavorites() {
-        return usersRef.doc(auth.currentUser.uid).get();
+    async function getFavorites() {
+        const docRef = await usersRef.doc(auth.currentUser.uid).get();
+
+        if (docRef.exists) {
+            if (docRef.data().favorites) setFavorites(docRef.data().favorites);
+        } else {
+            console.log("Cette collection n'existe pas");
+        }
     };
 
     function addFavoritesUserCollection(movieId) {
@@ -61,6 +68,7 @@ export function AuthProvider({children}) {
     }, []);
 
     const value = {
+        favorites,
         currentUser,
         getFavorites,
         addFavoritesUserCollection,

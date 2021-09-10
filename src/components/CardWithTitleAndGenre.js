@@ -33,10 +33,12 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, movie }) {
     const classes = useStyles();
 
     const findGenre = (genreId) => {
-        const result = seriesGenres.filter(genre => genre.id === genreId);  
-        return result[0].name;
+        if (seriesGenres) {
+            const result = seriesGenres.filter(genre => genre.id === genreId);  
+            return result[0].name;
+        }
     }
-    console.log(seriesGenres)
+    
     return (
         <>
             {seriesAndMovies && seriesAndMovies.map(element => (

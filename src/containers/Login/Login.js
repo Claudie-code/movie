@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Login(props) {
+function Login() {
     const classes = useStyles();
     const emailRef = useRef();
     const passwordRef = useRef();
-    const { login } = useAuth();
+    const { login, getFavorites } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -36,6 +36,7 @@ function Login(props) {
             setLoading(true);
             setError('');
             await login(emailRef.current.value, passwordRef.current.value);
+            getFavorites();
             history.push('/');
         } catch {
             setError('Erreur de connexion');

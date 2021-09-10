@@ -6,9 +6,9 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default function MoviePage({ serieAndMovie }) {
-    const { getFavorites, addFavoritesUserCollection, removeFavoritesUserCollection, currentUser } = useAuth();
+    const { favorites, addFavoritesUserCollection, removeFavoritesUserCollection, currentUser } = useAuth();
     const [ checked, setChecked ] = useState(false);
-
+    console.log("favoris checkbox", favorites)
     const handleChange = async (event, serieAndMovie) => {
         if (event.target.checked) {
             await addFavoritesUserCollection(serieAndMovie);
@@ -19,26 +19,16 @@ export default function MoviePage({ serieAndMovie }) {
         }
     };
 
-    const isFavorite = (favorites) => {
-        if(favorites.find(favorite => favorite.id === serieAndMovie.id)) {
-            setChecked(true)
-        } else {
-            setChecked(false)
-        }
-    };
-
     useEffect(() => {
-        async function fetchData() {
-            const docRef = await getFavorites();
-
-            if (docRef.exists) {
-                if (docRef.data().favorites) isFavorite(docRef.data().favorites);
+        const isFavorite = () => {
+            if(favorites.find(favorite => favorite.id === serieAndMovie.id)) {
+                setChecked(true);
             } else {
-                console.log("Cette collection n'existe pas");
+                setChecked(false);
             }
-        }
-        if( currentUser ) { fetchData(); }
-    }, []);
+        };
+        if (favorites) isFavorite();
+    }, [])
 
     return (
         <>
