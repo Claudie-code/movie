@@ -7,7 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Autocomplete } from '@material-ui/lab';
 import { 
-  TextField, AppBar, Toolbar, MenuItem, Badge, Menu, Typography, IconButton, Button, Switch 
+  TextField, AppBar, Toolbar, MenuItem, Menu, Typography, IconButton, Button, Switch 
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({

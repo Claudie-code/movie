@@ -1,15 +1,16 @@
-import Genres from './containers/Genres/Genres'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Accueil from './containers/Accueil/Accueil'
-import GenrePage from './containers/GenrePage/GenrePage'
-import Signup from './containers/Signup/Signup'
-import Login from './containers/Login/Login'
-import Profile from './containers/Profile/Profile'
-import SearchPage from './containers/SearchPage/SearchPage'
-import MoviePage from './containers/MoviePage/MoviePage'
-import SeriePage from './containers/SeriePage/SeriePage'
-import ForgotPassword from './containers/ForgotPassword/ForgotPassword'
+import Genres from './containers/Genres/Genres';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Accueil from './containers/Accueil/Accueil';
+import GenrePage from './containers/GenrePage/GenrePage';
+import Signup from './containers/Signup/Signup';
+import Login from './containers/Login/Login';
+import Profile from './containers/Profile/Profile';
+import SearchPage from './containers/SearchPage/SearchPage';
+import MoviePage from './containers/MoviePage/MoviePage';
+import SeriePage from './containers/SeriePage/SeriePage';
+import Loader from './components/Loader/Loader';
+import ForgotPassword from './containers/ForgotPassword/ForgotPassword';
 import Container from '@material-ui/core/Container';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import React, { useState } from "react";
@@ -29,10 +30,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  const popularMovies = useApiData(`
+  const [popularMovies, loadingMovies] = useApiData(`
     https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&with_watch_monetization_types=flatrate
   `);
-  const topRatedSeries = useApiData(`
+  const [topRatedSeries, loadingSeries] = useApiData(`
     https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1
   `);
   const moviesGenres = useApiDataGenres(`
@@ -68,27 +69,30 @@ function App() {
       <Router>
           <Header popularMovies={popularMovies} darkState={darkState} setDarkState={setDarkState}/>
           <Container maxWidth="lg" className={classes.container}>
-            <Switch>
-              <Route exact path="/" 
-                render={props => (
-                  <Accueil {...props}
-                    popularMovies={popularMovies} 
-                    topRatedSeries={topRatedSeries} 
-                    moviesGenres={moviesGenres} 
-                    seriesGenres={seriesGenres}
-                  />
-                )}
-              />
-              <Route exact path="/genres" render={props => <Genres {...props} moviesGenres={moviesGenres} />} />
-              <Route exact path="/genres/:id/:name" component={GenrePage} />
-              <Route exact path="/movie/:id" component={MoviePage} />
-              <Route exact path="/serie/:id" component={SeriePage} />
-              <Route exact path="/search/:search" component={SearchPage} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/forgot-password" component={ForgotPassword} />
-              <PrivateRoute exact path="/profile" component={Profile} seriesGenres={seriesGenres} />
-            </Switch>
+            {loadingMovies & loadingSeries?
+              <Loader /> :
+              <Switch>
+                <Route exact path="/" 
+                  render={props => (
+                    <Accueil {...props}
+                      popularMovies={popularMovies} 
+                      topRatedSeries={topRatedSeries} 
+                      moviesGenres={moviesGenres} 
+                      seriesGenres={seriesGenres}
+                    />
+                  )}
+                />
+                <Route exact path="/genres" render={props => <Genres {...props} moviesGenres={moviesGenres} />} />
+                <Route exact path="/genres/:id/:name" component={GenrePage} />
+                <Route exact path="/movie/:id" component={MoviePage} />
+                <Route exact path="/serie/:id" component={SeriePage} />
+                <Route exact path="/search/:search" component={SearchPage} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/forgot-password" component={ForgotPassword} />
+                <PrivateRoute exact path="/profile" component={Profile} seriesGenres={seriesGenres} />
+              </Switch>
+            }
           </Container>
           <Footer />
           </Router>

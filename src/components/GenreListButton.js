@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, makeStyles, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 export const useApiData = (url, search, page) => {
     const [data, setData] = useState();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch(url, {
@@ -16,8 +17,13 @@ export const useApiData = (url, search, page) => {
         })
         .catch(err => {
             console.error(err);
-        });
-    }, [page, search])
+        })
+        .finally(
+            () => {
+              setLoading(false);
+            },
+        );
+    }, [page, search]);
 
-    return data;
+    return [data, loading];
 };
