@@ -1,12 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { CardContent, Typography, CardMedia, CardActionArea, Paper, CardActions } from '@material-ui/core';
+import { CardContent, Typography, CardMedia, CardActionArea, Paper, CardActions, Box } from '@material-ui/core';
 import FavoriteCheckbox from './FavoriteCheckbox';
 import PlayButton from "./PlayButton";
 
 const useStyles = makeStyles((theme) => ({
+    flex: {
+        gap: theme.spacing(3),
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-evenly",
+    },
     root: {
         width: 220,
-        marginBottom: 20,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -29,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, moviesGenres, movie }) {
+function CardsWithTitleAndGenre({ seriesAndMovies, seriesGenres, moviesGenres, movie }) {
     const classes = useStyles();
 
     const findGenre = (genreId) => {
@@ -47,7 +52,7 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, moviesGenres, mo
     }
     
     return (
-        <>
+        <Box className={classes.flex}>
             {seriesAndMovies && seriesAndMovies.map(element => (
                 <Paper elevation={3} key={element.id} className={classes.root}>
                     <CardActionArea key={element.id} href={movie ? `/movie/${element.id}` : `/serie/${element.id}`}>
@@ -73,8 +78,8 @@ function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, moviesGenres, mo
                     </CardActions>         
                 </Paper>
             ))}
-        </>
+        </Box>
     );
 }
 
-export default CardWithTitleAndGenre;
+export default CardsWithTitleAndGenre;

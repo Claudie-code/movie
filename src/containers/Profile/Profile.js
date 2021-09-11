@@ -1,6 +1,6 @@
 import { makeStyles, Paper, Box } from '@material-ui/core';
 import Title from "../../components/Title";
-import CardWithTitleAndGenre from "../../components/CardWithTitleAndGenre";
+import CardsWithTitleAndGenre from "../../components/CardsWithTitleAndGenre";
 import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +22,7 @@ export default function Profile({ seriesGenres, moviesGenres }) {
         <Paper className={classes.paper}>
             <Title>Profil de {currentUser.displayName}</Title>
             <Box display="flex">
-                <CardWithTitleAndGenre seriesAndMovies={favorites} seriesGenres={seriesGenres} moviesGenres={moviesGenres}/> 
+                <CardsWithTitleAndGenre seriesAndMovies={favorites} seriesGenres={seriesGenres} moviesGenres={moviesGenres}/> 
             </Box>
         </Paper>
 

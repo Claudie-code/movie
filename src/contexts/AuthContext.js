@@ -58,7 +58,9 @@ export function AuthProvider({children}) {
     }
     
     useEffect(() => {
+        console.log("if",auth.currentUser)
         if (auth.currentUser) {
+            console.log("if not",auth.currentUser)
             userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data().favorites));
             console.log("fav effect")
         }

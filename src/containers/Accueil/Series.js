@@ -1,7 +1,6 @@
 import React from 'react';
-import CardWithTitleAndGenre from '../../components/CardWithTitleAndGenre';
+import CardsWithTitleAndGenre from '../../components/CardsWithTitleAndGenre';
 import Title from "../../components/Title";
-import { Box } from '@material-ui/core';
 
 function Series({ topRatedSeries, seriesGenres }) {
     const sliceProps = topRatedSeries.slice(0, 10);
@@ -9,9 +8,7 @@ function Series({ topRatedSeries, seriesGenres }) {
     return (
         <React.Fragment>
             <Title>Top Series</Title>
-            <Box display="flex" flexWrap="wrap" justifyContent="space-around">
-                <CardWithTitleAndGenre seriesGenres={seriesGenres} seriesAndMovies={sliceProps} />
-            </Box>
+            <CardsWithTitleAndGenre seriesGenres={seriesGenres} seriesAndMovies={sliceProps} />
         </React.Fragment>
     );
 }
