@@ -4,7 +4,7 @@ import { auth, db, firestore } from '../firebase';
 
 const AuthContext = React.createContext();
 
-const usersRef = db.collection('users');
+const userCollection = db.collection('users').doc(auth.currentUser?.uid);
 
 export function useAuth() {
     return useContext(AuthContext)
@@ -14,17 +14,17 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
     const [favorites, setFavorites] = useState();
-    console.log("context favorites", favorites)
+
     function createDisplayName(newName) {
         return auth.currentUser.updateProfile({displayName: newName})
     };
 
     function createUserCollection() {
-        return usersRef.doc(auth.currentUser.uid).set({favorites:[]});
+        return userCollection.set({favorites:[]});
     };
 
     async function getFavorites() {
-        const docRef = await usersRef.doc(auth.currentUser.uid).get();
+        const docRef = await userCollection.get();
 
         if (docRef.exists) {
             if (docRef.data().favorites) setFavorites(docRef.data().favorites);
@@ -34,13 +34,13 @@ export function AuthProvider({children}) {
     };
 
     function addFavoritesUserCollection(movieId) {
-        return usersRef.doc(auth.currentUser.uid).update({
+        return userCollection.update({
             favorites: firestore.FieldValue.arrayUnion(movieId)
         });
     };
 
     function removeFavoritesUserCollection(movieId) {
-        return usersRef.doc(auth.currentUser.uid).update({
+        return userCollection.update({
             favorites: firestore.FieldValue.arrayRemove(movieId)
         });
     };
@@ -58,6 +58,7 @@ export function AuthProvider({children}) {
     }
     
     useEffect(() => {
+        userCollection.onSnapshot(querySnapshot => setFavorites(querySnapshot.data()?.favorites))
 
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)

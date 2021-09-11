@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 export default function MoviePage({ serieAndMovie }) {
     const { favorites, addFavoritesUserCollection, removeFavoritesUserCollection, currentUser } = useAuth();
     const [ checked, setChecked ] = useState(false);
-    console.log("favoris checkbox", favorites)
+
     const handleChange = async (event, serieAndMovie) => {
         if (event.target.checked) {
             await addFavoritesUserCollection(serieAndMovie);
@@ -24,6 +24,7 @@ export default function MoviePage({ serieAndMovie }) {
             if(favorites.find(favorite => favorite.id === serieAndMovie.id)) {
                 setChecked(true);
             } else {
+                console.log("false", favorites.find(favorite => favorite.id === serieAndMovie.id))
                 setChecked(false);
             }
         };
