@@ -5,16 +5,16 @@ import PlayButton from "./PlayButton";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 230,
-        marginRight: 20,
+        width: 220,
+        marginBottom: 20,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "flex-start"
     },
     cover: {
-        width: 230,
-        height: 330,
+        width: 220,
+        height: 318,
         borderRadius: ".2rem .2rem 0 0",
         display: "flex",
         alignItems: "flex-end"
@@ -29,13 +29,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, movie }) {
+function CardWithTitleAndGenre({ seriesAndMovies, seriesGenres, moviesGenres, movie }) {
     const classes = useStyles();
 
     const findGenre = (genreId) => {
         if (seriesGenres) {
-            const result = seriesGenres.filter(genre => genre.id === genreId);  
-            return result[0].name;
+            
+            const result = seriesGenres.filter(genre => genre.id === genreId);
+            let resultMovieGenre;  
+            if (!result[0]?.name) {
+                resultMovieGenre = moviesGenres.filter(genre => genre.id === genreId);
+                return resultMovieGenre[0].name;
+            } else {
+                return result[0]?.name;
+            }
         }
     }
     

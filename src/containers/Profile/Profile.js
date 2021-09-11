@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Profile({ seriesGenres }) {
+export default function Profile({ seriesGenres, moviesGenres }) {
     const classes = useStyles();
     const { currentUser, favorites } = useAuth();
     console.log("favoris profile", favorites)
@@ -22,7 +22,7 @@ export default function Profile({ seriesGenres }) {
         <Paper className={classes.paper}>
             <Title>Profil de {currentUser.displayName}</Title>
             <Box display="flex">
-                <CardWithTitleAndGenre seriesAndMovies={favorites} seriesGenres={seriesGenres}/> 
+                <CardWithTitleAndGenre seriesAndMovies={favorites} seriesGenres={seriesGenres} moviesGenres={moviesGenres}/> 
             </Box>
         </Paper>
 

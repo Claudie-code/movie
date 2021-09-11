@@ -4,7 +4,7 @@ import { auth, db, firestore } from '../firebase';
 
 const AuthContext = React.createContext();
 
-const userCollection = db.collection('users').doc(auth.currentUser?.uid);
+const userCollection = db.collection('users');
 
 export function useAuth() {
     return useContext(AuthContext)
@@ -14,17 +14,17 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
     const [favorites, setFavorites] = useState();
-
+    console.log("favorites context", favorites);
     function createDisplayName(newName) {
         return auth.currentUser.updateProfile({displayName: newName})
     };
 
     function createUserCollection() {
-        return userCollection.set({favorites:[]});
+        return userCollection.doc(auth.currentUser.uid).set({favorites:[]});
     };
 
     async function getFavorites() {
-        const docRef = await userCollection.get();
+        const docRef = await userCollection.doc(auth.currentUser.uid).get();
 
         if (docRef.exists) {
             if (docRef.data().favorites) setFavorites(docRef.data().favorites);
@@ -34,13 +34,13 @@ export function AuthProvider({children}) {
     };
 
     function addFavoritesUserCollection(movieId) {
-        return userCollection.update({
+        return userCollection.doc(auth.currentUser.uid).update({
             favorites: firestore.FieldValue.arrayUnion(movieId)
         });
     };
 
     function removeFavoritesUserCollection(movieId) {
-        return userCollection.update({
+        return userCollection.doc(auth.currentUser.uid).update({
             favorites: firestore.FieldValue.arrayRemove(movieId)
         });
     };
@@ -58,7 +58,10 @@ export function AuthProvider({children}) {
     }
     
     useEffect(() => {
-        userCollection.onSnapshot(querySnapshot => setFavorites(querySnapshot.data()?.favorites))
+        if (auth.currentUser) {
+            userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data().favorites));
+            console.log("fav effect")
+        }
 
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)

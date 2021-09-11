@@ -4,12 +4,12 @@ import Title from "../../components/Title";
 import { Box } from '@material-ui/core';
 
 function Series({ topRatedSeries, seriesGenres }) {
-    const sliceProps = topRatedSeries.slice(0, 9);
+    const sliceProps = topRatedSeries.slice(0, 10);
 
     return (
         <React.Fragment>
             <Title>Top Series</Title>
-            <Box display="flex">
+            <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 <CardWithTitleAndGenre seriesGenres={seriesGenres} seriesAndMovies={sliceProps} />
             </Box>
         </React.Fragment>

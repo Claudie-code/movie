@@ -90,7 +90,7 @@ function App() {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/forgot-password" component={ForgotPassword} />
-                <PrivateRoute exact path="/profile" component={Profile} seriesGenres={seriesGenres} />
+                <PrivateRoute exact path="/profile" component={Profile} seriesGenres={seriesGenres} moviesGenres={moviesGenres} />
               </Switch>
             }
           </Container>

@@ -29,7 +29,7 @@ export default function MoviePage({ serieAndMovie }) {
             }
         };
         if (favorites) isFavorite();
-    }, [])
+    }, [favorites])
 
     return (
         <>
