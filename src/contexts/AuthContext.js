@@ -14,7 +14,7 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
     const [favorites, setFavorites] = useState();
-    console.log("favorites context", favorites);
+
     function createDisplayName(newName) {
         return auth.currentUser.updateProfile({displayName: newName})
     };
@@ -24,7 +24,10 @@ export function AuthProvider({children}) {
     };
 
     async function getFavorites() {
-        const docRef = await userCollection.doc(auth.currentUser.uid).get();
+        let docRef;
+        if(auth.currentUser.uid) {
+            docRef = await userCollection.doc(auth.currentUser.uid).get();
+        }
 
         if (docRef.exists) {
             if (docRef.data().favorites) setFavorites(docRef.data().favorites);
@@ -58,12 +61,9 @@ export function AuthProvider({children}) {
     }
     
     useEffect(() => {
-        console.log("if",auth.currentUser)
         if (auth.currentUser) {
-            console.log("if not",auth.currentUser)
             userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data().favorites));
-            console.log("fav effect")
-        }
+        } 
 
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
@@ -71,7 +71,7 @@ export function AuthProvider({children}) {
         }); 
 
         return unsubscribe;
-    }, []);
+    }, [auth]);
 
     const value = {
         favorites,

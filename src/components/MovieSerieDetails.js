@@ -5,6 +5,7 @@ import BandeAnnonce from "./BandeAnnonce";
 import GenreListButton from "./GenreListButton";
 import FavoriteCheckBox from './FavoriteCheckbox';
 import ReleaseDate from './ReleaseDate';
+import { useAuth } from '../contexts/AuthContext';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -21,25 +22,26 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MovieSerieDetails({ movieOrSerie }) {
+export default function MovieSerieDetails({ movieOrSerieData, movieOrSerie }) {
+    const { currentUser } = useAuth();
     const classes = useStyles();
 
     return (
         <>
-        {movieOrSerie &&
+        {movieOrSerieData &&
         <Paper className={classes.paper}>
             <Box display="flex" justifyContent="space-between">
-                <Title>{movieOrSerie.title}</Title>
-                <FavoriteCheckBox movie={movieOrSerie}/>
+                <Title>{movieOrSerieData.name}</Title>
+                {currentUser && <FavoriteCheckBox serieAndMovie={movieOrSerieData}/>}
             </Box>
-            <BandeAnnonce movieOrSerie={movieOrSerie} width='100%' height="620px"/>
+            <BandeAnnonce movieOrSerieData={movieOrSerieData} movieOrSerie={movieOrSerie} width='100%' height="650px"/>
             <Box display="flex" alignItems="center" justifyContent="space-between">
-                <GenreListButton genres={movieOrSerie.genres} />
-                <Rating name="size-medium" value={(movieOrSerie.vote_average * 5) / 10} readOnly />
+                <GenreListButton genres={movieOrSerieData.genres} />
+                <Rating name="size-medium" value={(movieOrSerieData.vote_average * 5) / 10} readOnly />
             </Box>
-            <ReleaseDate releaseDate={movieOrSerie.release_date} />
+            <ReleaseDate releaseDate={movieOrSerieData.release_date} />
             <Typography variant="body1" gutterBottom>
-                {movieOrSerie.overview}
+                {movieOrSerieData.overview}
             </Typography>
         </Paper>
         }

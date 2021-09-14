@@ -20,15 +20,13 @@ export default function MoviePage({ serieAndMovie }) {
     };
 
     useEffect(() => {
-        const isFavorite = () => {
-            if(favorites.find(favorite => favorite.id === serieAndMovie.id)) {
+        if (favorites) {
+            if(favorites.find(favorite => favorite?.id === serieAndMovie?.id)) {
                 setChecked(true);
             } else {
-                console.log("false", favorites.find(favorite => favorite.id === serieAndMovie.id))
                 setChecked(false);
             }
-        };
-        if (favorites) isFavorite();
+        }
     }, [favorites])
 
     return (

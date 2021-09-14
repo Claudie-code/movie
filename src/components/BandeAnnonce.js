@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 
-function BandeAnnonce({ movieOrSerie, width, height }) {
+function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
     const [trailerUrl, setTrailerUrl] = useState(null)
 
     useEffect(() => {
         fetch(`
-        https://api.themoviedb.org/3/movie/${movieOrSerie.id}/videos?api_key=96ab457e2f6f7c241da2c90db7997deb&language=fr-FR`, 
+        https://api.themoviedb.org/3/${movieOrSerie}/${movieOrSerieData.id}/videos?api_key=96ab457e2f6f7c241da2c90db7997deb&language=fr-FR`, 
         {
         "method": "GET",
         "headers": {
