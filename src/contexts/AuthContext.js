@@ -61,14 +61,14 @@ export function AuthProvider({children}) {
     }
     
     useEffect(() => {
-        if (auth.currentUser) {
-            userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data().favorites));
-        } 
-
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)
         }); 
+
+        if (auth.currentUser) {
+            userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data().favorites));
+        } 
 
         return unsubscribe;
     }, [auth]);

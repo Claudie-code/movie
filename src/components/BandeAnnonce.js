@@ -6,15 +6,17 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
 
     useEffect(() => {
         fetch(`
-        https://api.themoviedb.org/3/${movieOrSerie}/${movieOrSerieData.id}/videos?api_key=96ab457e2f6f7c241da2c90db7997deb&language=fr-FR`, 
-        {
-        "method": "GET",
-        "headers": {
-            "Content-type": "application/json",
-        }
-        })
+            https://api.themoviedb.org/3/${movieOrSerie}/${movieOrSerieData.id}/videos?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, 
+            {
+                "method": "GET",
+                "headers": {
+                    "Content-type": "application/json",
+                }
+            }
+        )
         .then(response => response.json())
         .then(json => {
+            console.log(json, movieOrSerie)
             const data = json.results[0].key;
             setTrailerUrl(data);
         })
@@ -24,11 +26,14 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
     }, [])
 
     return (
-        <ReactPlayer 
+        <>
+        {trailerUrl &&
+            <ReactPlayer 
             width={width} 
             height={height} 
-            url={`https://www.youtube.com/watch?v=${trailerUrl ? trailerUrl : "ebffrCkW-Dw"}`} 
-        />
+            url={`https://www.youtube.com/watch?v=${trailerUrl}`} 
+        />}
+        </>
     );
 }
 

@@ -28,7 +28,7 @@ function Sorties({ popularMovies }) {
                 <Box className={classes.flexItem} style={{width: '59%'}}>
                     <Grid container spacing={2} >
                         <Grid item xs={12}>
-                            <BandeAnnonce movieOrSerie={popularMovies[4]} height="400px" width="100%"/>
+                            <BandeAnnonce movieOrSerieData={popularMovies[4]} movieOrSerie="movie" height="400px" width="100%"/>
                         </Grid>
                         {popularMovies.slice(4, 8).map(popularMovie => (
                             <Grid key={popularMovie.id} item xs={3}>
