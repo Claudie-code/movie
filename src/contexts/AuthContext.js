@@ -67,7 +67,6 @@ export function AuthProvider({children}) {
             userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data().favorites));
         }); 
 
-
         return unsubscribe;
     }, [auth]);
 

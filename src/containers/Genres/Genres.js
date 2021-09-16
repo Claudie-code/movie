@@ -19,7 +19,6 @@ function Genres({ moviesGenres }) {
     };
 
     return (
-        <main >
         <Grid container  direction="row"  alignItems="center" spacing={2}>
         {moviesGenres.map(genre => (
             <Grid item key={genre.id}>
@@ -29,7 +28,6 @@ function Genres({ moviesGenres }) {
             </Grid>
         ))}
         </Grid>
-        </main>
     );
 }
 

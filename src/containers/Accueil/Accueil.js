@@ -24,31 +24,29 @@ function Accueil({ popularMovies, topRatedSeries, seriesGenres }) {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     
     return (
-        <main>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        {popularMovies && 
-                            <Paper className={fixedHeightPaper}>
-                                <CarouselAccueil popularMovies={popularMovies} />
-                            </Paper>
-                        }
-                    </Grid>
-                    <Grid item xs={12}>
-                        {popularMovies && 
-                            <Paper className={fixedHeightPaper}>
-                                <Sorties popularMovies={popularMovies} />
-                            </Paper>
-                        }
-                    </Grid>
-                    <Grid item xs={12} >
-                        {topRatedSeries && 
-                            <Paper className={fixedHeightPaper}>
-                                <Series seriesGenres={seriesGenres} topRatedSeries={topRatedSeries} />
-                            </Paper> 
-                        }
-                    </Grid>
-                </Grid>
-        </main>
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                {popularMovies && 
+                    <Paper className={fixedHeightPaper}>
+                        <CarouselAccueil popularMovies={popularMovies} />
+                    </Paper>
+                }
+            </Grid>
+            <Grid item xs={12}>
+                {popularMovies && 
+                    <Paper className={fixedHeightPaper}>
+                        <Sorties popularMovies={popularMovies} />
+                    </Paper>
+                }
+            </Grid>
+            <Grid item xs={12} >
+                {topRatedSeries && 
+                    <Paper className={fixedHeightPaper}>
+                        <Series seriesGenres={seriesGenres} topRatedSeries={topRatedSeries} />
+                    </Paper> 
+                }
+            </Grid>
+        </Grid>
     );
 }
 

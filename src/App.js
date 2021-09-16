@@ -68,7 +68,7 @@ function App() {
       <CssBaseline />
       <Router>
           <Header popularMovies={popularMovies} darkState={darkState} setDarkState={setDarkState}/>
-          <Container maxWidth="lg" className={classes.container}>
+          <Container component="main" maxWidth="lg" className={classes.container}>
             {loadingMovies & loadingSeries?
               <Loader /> :
               <Switch>
