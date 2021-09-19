@@ -31,7 +31,7 @@ export default function MovieSerieDetails({ movieOrSerieData, movieOrSerie }) {
         {movieOrSerieData &&
         <Paper className={classes.paper}>
             <Box display="flex" justifyContent="space-between">
-                <Title>{movieOrSerieData.name}</Title>
+                <Title>{movieOrSerieData.name || movieOrSerieData.title}</Title>
                 {currentUser && <FavoriteCheckBox serieAndMovie={movieOrSerieData}/>}
             </Box>
             <BandeAnnonce movieOrSerieData={movieOrSerieData} movieOrSerie={movieOrSerie} width='100%' height="650px"/>

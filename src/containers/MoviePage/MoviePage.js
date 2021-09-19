@@ -33,7 +33,7 @@ export default function MoviePage(props) {
         <>
             {loading ? 
                 <Loader /> :
-                <MovieSerieDetails movieOrSerie={movie} movieOrSerie={movie}/>
+                <MovieSerieDetails movieOrSerieData={movie} movieOrSerie="movie"/>
             }
         </>
     )
