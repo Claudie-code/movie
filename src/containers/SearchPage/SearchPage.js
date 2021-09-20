@@ -11,7 +11,7 @@ export default function SearchPage() {
     const { search } = useParams();
     const [page, setPage] = useState(1);
     const [ searchResults, loading ] = useApiData(`
-        https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&query=${search}&page=${page}&include_adult=false`, search, page
+        https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&query=${search}&page=${page}&include_adult=false&sort_by=popularity.desc`, search, page
     );
     console.log(searchResults)
     return (

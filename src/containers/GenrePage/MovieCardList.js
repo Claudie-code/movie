@@ -2,6 +2,7 @@ import { Box, CardMedia, Grid, Typography, Card, CardContent, CardActionArea } f
 import Rating from '@material-ui/lab/Rating';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
+    button: {
+        fontStyle: "italic"
+    }
 }));
 
 function GenrePage(props) {
@@ -64,7 +68,8 @@ function GenrePage(props) {
                             </Typography>
                         </Box>
                         <Typography variant="body1" color="textSecondary" component="p">
-                            {movie.overview}
+                            {movie.overview.slice(0,200) + "..."} 
+                            <Link className={classes.button} to={`/movie/${movie.id}`}> Lire la suite</Link>
                         </Typography>
                     </CardContent>
                     <div className={classes.rating}>
