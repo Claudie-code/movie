@@ -22,7 +22,7 @@ function ImageFilm({ popularMovie }) {
     const classes = useStyles();
 
     return (
-        <CardActionArea className={classes.root}>
+        <CardActionArea className={classes.root} href={`/movie/${popularMovie.id}`}>
             <CardMedia
             className={classes.cover}
             image={`https://image.tmdb.org/t/p/w780${popularMovie.poster_path}`}

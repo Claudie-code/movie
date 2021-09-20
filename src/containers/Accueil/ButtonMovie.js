@@ -9,13 +9,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 0',
-    paddingLeft: theme.spacing(1)
+    paddingLeft: theme.spacing(1),
+    textDecoration: 'none'
   },
   content: {
     flex: '1 0',
@@ -34,7 +35,7 @@ export default function MediaControlCard({ popularMovie }) {
   const classes = useStyles();
   
   return (
-      <CardActionArea className={classes.root}>
+      <CardActionArea className={classes.root} href={`/movie/${popularMovie.id}`}>
         <CardMedia
           className={classes.cover}
           image={`https://image.tmdb.org/t/p/w780${popularMovie.poster_path}`}
