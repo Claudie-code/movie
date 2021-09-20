@@ -162,7 +162,12 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
                 <>
                   <img className={classes.marginRight} 
                     src={`https://image.tmdb.org/t/p/w92${option.backdrop_path}`} alt={option.title} />
-                  <Link to={`/movie/${option.id}`}>{option.title}</Link>
+                  <Link 
+                    style={{textDecoration:"none", color: "inherit"}} 
+                    to={`/movie/${option.id}`}
+                  >
+                    {option.title}
+                  </Link>
                 </>
               )}
               renderInput={params => (

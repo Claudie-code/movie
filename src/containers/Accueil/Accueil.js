@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         overflowX: "auto",
         flexDirection: "column",
-        minHeight: 470
+        minHeight: 470,
+        textDecoration:"none"
     },
 }));
 
