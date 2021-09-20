@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 export default function MovieSerieDetails({ movieOrSerieData, movieOrSerie }) {
     const { currentUser } = useAuth();
     const classes = useStyles();
-
+    console.log(movieOrSerieData)
     return (
         <>
         {movieOrSerieData &&
@@ -41,7 +41,7 @@ export default function MovieSerieDetails({ movieOrSerieData, movieOrSerie }) {
             </Box>
             <ReleaseDate releaseDate={movieOrSerieData.release_date} />
             <Typography variant="body1" gutterBottom>
-                {movieOrSerieData.overview}
+                {movieOrSerieData.overview || "Pas de résumé"}
             </Typography>
         </Paper>
         }

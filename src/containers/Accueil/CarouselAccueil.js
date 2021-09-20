@@ -15,13 +15,13 @@ function CarouselAccueil({ popularMovies }) {
         <React.Fragment>
           <Title>Populaires en ce moment</Title>
             <Carousel >
-              {popularMovies && popularMovies.slice(0, 2).map(popularMovie => (
+              {popularMovies && popularMovies.slice(0, 3).map(popularMovie => (
                 <Carousel.Item key={popularMovie.id}>
                   <Link to={`/movie/${popularMovie.id}`}>
                     <img
                       className="d-block w-100"
                       src={`https://image.tmdb.org/t/p/w${taille}${popularMovie.backdrop_path}`}
-                      alt="First slide"
+                      alt={popularMovie.title}
                     />
                   </Link>
                   <Carousel.Caption>

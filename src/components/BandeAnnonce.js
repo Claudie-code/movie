@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import { useLocation } from 'react-router';
 
 function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
+    let location = useLocation();
     const [trailerUrl, setTrailerUrl] = useState(null)
 
     useEffect(() => {
@@ -27,12 +29,25 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
 
     return (
         <>
-        {trailerUrl &&
+        {trailerUrl ? 
             <ReactPlayer 
-            width={width} 
-            height={height} 
-            url={`https://www.youtube.com/watch?v=${trailerUrl}`} 
-        />}
+                width={width} 
+                height={height} 
+                url={`https://www.youtube.com/watch?v=${trailerUrl}`}
+            /> : 
+            location.pathname === "/" ?
+            <ReactPlayer 
+                width={width} 
+                height={height} 
+                url={`https://www.youtube.com/watch?v=D00MGLC91-M`}
+            /> :
+            <img
+                width={width}
+                height={height}
+                src={`https://image.tmdb.org/t/p/w1280${movieOrSerieData.backdrop_path}`}
+            >
+            </img>
+        }
         </>
     );
 }
