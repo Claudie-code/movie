@@ -13,7 +13,7 @@ function GenrePage() {
     const [ moviesGenre, loading ] = useApiData(`
         https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&sort_by=popularity.desc&include_video=false&page=${page}&with_genres=${id}&with_watch_monetization_types=flatrate
     `, id, page);
-
+    console.log(moviesGenre)
     return (
         <>
             <Title>Films {name}</Title>

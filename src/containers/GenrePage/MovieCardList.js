@@ -61,7 +61,7 @@ function GenrePage(props) {
                     <CardContent className={classes.content}>
                         <Box>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {movie.title}
+                                {movie.title || movie.name}
                             </Typography>
                             <Typography variant="subtitle1" color="textSecondary" component="p">
                                 {movie.release_date}
