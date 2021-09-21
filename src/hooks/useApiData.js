@@ -13,9 +13,11 @@ export const useApiData = (url, search, page) => {
         })
         .then(response => response.json())
         .then(json => {
+            console.log(json, search, page)
             setData(json.results)
         })
         .catch(err => {
+            console.log(search, page)
             console.error(err);
         })
         .finally(

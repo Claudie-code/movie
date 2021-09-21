@@ -46,7 +46,7 @@ function GenrePage(props) {
     const classes = useStyles();
 
     return (
-        <React.Fragment>
+        <>
         {props.movies.map(movie => (
             <Grid item xs={12} key={movie.id}>
                 <Card className={classes.root}>
@@ -79,7 +79,7 @@ function GenrePage(props) {
                 </Card>
             </Grid>
         ))}
-        </React.Fragment>
+        </>
     );
 }
 
