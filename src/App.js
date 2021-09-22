@@ -6,7 +6,7 @@ import GenrePage from './containers/GenrePage/GenrePage';
 import Signup from './containers/Signup/Signup';
 import Login from './containers/Login/Login';
 import Profile from './containers/Profile/Profile';
-import SearchPage from './containers/SearchPage/SearchPage';
+import SearchQueryPage from './containers/SearchQueryPage/SearchQueryPage';
 import MoviePage from './containers/MoviePage/MoviePage';
 import SeriePage from './containers/SeriePage/SeriePage';
 import Loader from './components/Loader/Loader';
@@ -86,7 +86,7 @@ function App() {
                 <Route exact path="/genres/:id/:name" component={GenrePage} />
                 <Route exact path="/movie/:id" component={MoviePage} />
                 <Route exact path="/serie/:id" component={SeriePage} />
-                <Route exact path="/search/:search" component={SearchPage} />
+                <Route exact path="/search/:search" component={SearchQueryPage} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/forgot-password" component={ForgotPassword} />
