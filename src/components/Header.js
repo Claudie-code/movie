@@ -5,7 +5,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Autocomplete } from '@material-ui/lab';
+import { Alert, Autocomplete } from '@material-ui/lab';
 import { 
   TextField, AppBar, Toolbar, MenuItem, Menu, Typography, IconButton, Button, Switch 
 } from '@material-ui/core';
@@ -204,6 +204,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
                 <AccountCircle />
               </IconButton> 
               <Button onClick={handleLogout} color="inherit">Log out</Button>
+              {error && <Alert severity="error">{error}</Alert>}
             </div> :
             <div>
               <Button onClick={() => handleMenuClick("/login")} color="inherit">Log in</Button>
