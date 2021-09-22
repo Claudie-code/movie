@@ -18,7 +18,7 @@ export const useApiDataGenres = (url) => {
         .catch(err => {
             console.error(err);
         });
-    }, [])
+    }, [url])
 
     return data;
 };

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
     let location = useLocation();
     const [trailerUrl, setTrailerUrl] = useState(null)
-    console.log(movieOrSerieData)
+
     useEffect(() => {
         fetch(`
             https://api.themoviedb.org/3/${movieOrSerie}/${movieOrSerieData.id}/videos?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, 
@@ -26,7 +26,7 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
         .catch(err => {
             console.error(err);
         });
-    }, [])
+    }, [movieOrSerie, movieOrSerieData.id])
 
     return (
         <>
@@ -46,6 +46,7 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
                 width={width}
                 height={height}
                 src={`https://image.tmdb.org/t/p/w1280${movieOrSerieData.backdrop_path}`}
+                alt={movieOrSerieData.title || movieOrSerieData.name}
             >
             </img>
         }

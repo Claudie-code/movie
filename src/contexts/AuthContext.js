@@ -68,7 +68,7 @@ export function AuthProvider({children}) {
         }); 
 
         return unsubscribe;
-    }, [auth]);
+    }, []);
 
     const value = {
         favorites,

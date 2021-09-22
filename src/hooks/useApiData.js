@@ -23,7 +23,7 @@ export const useApiData = (url, search, page) => {
               setLoading(false);
             },
         );
-    }, [page, search]);
+    }, [page, search, url]);
 
     return [data, loading];
 };

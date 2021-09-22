@@ -27,7 +27,7 @@ export default function MoviePage({ serieAndMovie }) {
                 setChecked(false);
             }
         }
-    }, [favorites])
+    }, [favorites, serieAndMovie?.id])
 
     return (
         <>

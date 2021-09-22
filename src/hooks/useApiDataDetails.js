@@ -17,7 +17,7 @@ export const useApiDataDetails = (url) => {
         .catch(err => {
             console.error(err);
         });
-    }, [])
+    }, [url])
 
     return data;
 };
