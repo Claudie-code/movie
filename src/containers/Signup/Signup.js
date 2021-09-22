@@ -36,7 +36,7 @@ function Signup(props) {
     async function handleSubmit(event) {
         event.preventDefault();
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError('Passwords do not match');
+            return setError('Les mots de passe ne correspondent pas');
         }
         try {
             setLoading(true);

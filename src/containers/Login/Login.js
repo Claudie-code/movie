@@ -39,7 +39,7 @@ function Login() {
             getFavorites();
             history.push('/');
         } catch {
-            setError('Erreur de connexion');
+            setError('Echec de la connexion');
         }
         setLoading(false);
     };

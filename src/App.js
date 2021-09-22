@@ -6,6 +6,7 @@ import GenrePage from './containers/GenrePage/GenrePage';
 import Signup from './containers/Signup/Signup';
 import Login from './containers/Login/Login';
 import Profile from './containers/Profile/Profile';
+import Account from './containers/Account/Account';
 import SearchQueryPage from './containers/SearchQueryPage/SearchQueryPage';
 import MoviePage from './containers/MoviePage/MoviePage';
 import SeriePage from './containers/SeriePage/SeriePage';
@@ -91,6 +92,7 @@ function App() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/forgot-password" component={ForgotPassword} />
                 <PrivateRoute exact path="/profile" component={Profile} seriesGenres={seriesGenres} moviesGenres={moviesGenres} />
+                <PrivateRoute exact path="/account" component={Account} />
               </Switch>
             }
           </Container>
