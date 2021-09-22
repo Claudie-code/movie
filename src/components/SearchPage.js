@@ -3,7 +3,7 @@ import Title from "./Title";
 import Pagination from '@material-ui/lab/Pagination';
 import { Grid } from '@material-ui/core';
 import { useApiData } from '../hooks/useApiData';
-import MovieCardList from '../containers/GenrePage/MovieCardList';
+import MovieCardList from './MovieCardList';
 import Loader from './Loader/Loader';
 
 export default function SearchPage({apiURL, search, name}) {

@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 export default function Profile({ seriesGenres, moviesGenres }) {
     const classes = useStyles();
     const { currentUser, favorites } = useAuth();
-    console.log("favoris profile", favorites)
+
     return (
 
         <Paper className={classes.paper}>

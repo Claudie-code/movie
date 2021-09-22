@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 export default function MovieSerieDetails({ movieOrSerieData, movieOrSerie }) {
     const { currentUser } = useAuth();
     const classes = useStyles();
-    console.log(movieOrSerieData)
+
     return (
         <>
         {movieOrSerieData &&

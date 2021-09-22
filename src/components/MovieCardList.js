@@ -50,7 +50,7 @@ function GenrePage(props) {
         {props.movies.map(movie => (
             <Grid item xs={12} key={movie.id}>
                 <Card className={classes.root}>
-                    <CardActionArea href={`/movie/${movie.id}`} className={classes.mediaRoot}>
+                    <CardActionArea href={movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`} className={classes.mediaRoot}>
                         <CardMedia
                             className={classes.cover}
                             image={`https://image.tmdb.org/t/p/w780${movie && movie.poster_path}`}
@@ -69,7 +69,7 @@ function GenrePage(props) {
                         </Box>
                         <Typography variant="body1" color="textSecondary" component="p">
                             {movie.overview.slice(0,200) + "..."} 
-                            <Link className={classes.button} to={`/movie/${movie.id}`}> Lire la suite</Link>
+                            <Link className={classes.button} to={movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`}> Lire la suite</Link>
                         </Typography>
                     </CardContent>
                     <div className={classes.rating}>
