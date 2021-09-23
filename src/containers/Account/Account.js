@@ -3,6 +3,7 @@ import { Alert } from '@material-ui/lab';
 import { useRef, useState } from 'react';
 import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,29 +24,43 @@ export default function Account() {
     const [ error, setError ] = useState('');
     const [loading, setLoading] = useState(false);
     const classes = useStyles();
-    const { currentUser } = useAuth();
+    const { currentUser, updateEmail, updatePassword, updateDisplayName } = useAuth();
     const emailRef = useRef();
     const lnameRef = useRef();
     const fnameRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
     const [ fname, lname ] = currentUser.displayName.split(' ');
+    const history = useHistory();
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError('Les mots de passe ne correspondent pas');
         }
-        try {
-            setLoading(true);
-            setError('');
-            //await signup(emailRef.current.value, passwordRef.current.value);
-            //await updateDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`);
 
-        } catch {
-            setError('Erreur lors de la création du compte');
+        const promises = [];
+        setLoading(true);
+        setError('');
+        if(emailRef.current.value !== currentUser.email) {
+            promises.push(updateEmail(emailRef.current.value))
         }
-        setLoading(false);
+
+        if(passwordRef.current.value) {
+            promises.push(updatePassword(passwordRef.current.value))
+        }
+
+        if(lnameRef.current.value !== lname || fnameRef.current.value !== fname) {
+            promises.push(updateDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`))
+        }
+
+        Promise.all(promises).then(() => {
+            history.push('/');
+        }).catch(() => {
+            setError('Echec de la mise à jour du compte')
+        }).finally(() => {
+            setLoading(false)
+        })
     };
 
     return (
@@ -100,7 +115,7 @@ export default function Account() {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                variant="outlined"
+                                variant="outlined"  
                                 fullWidth
                                 name="password"
                                 label="Mot de passe: optionnel"
@@ -113,7 +128,6 @@ export default function Account() {
                         <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
-                                required
                                 fullWidth
                                 name="passwordConfirm"
                                 label="Confirmer le mot de passe"
@@ -125,7 +139,7 @@ export default function Account() {
                         </Grid>
                         <Grid item xs={12} >
                             <Button 
-                                //disabled={loading}
+                                disabled={loading}
                                 type="submit"
                                 fullWidth
                                 variant="contained"
