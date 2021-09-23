@@ -15,7 +15,7 @@ export function AuthProvider({children}) {
     const [loading, setLoading] = useState(true);
     const [favorites, setFavorites] = useState();
 
-    function createDisplayName(newName) {
+    function updateDisplayName(newName) {
         return auth.currentUser.updateProfile({displayName: newName})
     };
 
@@ -81,7 +81,7 @@ export function AuthProvider({children}) {
         addFavoritesUserCollection,
         removeFavoritesUserCollection,
         createUserCollection,
-        createDisplayName,
+        updateDisplayName,
         login,
         signup,
         logout,
