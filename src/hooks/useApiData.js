@@ -13,9 +13,11 @@ export const useApiData = (url, search, page) => {
         })
         .then(response => response.json())
         .then(json => {
-            if(json.results.length > 0) {
+            if(json.results) {
                 setData(json.results)
-            } else if (json.results.length = 0) {
+            } else if (json.genres) {
+                setData(json.genres)
+            } else if ((!json.results && !json.genres)) {
                 setData(json)
             }
         })

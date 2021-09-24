@@ -21,7 +21,6 @@ import { orange, cyan, deepPurple, deepOrange } from "@material-ui/core/colors";
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import { useApiData } from './hooks/useApiData';
-import { useApiDataGenres } from './hooks/useApiDataGenres';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -37,16 +36,16 @@ function App() {
   const [topRatedSeries, loadingSeries] = useApiData(`
     https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1
   `);
-  const moviesGenres = useApiDataGenres(`
+  const [ moviesGenres, loadingMoviesGenres ] = useApiData(`
     https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
   `);
 
-  const seriesGenres = useApiDataGenres(`
+  const [ seriesGenres, loadingSeriesGenres ] = useApiData(`
     https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
   `);
 
   const classes = useStyles();
-
+  console.log("genres",seriesGenres)
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? "dark" : "light";
   const mainPrimaryColor = darkState ? orange[600] : cyan[600];
