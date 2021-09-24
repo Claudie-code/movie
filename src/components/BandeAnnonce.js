@@ -27,7 +27,7 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
             console.error(err);
         });
     }, [movieOrSerie, movieOrSerieData.id])
-
+    console.log(movieOrSerieData)
     return (
         <>
         {trailerUrl ? 
@@ -42,13 +42,19 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
                 height={height} 
                 url={`https://www.youtube.com/watch?v=D00MGLC91-M`}
             /> :
+            movieOrSerieData.backdrop_path ?
             <img
                 width={width}
                 height={height}
                 src={`https://image.tmdb.org/t/p/w1280${movieOrSerieData.backdrop_path}`}
                 alt={movieOrSerieData.title || movieOrSerieData.name}
-            >
-            </img>
+            /> : 
+            <img
+                height={height}
+                style={{margin:"auto"}}
+                src={`https://image.tmdb.org/t/p/w1280${movieOrSerieData.poster_path}`}
+                alt={movieOrSerieData.title || movieOrSerieData.name}
+            />
         }
         </>
     );
