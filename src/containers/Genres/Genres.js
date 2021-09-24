@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
-        height: "100px",
-        width: "400px"
+        height: "75px",
+        width: "380px"
     },
   }));
 
@@ -19,7 +19,13 @@ function Genres({ moviesGenres }) {
     };
 
     return (
-        <Grid container  direction="row"  alignItems="center" spacing={2}>
+        <Grid container  
+            direction="row"  
+            alignItems="center" 
+            justifyContent="center" 
+            spacing={3}
+            style={{marginTop:"3rem", marginBottom:"3rem"}}
+        >
         {moviesGenres.map(genre => (
             <Grid item key={genre.id}>
                 <Button onClick={() => onClickGenre(genre.id, genre.name)} variant="contained" color="primary" className={classes.padding}>

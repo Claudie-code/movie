@@ -36,16 +36,15 @@ function App() {
   const [topRatedSeries, loadingSeries] = useApiData(`
     https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1
   `);
-  const [ moviesGenres, loadingMoviesGenres ] = useApiData(`
+  const [ moviesGenres ] = useApiData(`
     https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
   `);
 
-  const [ seriesGenres, loadingSeriesGenres ] = useApiData(`
+  const [ seriesGenres ] = useApiData(`
     https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
   `);
 
   const classes = useStyles();
-  console.log("genres",seriesGenres)
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? "dark" : "light";
   const mainPrimaryColor = darkState ? orange[600] : cyan[600];
