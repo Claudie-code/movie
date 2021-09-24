@@ -13,7 +13,11 @@ export const useApiData = (url, search, page) => {
         })
         .then(response => response.json())
         .then(json => {
-            setData(json.results)
+            if(json.results.length > 0) {
+                setData(json.results)
+            } else if (json.results.length = 0) {
+                setData(json)
+            }
         })
         .catch(err => {
             console.error(err);
