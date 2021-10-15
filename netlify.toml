@@ -1,0 +1,8 @@
+[build]
+  ignore = "false" 
+  ignore = "false"
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200 
