@@ -27,7 +27,7 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
             console.error(err);
         });
     }, [movieOrSerie, movieOrSerieData.id])
-    console.log(movieOrSerieData)
+
     return (
         <>
         {trailerUrl ? 

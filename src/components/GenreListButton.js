@@ -15,12 +15,11 @@ export default function GenreListButton(props) {
 
     return (
         <Box>
-            {props.genres.map(genre => (
+            {props.genres && props.genres.map(genre => (
                 <Button key={genre.id} size="large" variant="outlined" color="primary" className={classes.margin} onClick={()=> {history.replace(`/genres/${genre.id}/${genre.name}`)}}>
                     {genre.name}
                 </Button>
             ))}
-
         </Box>
     )
 }

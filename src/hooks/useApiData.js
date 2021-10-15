@@ -15,6 +15,8 @@ export const useApiData = (url, search, page) => {
         .then(json => {
             if(json.results) {
                 setData(json.results)
+            } else if (json.id) {
+                setData(json)
             } else if (json.genres) {
                 setData(json.genres)
             } else if ((!json.results && !json.genres)) {
