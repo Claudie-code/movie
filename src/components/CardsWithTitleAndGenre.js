@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#fff",
         width: "100%",
         padding: theme.spacing(1),
-        paddingBottom: theme.spacing(1)
+        paddingBottom: theme.spacing(1),
     }
 }));
 
@@ -55,7 +55,8 @@ function CardsWithTitleAndGenre({ seriesAndMovies, seriesGenres, moviesGenres, m
         <Box className={classes.flex}>
             {seriesAndMovies && seriesAndMovies.map(element => (
                 <Paper elevation={3} key={element.id} className={classes.root}>
-                    <CardActionArea href={movie ? `/movie/${element.id}` : `/serie/${element.id}`}>
+                    <CardActionArea style={{textDecoration: "none"}}
+                        href={movie ? `/movie/${element.id}` : `/serie/${element.id}`}>
                         <CardMedia
                             alt={element.name ? element.name : element.title}
                             className={classes.cover}
