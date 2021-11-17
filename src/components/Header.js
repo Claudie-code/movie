@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
   },
   fontSize: {
-    fontSize: "1.7rem"
+    fontSize: "1.2rem",
+    [theme.breakpoints.up('sm')]: {
+      fontSize: "1.7rem"
+    },
   },
   middleBar: {
     display: "flex",
@@ -57,10 +60,10 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInputBase-input': {
       width: '100%',
       transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('lg')]: {
         width: 200,
         '&:focus': {
-          width: 400,
+          width: 300,
         },
       },
     }

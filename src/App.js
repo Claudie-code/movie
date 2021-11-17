@@ -57,6 +57,14 @@ function App() {
       },
       secondary: {
         main: mainSecondaryColor
+      },
+    },  
+    typography: {
+      h2: {
+        fontSize: '1.7rem',
+        '@media (min-width:600px)': {
+          fontSize: '2.2rem',
+        },
       }
     }
   });
