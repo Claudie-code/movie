@@ -18,29 +18,31 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
   },
   fontSize: {
     fontSize: "1.7rem"
   },
   middleBar: {
     display: "flex",
-    margin: "auto"
+    margin: "auto",
+    gap: theme.spacing(2)
   },
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: "100%",
+    [theme.breakpoints.up('lg')]: {
       display: 'flex',
-      alignItems: "center"
     },
   },
   sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: "100%",
+    [theme.breakpoints.up('lg')]: {
+      display: 'none'
     },
   },
   marginRight: {
@@ -50,6 +52,24 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing(1)
+  },
+  autocomplete: {
+    '& .MuiInputBase-input': {
+      width: '100%',
+      transition: theme.transitions.create('width'),
+      [theme.breakpoints.up('md')]: {
+        width: 200,
+        '&:focus': {
+          width: 400,
+        },
+      },
+    }
+  },
+  categories: {
+    display: "none",
+    [theme.breakpoints.up('md')]: {
+      display: "block",
+    },
   }
 }));
 
@@ -58,12 +78,14 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
   const titleRef = useRef();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [searchOpen, setSearchOpen] = useState(null);
   const history = useHistory();
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState('');
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isSearchOpen = Boolean(searchOpen);
 
   async function handleLogout() {
     setError('');
@@ -83,6 +105,10 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
     setMobileMoreAnchorEl(null);
   };
 
+  const handleSearchClose = () => {
+    setSearchOpen(null);
+  };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -90,6 +116,10 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleSearchOpen = (event) => {
+    setSearchOpen(event.currentTarget);
   };
 
   const handleMenuClick = pageURL => {
@@ -102,6 +132,57 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
     event.preventDefault();
     history.push(`/search/${titleRef.current.value}`);
   }
+
+  const searchId = 'search-menu';
+  const renderSearch = (
+    <Menu
+      anchorEl={searchOpen}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={searchId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isSearchOpen}
+      onClose={handleSearchClose}
+    >
+      <MenuItem onClick={() => handleMenuClick('/genres')}>Catégories</MenuItem>
+      <Autocomplete
+        style={{paddingLeft: '20px'}}
+        id="movies_select"
+        options={popularMovies}
+        getOptionLabel={option => option.title}
+        className={classes.autocomplete}
+        renderOption={(option) => (
+          <>
+            <img className={classes.marginRight} 
+              src={`https://image.tmdb.org/t/p/w92${option.backdrop_path}`} alt={option.title} />
+            <Link 
+              style={{textDecoration:"none", color: "inherit"}} 
+              to={`/movie/${option.id}`}
+            >
+              {option.title}
+            </Link>
+          </>
+        )}
+        renderInput={params => (
+          <form className={classes.search} onSubmit={handleSubmit}>
+            <TextField {...params}
+              variant="outlined"
+              label="Recherche un film, une série..."
+              size="small"
+              color="secondary"
+              inputRef={titleRef}
+            />
+            <IconButton 
+              type="submit"
+              aria-label="search"
+              color="secondary">
+              <SearchIcon />
+            </IconButton>
+          </form>
+        )}
+      />
+    </Menu>
+  );
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -130,17 +211,18 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      { currentUser ? 
+        <div>
+          <MenuItem onClick={() => handleMenuClick("/profile")}>Profile</MenuItem>
+          <MenuItem onClick={() => handleMenuClick("/account")}>My account</MenuItem>
+          <MenuItem onClick={() => handleLogout()}>Log out</MenuItem>
+          {error && <Alert severity="error">{error}</Alert>}
+        </div> :
+        <div>
+          <MenuItem onClick={() => handleMenuClick("/login")}>Log in</MenuItem>
+          <MenuItem onClick={() => handleMenuClick("/signup")}>Sign up</MenuItem>
+        </div>
+      }
     </Menu>
   );
 
@@ -148,16 +230,18 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-          <MenuItem className={classes.fontSize} onClick={() => handleMenuClick('/')}>MovieTrend</MenuItem>
+          <Typography className={classes.title} variant="h6">
+            <MenuItem className={classes.fontSize} onClick={() => handleMenuClick('/')}>MovieTrend</MenuItem>
           </Typography>
+
+          <div className={classes.sectionDesktop}>
           <div className={classes.middleBar}>
-            <Button className={classes.marginRight} onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
+            <Button className={classes.categories} onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
             <Autocomplete
               id="movies_select"
               options={popularMovies}
               getOptionLabel={option => option.title}
-              style={{ width: 500 }}
+              className={classes.autocomplete}
               renderOption={(option) => (
                 <>
                   <img className={classes.marginRight} 
@@ -189,7 +273,6 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
               )}
             />
           </div>
-          <div className={classes.sectionDesktop}>
           <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
           { currentUser ? 
             <div>
@@ -213,6 +296,14 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
           }
           </div>
           <div className={classes.sectionMobile}>
+            <IconButton 
+              aria-label="open search"
+              onClick={handleSearchOpen}
+              aria-controls={searchId}
+              color="secondary">
+              <SearchIcon />
+            </IconButton>
+            <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -225,6 +316,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
           </div>
         </Toolbar>
       </AppBar>
+      {renderSearch}
       {renderMobileMenu}
       {renderMenu}
     </div>
