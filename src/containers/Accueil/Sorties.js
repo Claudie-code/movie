@@ -67,7 +67,7 @@ function Sorties({ popularMovies }) {
                             <BandeAnnonce movieOrSerieData={popularMovies[4]} movieOrSerie="movie"/>
                         </Grid>
                         {popularMovies.slice(4, 8).map(popularMovie => (
-                            <Grid justifyContent="center" key={popularMovie.id} item 
+                            <Grid key={popularMovie.id} item 
                                 xs={6} sm={3}
                                 className={classes.imageGrid}>
                                 <ImageFilm popularMovie={popularMovie}/>

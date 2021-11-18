@@ -143,6 +143,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={searchId}
       keepMounted
+      style={{height: "400px"}}
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isSearchOpen}
       onClose={handleSearchClose}

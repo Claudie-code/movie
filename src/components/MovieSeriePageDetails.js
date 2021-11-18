@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "center",
         marginTop: theme.spacing(2),
         gap: "10px",
-        justifyContent: "space-between",
         '@media (max-width:800px)': {
             flexDirection: "column",
         },
@@ -45,7 +44,9 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                 <GenreListButton genres={movieOrSerieData.genres} />
                 <Rating name="size-medium" value={(movieOrSerieData.vote_average * 5) / 10} readOnly />
             </Box>
-            <ReleaseDate releaseDate={movieOrSerieData.release_date} />
+            <ReleaseDate>
+                {movieOrSerieData.release_date}
+            </ReleaseDate>
             <Typography variant="body1" gutterBottom>
                 {movieOrSerieData.overview || "Pas de résumé"}
             </Typography>

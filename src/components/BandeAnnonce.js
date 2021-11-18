@@ -51,13 +51,15 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
         <div className={classes.videocontainer}>
         {trailerUrl ? 
             <iframe src={`https://www.youtube.com/embed/${trailerUrl}`} 
+                title="movie trailer"
                 width="100%" 
                 height="315"
                 frameBorder="0" 
                 allowFullScreen>
-            </iframe>: 
+            </iframe> : 
             location.pathname === "/" ?
             <iframe src={`https://www.youtube.com/embed/D00MGLC91-M`} 
+                title="movie home trailer"
                 width="100%" 
                 height="315"
                 frameBorder="0" 

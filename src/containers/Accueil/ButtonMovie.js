@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   cover: {
     width: 120,
     height: 200,
-    '@media (min-width:850px)': {
+    '@media (min-width:650px)': {
       width: 100,
       height: 150,
     },
