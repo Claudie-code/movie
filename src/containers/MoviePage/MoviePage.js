@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MovieSerieDetails from '../../components/MovieSerieDetails';
+import MovieSeriePageDetails from '../../components/MovieSeriePageDetails';
 import Loader from '../../components/Loader/Loader';
 
 export default function MoviePage(props) {
@@ -33,7 +33,7 @@ export default function MoviePage(props) {
         <>
             {loading ? 
                 <Loader /> :
-                <MovieSerieDetails movieOrSerieData={movie} movieOrSerie="movie"/>
+                <MovieSeriePageDetails movieOrSerieData={movie} movieOrSerie="movie"/>
             }
         </>
     )

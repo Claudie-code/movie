@@ -15,14 +15,20 @@ const useStyles = makeStyles(theme => ({
         flexDirection: "column",
         minHeight: 500
     },
-    margin: {
+    rating: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         marginTop: theme.spacing(2),
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(2)
-    },
+        gap: "10px",
+        justifyContent: "space-between",
+        '@media (max-width:800px)': {
+            flexDirection: "column",
+        },
+    }
 }));
 
-export default function MovieSerieDetails({ movieOrSerieData, movieOrSerie }) {
+export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }) {
     const { currentUser } = useAuth();
     const classes = useStyles();
 
@@ -35,7 +41,7 @@ export default function MovieSerieDetails({ movieOrSerieData, movieOrSerie }) {
                 {currentUser && <FavoriteCheckBox serieAndMovie={movieOrSerieData}/>}
             </Box>
             <BandeAnnonce movieOrSerieData={movieOrSerieData} movieOrSerie={movieOrSerie} width='100%' height="650px"/>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box className={classes.rating}>
                 <GenreListButton genres={movieOrSerieData.genres} />
                 <Rating name="size-medium" value={(movieOrSerieData.vote_average * 5) / 10} readOnly />
             </Box>

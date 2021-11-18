@@ -11,10 +11,16 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     paddingTop: "110%",
     objectFit: "contain",
-    display: 'flex',
-    justifyContent: "center",
-    alignItems: 'center',
   },
+  content: {
+    background: "linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 15%, rgba(0,0,0,.45) 35%, rgba(0,0,0,.60) 50%, rgba(0,0,0,.75) 75%, rgba(0,0,0,0.90) 100%)",
+    color: "#fff",
+    width: "100%",
+    padding: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    display: "flex",
+    justifyContent: "center",
+  }
 }));
 
 function ImageFilm({ popularMovie }) {
@@ -27,7 +33,9 @@ function ImageFilm({ popularMovie }) {
           image={`https://image.tmdb.org/t/p/w780${popularMovie.poster_path}`}
           title={popularMovie.title}
         >
-          <PlayButton />
+          <div className={classes.content}>
+            <PlayButton />
+          </div>
         </CardMedia>          
       </CardActionArea>
     );

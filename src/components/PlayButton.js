@@ -4,15 +4,15 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const useStyles = makeStyles((theme) => ({
     playIcon: {
-        color: theme.palette.action.active,
+        color: theme.palette.primary.main,
         height: 40,
         width: 40,
         border: "2px solid",
-        borderColor: theme.palette.action.active,
+        borderColor: theme.palette.primary.main,
         borderRadius: "50%",
+        transition: "all 0.2s ease-in-out",
         '&:hover': {
-            color: theme.palette.primary.main,
-            border: "2px solid" + theme.palette.primary.main,
+            transform: "scale(1.2)"
         }
     },
 }));

@@ -1,4 +1,4 @@
-import MovieSerieDetails from '../../components/MovieSerieDetails';
+import MovieSeriePageDetails from '../../components/MovieSeriePageDetails';
 import { useApiData } from '../../hooks/useApiData';
 import Loader from '../../components/Loader/Loader';
 
@@ -13,7 +13,7 @@ export default function SeriePage(props) {
         <>
         {loadingSerieDetails ?
             <Loader /> :
-            <MovieSerieDetails movieOrSerieData={serieDetails} movieOrSerie="tv"/>
+            <MovieSeriePageDetails movieOrSerieData={serieDetails} movieOrSerie="tv"/>
         }
         </>
     )

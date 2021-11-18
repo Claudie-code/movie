@@ -1,22 +1,30 @@
-import { Box, makeStyles, Button } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-    margin: {
-        marginTop: theme.spacing(2),
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(2)
-    },
+    root: {
+        display: "flex",
+        gap: "2%",
+        flexWrap: "wrap",
+        width: "100%",
+    }
 }));
 
 export default function GenreListButton(props) {
-    const classes = useStyles();
     const history = useHistory();
+    const classes = useStyles();
 
     return (
-        <Box>
+        <Box className={classes.root}>
             {props.genres && props.genres.map(genre => (
-                <Button key={genre.id} size="large" variant="outlined" color="primary" className={classes.margin} onClick={()=> {history.replace(`/genres/${genre.id}/${genre.name}`)}}>
+                <Button 
+                    key={genre.id} 
+                    size="large" 
+                    variant="outlined" 
+                    color="primary"
+                    onClick={()=> {history.replace(`/genres/${genre.id}/${genre.name}`)}}
+                >
                     {genre.name}
                 </Button>
             ))}

@@ -76,11 +76,13 @@ export function AuthProvider({children}) {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)
-            userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data()?.favorites));
+            if (currentUser) {
+                userCollection.doc(auth.currentUser.uid).onSnapshot(querySnapshot => setFavorites(querySnapshot.data()?.favorites));
+            }
         }); 
 
         return unsubscribe;
-    }, []);
+    }, [currentUser]);
 
     const value = {
         favorites,
