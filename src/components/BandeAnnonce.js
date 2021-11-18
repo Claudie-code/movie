@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
 import { useLocation } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 
