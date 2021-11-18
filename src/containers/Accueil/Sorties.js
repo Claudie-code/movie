@@ -41,13 +41,16 @@ const useStyles = makeStyles((theme) => ({
     grid: {
         '@media (max-width:430px)': {
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "center"
         },
     },
     imageGrid: {
         '@media (max-width:430px)': {
             width: '100%',
         },
+    },
+    trailer: {
+        width: '100%',
     }
 }));
 
@@ -59,9 +62,9 @@ function Sorties({ popularMovies }) {
             <Title>Bandes annonces à ne pas manquer</Title>
             <Box className={classes.flex}>
                 <Box className={classes.firstItem}>
-                    <Grid container spacing={2} className={classes.grid} >
-                        <Grid item xs={12}>
-                            <BandeAnnonce movieOrSerieData={popularMovies[4]} movieOrSerie="movie" height="400px" width="100%"/>
+                    <Grid container spacing={2} className={classes.grid}>
+                        <Grid item xs={12} className={classes.trailer}>
+                            <BandeAnnonce movieOrSerieData={popularMovies[4]} movieOrSerie="movie"/>
                         </Grid>
                         {popularMovies.slice(4, 8).map(popularMovie => (
                             <Grid justifyContent="center" key={popularMovie.id} item 

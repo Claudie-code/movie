@@ -1,8 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useLocation } from 'react-router';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    videocontainer: {
+        width: '100%',
+        height: 0,
+        paddingBottom: "56.25%",
+        overflow: 'hidden',
+        position: 'relative',
+
+        '& iframe, img': {
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+        }
+    }
+}));
 
 function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
+    const classes = useStyles();
     let location = useLocation();
     const [trailerUrl, setTrailerUrl] = useState(null)
 
@@ -29,19 +49,21 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
     }, [movieOrSerie, movieOrSerieData.id])
 
     return (
-        <>
+        <div className={classes.videocontainer}>
         {trailerUrl ? 
-            <ReactPlayer 
-                width={width} 
-                height={height} 
-                url={`https://www.youtube.com/watch?v=${trailerUrl}`}
-            /> : 
+            <iframe src={`https://www.youtube.com/embed/${trailerUrl}`} 
+                width="100%" 
+                height="315"
+                frameBorder="0" 
+                allowFullScreen>
+            </iframe>: 
             location.pathname === "/" ?
-            <ReactPlayer 
-                width={width} 
-                height={height} 
-                url={`https://www.youtube.com/watch?v=D00MGLC91-M`}
-            /> :
+            <iframe src={`https://www.youtube.com/embed/D00MGLC91-M`} 
+                width="100%" 
+                height="315"
+                frameBorder="0" 
+                allowFullScreen>
+            </iframe> :
             movieOrSerieData.backdrop_path ?
             <img
                 width={width}
@@ -56,7 +78,7 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
                 alt={movieOrSerieData.title || movieOrSerieData.name}
             />
         }
-        </>
+        </div>
     );
 }
 
