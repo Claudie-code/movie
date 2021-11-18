@@ -5,25 +5,12 @@ import PlayButton from '../../components/PlayButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 270,
-    '@media (min-width:500px)': {
-      height: 400,
-    },
-    '@media (min-width:600px)': {
-      height: 230,
-    },
-    '@media (min-width:800px)': {
-      height: 300,
-    },
-    '@media (min-width:1000px)': {
-      height: 400,
-    },
-    '@media (min-width:1200px)': {
-      height: 240,
-    },
+    maxHeight: 400,
   },
   cover: {
     height: "100%",
+    paddingTop: "110%",
+    objectFit: "contain",
     display: 'flex',
     justifyContent: "center",
     alignItems: 'center',
