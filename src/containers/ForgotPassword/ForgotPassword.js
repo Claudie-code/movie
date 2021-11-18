@@ -7,13 +7,13 @@ import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      textAlign: 'center',
-      width: 600,
-      margin: '7rem auto',
-      padding: theme.spacing(13)
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        textAlign: 'center',
+        maxWidth: 700,
+        margin: '2rem auto',
+        padding: theme.spacing(5)
     },
     margin: {
         marginTop: theme.spacing(4)
