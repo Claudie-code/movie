@@ -20,11 +20,19 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     height: 300,
+    '@media (min-width:450px)': {
+      height: 400,
+    },
     '@media (min-width:650px)': {
       height: 500,
     },
     '@media (min-width:1000px)': {
       height: "100%",
+    },
+  },
+  text: {
+    '@media (max-width:450px)': {
+      display: "none"
     },
   }
 }));
@@ -49,9 +57,12 @@ function CarouselAccueil({ popularMovies }) {
                   <div className={classes.overlay}></div>
                 </Link>
                 <Carousel.Caption>
-                  <Typography variant="h3" gutterBottom>{popularMovie.title}</Typography>
-                  <Typography variant="body1" gutterBottom>
-                    {popularMovie.overview.slice(0,200) + "..."} <br/> Sortie le {popularMovie.release_date}
+                  <Typography variant="h3">{popularMovie.title}</Typography>
+                  <Typography className={classes.text} variant="body1" gutterBottom>
+                    {popularMovie.overview.slice(0,200) + "..."}
+                  </Typography>
+                  <Typography variant="body2">
+                    Sortie le {popularMovie.release_date}
                   </Typography>
                 </Carousel.Caption>
               </Carousel.Item>

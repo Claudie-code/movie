@@ -10,12 +10,45 @@ import { Box, makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     flex: {
         display: "flex",
-        gap: "1%"
+        gap: "20px",
+        flexDirection: "column",
+        '@media (min-width:1200px)': {
+            flexDirection: "row"
+        },
     },
-    flexItem: {
-        height: "620px",
-        overflow: "hidden"
+    firstItem: {
+        width: '100%',
+        '@media (min-width:1200px)': {
+            width: '59%'
+        },
     },
+    secondItem: {
+        height: "880px",
+        overflow: "hidden",
+        '@media (min-width:750px)': {
+            height: "100%",
+        },
+        '@media (min-width:850px)': {
+            width: '100%',
+            overflow: "hidden",
+            height: "550px",
+        },
+        '@media (min-width:1200px)': {
+            width: '39%',
+            height: "655px",
+        },
+    },
+    grid: {
+        '@media (max-width:430px)': {
+            flexDirection: "column",
+            alignItems: "center",
+        },
+    },
+    imageGrid: {
+        '@media (max-width:430px)': {
+            width: '100%',
+        },
+    }
 }));
 
 function Sorties({ popularMovies }) {
@@ -25,19 +58,21 @@ function Sorties({ popularMovies }) {
         <React.Fragment>
             <Title>Bandes annonces à ne pas manquer</Title>
             <Box className={classes.flex}>
-                <Box className={classes.flexItem} style={{width: '59%'}}>
-                    <Grid container spacing={2} >
+                <Box className={classes.firstItem}>
+                    <Grid container spacing={2} className={classes.grid} >
                         <Grid item xs={12}>
                             <BandeAnnonce movieOrSerieData={popularMovies[4]} movieOrSerie="movie" height="400px" width="100%"/>
                         </Grid>
                         {popularMovies.slice(4, 8).map(popularMovie => (
-                            <Grid key={popularMovie.id} item xs={3}>
+                            <Grid justifyContent="center" key={popularMovie.id} item 
+                                xs={6} sm={3}
+                                className={classes.imageGrid}>
                                 <ImageFilm popularMovie={popularMovie}/>
                             </Grid>
                         ))}
                     </Grid>
                 </Box>
-                <Box className={classes.flexItem} style={{width: '39%'}}>
+                <Box className={classes.secondItem}>
                     <div className="slides">
                         {popularMovies.slice(8, 14).map(popularMovie => (
                             <ButtonMovie key={popularMovie.id} popularMovie={popularMovie}/>

@@ -61,9 +61,21 @@ function App() {
     },  
     typography: {
       h2: {
-        fontSize: '1.7rem',
-        '@media (min-width:600px)': {
-          fontSize: '2.2rem',
+        fontSize: '2.2rem',
+        '@media (min-width:850px)': {
+          fontSize: '3rem',
+        },
+      },
+      h3: {
+        fontSize: '1.8rem',
+        '@media (min-width:850px)': {
+          fontSize: '2.8rem',
+        },
+      },
+      h5: {
+        fontSize: '1.2rem',
+        '@media (min-width:850px)': {
+          fontSize: '1.5rem',
         },
       }
     }
