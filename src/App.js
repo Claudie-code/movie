@@ -61,19 +61,28 @@ function App() {
     },  
     typography: {
       h2: {
-        fontSize: '2.2rem',
+        fontSize: '1.6rem',
+        '@media (min-width:500px)': {
+          fontSize: '2.2rem',
+        },
         '@media (min-width:850px)': {
           fontSize: '3rem',
         },
       },
       h3: {
-        fontSize: '1.8rem',
+        fontSize: '1.3rem',
+        '@media (min-width:500px)': {
+          fontSize: '1.8rem',
+        },
         '@media (min-width:850px)': {
           fontSize: '2.8rem',
         },
       },
       h5: {
-        fontSize: '1.2rem',
+        fontSize: '1rem',
+        '@media (min-width:500px)': {
+          fontSize: '1.2rem',
+        },
         '@media (min-width:850px)': {
           fontSize: '1.5rem',
         },
