@@ -26,22 +26,36 @@ function Signup(props) {
     const lnameRef = useRef();
     const fnameRef = useRef();
     const emailRef = useRef();
-    const passwordRef = useRef();
     const passwordConfirmRef = useRef();
     const { signup, updateDisplayName, createUserCollection, getFavorites } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [password, setPassword] = useState();
+    const [textValidation, setTextValidation] = useState("");
+    const [errorPassword, setErrorPassword] = useState(false);
     const history = useHistory();
+
+    const passwordValidation = (password) => {
+        setPassword(password);
+        console.log(password.length, "taille")
+        if (password.length < 8) {
+            setTextValidation('Le mot de passe doit faire plus de 8 caractères');
+            setErrorPassword(true);
+        } else {
+            setTextValidation('');
+            setErrorPassword(false);
+        }
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+        if (password !== passwordConfirmRef.current.value) {
             return setError('Les mots de passe ne correspondent pas');
         }
         try {
             setLoading(true);
             setError('');
-            await signup(emailRef.current.value, passwordRef.current.value);
+            await signup(emailRef.current.value, password);
             await updateDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`);
             await createUserCollection();
             getFavorites();
@@ -101,6 +115,7 @@ function Signup(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            error={errorPassword}
                             variant="outlined"
                             required
                             fullWidth
@@ -109,7 +124,9 @@ function Signup(props) {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                            inputRef={passwordRef}
+                            value={password}
+                            onChange={event => passwordValidation(event.target.value)}
+                            helperText={textValidation}
                         />
                     </Grid>
                     <Grid item xs={12}>

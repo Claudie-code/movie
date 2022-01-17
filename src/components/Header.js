@@ -223,8 +223,8 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
           {error && <Alert severity="error">{error}</Alert>}
         </div> :
         <div>
-          <MenuItem onClick={() => handleMenuClick("/login")}>Log in</MenuItem>
-          <MenuItem onClick={() => handleMenuClick("/signup")}>Sign up</MenuItem>
+          <MenuItem onClick={() => handleMenuClick("/login")}>Login</MenuItem>
+          <MenuItem onClick={() => handleMenuClick("/signup")}>Signup</MenuItem>
         </div>
       }
     </Menu>
@@ -294,8 +294,8 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
               {error && <Alert severity="error">{error}</Alert>}
             </div> :
             <div>
-              <Button onClick={() => handleMenuClick("/login")} color="inherit">Log in</Button>
-              <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Sign up</Button>
+              <Button onClick={() => handleMenuClick("/login")} color="inherit">Login</Button>
+              <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Signup</Button>
             </div>
           }
           </div>
