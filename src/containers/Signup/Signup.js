@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Paper, Grid, TextField, Button, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         flexDirection: 'column',
         textAlign: 'center',
-        maxWidth: 700,
+        maxWidth: 500,
         margin: '2rem auto',
         padding: theme.spacing(5)
     },
@@ -23,23 +23,28 @@ const useStyles = makeStyles((theme) => ({
 
 function Signup(props) {
     const classes = useStyles();
-    const lnameRef = useRef();
-    const fnameRef = useRef();
-    const emailRef = useRef();
-    const passwordConfirmRef = useRef();
     const { signup, updateDisplayName, createUserCollection, getFavorites } = useAuth();
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [password, setPassword] = useState();
+    const [passwordConfirm, setPasswordConfirm] = useState();
+    const [email, setEmail] = useState();
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
     const [textValidation, setTextValidation] = useState("");
     const [errorPassword, setErrorPassword] = useState(false);
     const history = useHistory();
 
     const passwordValidation = (password) => {
         setPassword(password);
-        console.log(password.length, "taille")
-        if (password.length < 8) {
-            setTextValidation('Le mot de passe doit faire plus de 8 caractères');
+        const pattern = new RegExp(
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
+        );
+        if (password.length > 0 && password.length < 8) {
+            setTextValidation('Le mot de passe doit faire plus de 8 caractères.');
+            setErrorPassword(true);
+        } else if (!pattern.test(password)) {
+            setTextValidation('Le mot de passe doit contenir au moins une lettre minuscule et une lettre majuscule, un caractère spécial et un chiffre.');
             setErrorPassword(true);
         } else {
             setTextValidation('');
@@ -47,26 +52,40 @@ function Signup(props) {
         }
     }
 
+    const isValid = useMemo(() => {
+        if(firstName === "" && lastName === "") {
+            return false;
+        }
+        if(password === "" && passwordConfirm === "") {
+            return false;
+        }
+        if(email === "") {
+            return false;
+        }
+        return true;
+    }, [password, passwordConfirm, email, lastName, firstName]);
+
     async function handleSubmit(event) {
         event.preventDefault();
-        if (password !== passwordConfirmRef.current.value) {
+        if (password !== passwordConfirm) {
             return setError('Les mots de passe ne correspondent pas');
         }
         try {
             setLoading(true);
             setError('');
-            await signup(emailRef.current.value, password);
-            await updateDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`);
+            await signup(email, password);
+            await updateDisplayName(`${firstName} ${lastName}`);
             await createUserCollection();
             getFavorites();
             history.push('/');
-
-        } catch {
-            setError('Erreur lors de la création du compte');
+        } catch(error) {
+            if(error.code === "auth/email-already-in-use") {
+                setError("L'adresse email est déjà utilisée");
+            }
         }
         setLoading(false);
     };
-
+    console.log(loading, isValid)
     return (
         <Paper className={classes.root}>
             <Title>Inscription</Title>
@@ -85,7 +104,8 @@ function Signup(props) {
                             id="prenom"
                             label="Prénom"
                             autoFocus
-                            inputRef={fnameRef}
+                            value={firstName}
+                            onChange={event => setFirstName(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -98,7 +118,8 @@ function Signup(props) {
                             id="nom"
                             label="Nom"
                             autoFocus
-                            inputRef={lnameRef}
+                            value={lastName}
+                            onChange={event => setLastName(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -110,7 +131,8 @@ function Signup(props) {
                             label="Adresse email"
                             name="email"
                             autoComplete="email"
-                            inputRef={emailRef}
+                            value={email}
+                            onChange={event => setEmail(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -125,7 +147,7 @@ function Signup(props) {
                             id="password"
                             autoComplete="current-password"
                             value={password}
-                            onChange={event => passwordValidation(event.target.value)}
+                            onChange={event => setPassword(event.target.value)}
                             helperText={textValidation}
                         />
                     </Grid>
@@ -139,12 +161,13 @@ function Signup(props) {
                             type="password"
                             id="passwordConfirm"
                             autoComplete="current-passwordConfirm"
-                            inputRef={passwordConfirmRef}
+                            value={passwordConfirm}
+                            onChange={event => setPasswordConfirm(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
-                            disabled={loading}
+                            disabled={loading && isValid}
                             type="submit"
                             fullWidth
                             variant="contained"

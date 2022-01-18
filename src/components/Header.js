@@ -290,7 +290,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
               >
                 <AccountCircle />
               </IconButton> 
-              <Button onClick={handleLogout} color="inherit">Log out</Button>
+              <Button onClick={handleLogout} color="inherit">Logout</Button>
               {error && <Alert severity="error">{error}</Alert>}
             </div> :
             <div>
