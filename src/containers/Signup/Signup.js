@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Paper, Grid, TextField, Button, Link } from '@material-ui/core';
+import { Paper, Grid, TextField, Button, Link, InputAdornment, IconButton } from '@material-ui/core';
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
@@ -40,8 +42,11 @@ function Signup() {
     const [errorPassword, setErrorPassword] = useState(false);
     const [errorPasswordConfirmation, setErrorPasswordConfirmation] = useState(false);
     const [errorEmailConfirmation, setErrorEmailConfirmation] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const history = useHistory();
 
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const handleOnChange = (event, value) => {
         const val = value?.toLowerCase() ?? event.target.value;
         setFormValues(prevState => (
@@ -124,7 +129,7 @@ function Signup() {
             await updateDisplayName(`${formValues.prenom} ${formValues.nom}`);
             await createUserCollection();
             getFavorites();
-            history.push('/');
+            history.push('/login');
         } catch(error) {
             if(error.code === "auth/email-already-in-use") {
                 setError("L'adresse email est déjà utilisée");
@@ -194,12 +199,25 @@ function Signup() {
                             fullWidth
                             name="password"
                             label="Mot de passe"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             id="password"
                             autoComplete="current-password"
                             value={formValues.password}
                             onChange={passwordValidation}
                             helperText={textValidation}
+                            InputProps={{ // <-- This is where the toggle button is added.
+                                endAdornment: (
+                                  <InputAdornment position="end">
+                                    <IconButton
+                                      aria-label="toggle password visibility"
+                                      onClick={handleClickShowPassword}
+                                      onMouseDown={handleMouseDownPassword}
+                                    >
+                                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                  </InputAdornment>
+                                )
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12}>

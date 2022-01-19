@@ -281,7 +281,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
           { currentUser ? 
             <>
               <Typography className={classes.title} variant="subtitle1" component="h3">
-                Hi, {currentUser.displayName.split(' ')[0]}
+                Hi, {currentUser?.displayName.split(' ')[0]}
               </Typography>
               <IconButton
                 edge="end"
