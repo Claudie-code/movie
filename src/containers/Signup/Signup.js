@@ -24,19 +24,30 @@ const useStyles = makeStyles((theme) => ({
 function Signup(props) {
     const classes = useStyles();
     const { signup, updateDisplayName, createUserCollection, getFavorites } = useAuth();
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
-    const [password, setPassword] = useState();
-    const [passwordConfirm, setPasswordConfirm] = useState();
-    const [email, setEmail] = useState();
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
+    const [formValues, setFormValues] = React.useState({})
+    const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [textValidation, setTextValidation] = useState("");
     const [errorPassword, setErrorPassword] = useState(false);
     const history = useHistory();
 
-    const passwordValidation = (password) => {
-        setPassword(password);
+    const handleOnChange = (event, value) => {
+        const val = value?.toLowerCase() ?? event.target.value;
+        setFormValues(prevState => (
+            { ...prevState, 
+                [event.target.name] : val
+            }
+        ));
+    };
+
+    const passwordValidation = (event, value) => {
+        const password = value?.toLowerCase() ?? event.target.value;
+        handleOnChange(event, value);
         const pattern = new RegExp(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
         );
@@ -54,15 +65,15 @@ function Signup(props) {
 
     const isValid = useMemo(() => {
         if(firstName === "" && lastName === "") {
-            return false;
+            return true;
         }
         if(password === "" && passwordConfirm === "") {
-            return false;
+            return true;
         }
         if(email === "") {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }, [password, passwordConfirm, email, lastName, firstName]);
 
     async function handleSubmit(event) {
@@ -104,8 +115,8 @@ function Signup(props) {
                             id="prenom"
                             label="Prénom"
                             autoFocus
-                            value={firstName}
-                            onChange={event => setFirstName(event.target.value)}
+                            value={formValues.name}
+                            onChange={handleOnChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -118,8 +129,8 @@ function Signup(props) {
                             id="nom"
                             label="Nom"
                             autoFocus
-                            value={lastName}
-                            onChange={event => setLastName(event.target.value)}
+                            value={formValues.lastName}
+                            onChange={handleOnChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -131,8 +142,8 @@ function Signup(props) {
                             label="Adresse email"
                             name="email"
                             autoComplete="email"
-                            value={email}
-                            onChange={event => setEmail(event.target.value)}
+                            value={formValues.email}
+                            onChange={handleOnChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -146,8 +157,8 @@ function Signup(props) {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                            value={password}
-                            onChange={event => setPassword(event.target.value)}
+                            value={formValues.password}
+                            onChange={passwordValidation}
                             helperText={textValidation}
                         />
                     </Grid>
@@ -161,13 +172,13 @@ function Signup(props) {
                             type="password"
                             id="passwordConfirm"
                             autoComplete="current-passwordConfirm"
-                            value={passwordConfirm}
-                            onChange={event => setPasswordConfirm(event.target.value)}
+                            value={formValues.passwordConfirm}
+                            onChange={handleOnChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
-                            disabled={loading && isValid}
+                            disabled={loading && !isValid}
                             type="submit"
                             fullWidth
                             variant="contained"
