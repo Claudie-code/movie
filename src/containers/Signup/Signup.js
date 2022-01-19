@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
+import { isEmail } from 'validator';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,9 +35,11 @@ function Signup() {
         passwordConfirm: ''
     });
     const [textValidation, setTextValidation] = useState("");
-    const [textConfirmationPassword, setTextConfirmationPassword] = useState("");
+    const [textPasswordConfirmation, setTextPasswordConfirmation] = useState("");
+    const [textEmailConfirmation, setTextEmailConfirmation] = useState("");
     const [errorPassword, setErrorPassword] = useState(false);
     const [errorPasswordConfirmation, setErrorPasswordConfirmation] = useState(false);
+    const [errorEmailConfirmation, setErrorEmailConfirmation] = useState(false);
     const history = useHistory();
 
     const handleOnChange = (event, value) => {
@@ -54,7 +57,12 @@ function Signup() {
         const pattern = new RegExp(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
         );
-        if (password.length > 0 && password.length < 8) {
+        if(password.length === 0) {
+            setTextValidation('');
+            setErrorPassword(false);
+            return;
+        }
+        if (password.length < 8) {
             setTextValidation('Le mot de passe doit faire plus de 8 caractères.');
             setErrorPassword(true);
         } else if (!pattern.test(password)) {
@@ -70,20 +78,37 @@ function Signup() {
         const passwordConfirm = value?.toLowerCase() ?? event.target.value;
         handleOnChange(event, value);
         if (passwordConfirm !== formValues.password) {
-            setTextConfirmationPassword("Le mot de passe doit être identique.");
+            setTextPasswordConfirmation("Le mot de passe doit être identique.");
             setErrorPasswordConfirmation(true);
         } else {
-            setTextConfirmationPassword("");
+            setTextPasswordConfirmation("");
             setErrorPasswordConfirmation(false);
         }
     };
-    console.log({...formValues, errorPassword: !errorPassword, 
-        errorPasswordConfirmation: !errorPasswordConfirmation}, "verif")
+
+    const emailConfirmation = (event, value) => {
+        const emailConfirm = value?.toLowerCase() ?? event.target.value;
+        handleOnChange(event, value);
+        if(emailConfirm.length === 0) {
+            setTextEmailConfirmation("");
+            setErrorEmailConfirmation(false);
+            return;
+        }
+        if (!isEmail(emailConfirm)) {
+            setTextEmailConfirmation("L'email n'est pas valide.");
+            setErrorEmailConfirmation(true);
+        } else {
+            setTextEmailConfirmation("");
+            setErrorEmailConfirmation(false);
+        }
+    };
+
     const isValid = useMemo(
         () => Object.values({
             ...formValues, 
             errorPassword: !errorPassword, 
-            errorPasswordConfirmation: !errorPasswordConfirmation
+            errorPasswordConfirmation: !errorPasswordConfirmation,
+            errorEmailConfirmation: !errorEmailConfirmation,
         }).some(element => element == false)
     , [formValues, handleOnChange, errorPasswordConfirmation, errorPassword]);
 
@@ -96,7 +121,7 @@ function Signup() {
             setLoading(true);
             setError('');
             await signup(formValues.email, formValues.password);
-            await updateDisplayName(`${formValues.firstName} ${formValues.lastName}`);
+            await updateDisplayName(`${formValues.prenom} ${formValues.nom}`);
             await createUserCollection();
             getFavorites();
             history.push('/');
@@ -107,7 +132,7 @@ function Signup() {
         }
         setLoading(false);
     };
-    console.log("form" , formValues, loading, isValid);
+
     return (
         <Paper className={classes.root}>
             <Title>Inscription</Title>
@@ -148,6 +173,7 @@ function Signup() {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            error={errorEmailConfirmation}
                             variant="outlined"
                             required
                             fullWidth
@@ -156,7 +182,8 @@ function Signup() {
                             name="email"
                             autoComplete="email"
                             value={formValues.email}
-                            onChange={handleOnChange}
+                            onChange={emailConfirmation}
+                            helperText={textEmailConfirmation}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -188,7 +215,7 @@ function Signup() {
                             autoComplete="current-passwordConfirm"
                             value={formValues.passwordConfirm}
                             onChange={passwordConfirmation}
-                            helperText={textConfirmationPassword}
+                            helperText={textPasswordConfirmation}
                         />
                     </Grid>
                     <Grid item xs={12}>

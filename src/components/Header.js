@@ -219,7 +219,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
         <div>
           <MenuItem onClick={() => handleMenuClick("/profile")}>Profile</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/account")}>My account</MenuItem>
-          <MenuItem onClick={() => handleLogout()}>Log out</MenuItem>
+          <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
           {error && <Alert severity="error">{error}</Alert>}
         </div> :
         <div>
@@ -234,7 +234,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6">
+          <Typography className={classes.title} variant="h1">
             <MenuItem className={classes.fontSize} onClick={() => handleMenuClick('/')}>MovieTrend</MenuItem>
           </Typography>
 
@@ -279,7 +279,10 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
           </div>
           <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
           { currentUser ? 
-            <div>
+            <>
+              <Typography className={classes.title} variant="subtitle1" component="h3">
+                Hi, {currentUser.displayName.split(' ')[0]}
+              </Typography>
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -292,7 +295,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
               </IconButton> 
               <Button onClick={handleLogout} color="inherit">Logout</Button>
               {error && <Alert severity="error">{error}</Alert>}
-            </div> :
+            </> :
             <div>
               <Button onClick={() => handleMenuClick("/login")} color="inherit">Login</Button>
               <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Signup</Button>
