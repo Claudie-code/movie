@@ -21,26 +21,29 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Signup(props) {
+function Signup() {
     const classes = useStyles();
     const { signup, updateDisplayName, createUserCollection, getFavorites } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
-    const [formValues, setFormValues] = React.useState({})
-    const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [email, setEmail] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [formValues, setFormValues] = useState({
+        prenom: '', 
+        nom: '', 
+        email: '', 
+        password: '', 
+        passwordConfirm: ''
+    });
     const [textValidation, setTextValidation] = useState("");
+    const [textConfirmationPassword, setTextConfirmationPassword] = useState("");
     const [errorPassword, setErrorPassword] = useState(false);
+    const [errorPasswordConfirmation, setErrorPasswordConfirmation] = useState(false);
     const history = useHistory();
 
     const handleOnChange = (event, value) => {
         const val = value?.toLowerCase() ?? event.target.value;
         setFormValues(prevState => (
             { ...prevState, 
-                [event.target.name] : val
+                [event.target.name] : val,
             }
         ));
     };
@@ -61,31 +64,39 @@ function Signup(props) {
             setTextValidation('');
             setErrorPassword(false);
         }
-    }
+    };
 
-    const isValid = useMemo(() => {
-        if(firstName === "" && lastName === "") {
-            return true;
+    const passwordConfirmation = (event, value) => {
+        const passwordConfirm = value?.toLowerCase() ?? event.target.value;
+        handleOnChange(event, value);
+        if (passwordConfirm !== formValues.password) {
+            setTextConfirmationPassword("Le mot de passe doit être identique.");
+            setErrorPasswordConfirmation(true);
+        } else {
+            setTextConfirmationPassword("");
+            setErrorPasswordConfirmation(false);
         }
-        if(password === "" && passwordConfirm === "") {
-            return true;
-        }
-        if(email === "") {
-            return true;
-        }
-        return false;
-    }, [password, passwordConfirm, email, lastName, firstName]);
+    };
+    console.log({...formValues, errorPassword: !errorPassword, 
+        errorPasswordConfirmation: !errorPasswordConfirmation}, "verif")
+    const isValid = useMemo(
+        () => Object.values({
+            ...formValues, 
+            errorPassword: !errorPassword, 
+            errorPasswordConfirmation: !errorPasswordConfirmation
+        }).some(element => element == false)
+    , [formValues, handleOnChange, errorPasswordConfirmation, errorPassword]);
 
     async function handleSubmit(event) {
         event.preventDefault();
-        if (password !== passwordConfirm) {
+        if (formValues.password !== formValues.passwordConfirm) {
             return setError('Les mots de passe ne correspondent pas');
         }
         try {
             setLoading(true);
             setError('');
-            await signup(email, password);
-            await updateDisplayName(`${firstName} ${lastName}`);
+            await signup(formValues.email, formValues.password);
+            await updateDisplayName(`${formValues.firstName} ${formValues.lastName}`);
             await createUserCollection();
             getFavorites();
             history.push('/');
@@ -96,7 +107,7 @@ function Signup(props) {
         }
         setLoading(false);
     };
-    console.log(loading, isValid)
+    console.log("form" , formValues, loading, isValid);
     return (
         <Paper className={classes.root}>
             <Title>Inscription</Title>
@@ -107,6 +118,7 @@ function Signup(props) {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
+                            minLength="1"
                             autoComplete="fname"
                             name="prenom"
                             variant="outlined"
@@ -121,6 +133,7 @@ function Signup(props) {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
+                            minLength="1"
                             autoComplete="lname"
                             name="nom"
                             variant="outlined"
@@ -164,6 +177,7 @@ function Signup(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            error={errorPasswordConfirmation}
                             variant="outlined"
                             required
                             fullWidth
@@ -173,12 +187,13 @@ function Signup(props) {
                             id="passwordConfirm"
                             autoComplete="current-passwordConfirm"
                             value={formValues.passwordConfirm}
-                            onChange={handleOnChange}
+                            onChange={passwordConfirmation}
+                            helperText={textConfirmationPassword}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
-                            disabled={loading && !isValid}
+                            disabled={loading && isValid}
                             type="submit"
                             fullWidth
                             variant="contained"
