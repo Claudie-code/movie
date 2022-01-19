@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         textAlign: 'center',
         maxWidth: 500,
-        margin: '2rem auto',
+        margin: '11rem auto',
         padding: theme.spacing(5)
     },
     margin: {

@@ -4,6 +4,7 @@ import Series from './Series';
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { Paper,Grid } from "@material-ui/core";
+import { useData } from '../../contexts/DataContext';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -19,10 +20,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Accueil({ popularMovies, topRatedSeries, seriesGenres }) {
+function Accueil() {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    
+    const { popularMovies, topRatedSeries, seriesGenres } = useData();
+
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>

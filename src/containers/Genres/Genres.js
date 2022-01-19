@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
+import { useData } from '../../contexts/DataContext';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -10,9 +11,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function Genres({ moviesGenres }) {
+function Genres() {
     const classes = useStyles();
     const history = useHistory();
+    const { moviesGenres } = useData();
 
     const onClickGenre = (urlID, urlName) => {
         history.push(`/genres/${urlID}/${urlName}`)

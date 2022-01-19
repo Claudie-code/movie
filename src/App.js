@@ -20,7 +20,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { orange, cyan, deepPurple, deepOrange } from "@material-ui/core/colors";
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
-import { useApiData } from './hooks/useApiData';
+import { useData } from './contexts/DataContext';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -30,20 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  const [popularMovies, loadingMovies] = useApiData(`
-    https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&with_watch_monetization_types=flatrate
-  `);
-  const [topRatedSeries, loadingSeries] = useApiData(`
-    https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&page=1
-  `);
-  const [ moviesGenres ] = useApiData(`
-    https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
-  `);
-
-  const [ seriesGenres ] = useApiData(`
-    https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR
-  `);
-
+  const { loadingSeries, loadingMovies } = useData();
   const classes = useStyles();
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? "dark" : "light";
@@ -95,22 +82,13 @@ function App() {
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Router>
-          <Header popularMovies={popularMovies} darkState={darkState} setDarkState={setDarkState}/>
+          <Header darkState={darkState} setDarkState={setDarkState}/>
           <Container component="main" maxWidth="lg" className={classes.container}>
-            {loadingMovies & loadingSeries?
+            {loadingMovies && loadingSeries ?
               <Loader /> :
               <Switch>
-                <Route exact path="/" 
-                  render={props => (
-                    <Accueil {...props}
-                      popularMovies={popularMovies} 
-                      topRatedSeries={topRatedSeries} 
-                      moviesGenres={moviesGenres} 
-                      seriesGenres={seriesGenres}
-                    />
-                  )}
-                />
-                <Route exact path="/genres" render={props => <Genres {...props} moviesGenres={moviesGenres} />} />
+                <Route exact path="/" component={Accueil} />
+                <Route exact path="/genres" component={Genres} />
                 <Route exact path="/genres/:id/:name" component={GenrePage} />
                 <Route exact path="/movie/:id" component={MoviePage} />
                 <Route exact path="/serie/:id" component={SeriePage} />
@@ -118,7 +96,7 @@ function App() {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/forgot-password" component={ForgotPassword} />
-                <PrivateRoute exact path="/profile" component={Profile} seriesGenres={seriesGenres} moviesGenres={moviesGenres} />
+                <PrivateRoute exact path="/profile" component={Profile} />
                 <PrivateRoute exact path="/account" component={Account} />
               </Switch>
             }
