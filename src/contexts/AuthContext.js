@@ -32,7 +32,8 @@ export function AuthProvider({children}) {
         if (docRef.exists) {
             if (docRef.data().favorites) setFavorites(docRef.data().favorites);
         } else {
-            console.log("Cette collection n'existe pas");
+            await createUserCollection()
+            getFavorites();
         }
     };
 

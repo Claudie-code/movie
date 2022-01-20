@@ -37,7 +37,7 @@ function BandeAnnonce({ movieOrSerieData, movieOrSerie, width, height }) {
         )
         .then(response => response.json())
         .then(json => {
-            if (json.results.length > 0) {
+            if (json.results?.length > 0) {
                 const data = json.results[0].key;
                 setTrailerUrl(data);
             }

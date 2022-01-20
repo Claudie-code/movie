@@ -49,9 +49,9 @@ function Login() {
         try {
             setError('');
             await signupGoogle();
+            getFavorites();
             history.push('/');
         } catch(error) {
-            console.log(error, "erreur")
             setError('Echec de la connexion');
         }
         setLoading(false);
