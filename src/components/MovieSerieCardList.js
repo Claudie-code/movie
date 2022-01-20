@@ -56,47 +56,55 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function MovieSerieCardList(props) {
+function MovieSerieCardList({ data }) {
     const classes = useStyles();
     const history = useHistory();
 
     return (
         <>
-        {props.movies.map(movie => (
-            <Grid item xs={12} key={movie.id}>
+        {data.map(data => (
+            <Grid item xs={12} key={data.id}>
                 <Card className={classes.root}>
-                    <CardActionArea href={movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`} className={classes.mediaRoot}>
+                    <CardActionArea href={
+                            data.media_type === "tv" ? 
+                            `/serie/${data.id}` : 
+                            data.media_type === "person" ?
+                            `/people/${data.id}` :
+                            `/movie/${data.id}`
+                        } 
+                        className={classes.mediaRoot}
+                    >
                         <CardMedia
                             className={classes.cover}
-                            image={`https://image.tmdb.org/t/p/w780${movie?.poster_path || movie.profile_path}`}
-                            title={movie.title}
+                            image={`https://image.tmdb.org/t/p/w780${data?.poster_path || data.profile_path}`}
+                            title={data.title}
                         />
                     </CardActionArea>
                     <div className={classes.details}>
                         <CardContent className={classes.content}>
                             <Box>
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    {movie.title || movie.name}
+                                    {data.title || data.name}
                                 </Typography>
-                                <ReleaseDate>{movie.release_date}</ReleaseDate>
+                                {data.release_date && <ReleaseDate>{data.release_date}</ReleaseDate>}
                             </Box>
-                            {movie.overview &&
+                            {data.overview &&
                                 <Typography variant="body1" color="textSecondary" component="p">
-                                    {movie.overview.slice(0,200) + "..."} 
-                                    <Link className={classes.button} to={movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`}> Lire la suite</Link>
+                                    {data.overview.slice(0,200) + "..."} 
+                                    <Link className={classes.button} to={data.name? `/serie/${data.id}`: `/movie/${data.id}`}> Lire la suite</Link>
                                 </Typography>
                             }
                         </CardContent>
                         <div className={classes.rating}>
-                            {movie.vote_average && 
-                                <Rating name="size-medium" value={(movie.vote_average * 5) / 10}readOnly/>
+                            {data.vote_average && 
+                                <Rating name="size-medium" value={(data.vote_average * 5) / 10}readOnly/>
                             }
                             <Button 
                                 size="large" 
                                 variant="outlined" 
                                 color="primary"
                                 gutterRight
-                                onClick={()=> {history.replace(`${movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`}`)}}
+                                onClick={()=> {history.replace(`${data.name? `/serie/${data.id}`: `/movie/${data.id}`}`)}}
                             >
                                 Voir
                             </Button>

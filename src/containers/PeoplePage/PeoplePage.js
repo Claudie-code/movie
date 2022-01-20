@@ -48,7 +48,7 @@ export default function PeoplePage(props) {
             },
         );
     }, [id])
-    console.log(new Date().getFullYear() - people.birthday.split('-')[0])
+    
     return (
         <>
             {loading ? 

@@ -19,7 +19,7 @@ export default function SearchPage({apiURL, search, name}) {
                 <>
                     <Title>Résultats pour {name ||search}</Title>
                     <Grid container justifyContent="center" spacing={3}>
-                        {searchResults && <MovieSerieCardList movies={searchResults} />}
+                        {searchResults && <MovieSerieCardList data={searchResults} />}
                         <Pagination count={10} page={page} onChange={(event, value) => setPage(value)} />
                     </Grid>
                 </>
