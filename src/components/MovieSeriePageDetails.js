@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
         overflowX: "auto",
         flexDirection: "column",
         minHeight: 500,
-        gap: theme.spacing(3),
+        gap: theme.spacing(2),
     },
     rating: {
         display: "flex",

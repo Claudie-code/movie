@@ -173,7 +173,7 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
           <form className={classes.search} onSubmit={handleSubmit}>
             <TextField {...params}
               variant="outlined"
-              label="Recherche un film, une série..."
+              label="Rechercher un film, une série..."
               size="small"
               color="secondary"
               inputRef={titleRef}
@@ -264,7 +264,7 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
                 <form className={classes.search} onSubmit={handleSubmit}>
                   <TextField {...params}
                     variant="outlined"
-                    label="Recherche un film, une série..."
+                    label="Rechercher un film, une série..."
                     size="small"
                     color="secondary"
                     inputRef={titleRef}

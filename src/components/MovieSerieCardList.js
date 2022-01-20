@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function GenrePage(props) {
+function MovieSerieCardList(props) {
     const classes = useStyles();
     const history = useHistory();
 
@@ -68,7 +68,7 @@ function GenrePage(props) {
                     <CardActionArea href={movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`} className={classes.mediaRoot}>
                         <CardMedia
                             className={classes.cover}
-                            image={`https://image.tmdb.org/t/p/w780${movie && movie.poster_path}`}
+                            image={`https://image.tmdb.org/t/p/w780${movie?.poster_path || movie.profile_path}`}
                             title={movie.title}
                         />
                     </CardActionArea>
@@ -80,13 +80,17 @@ function GenrePage(props) {
                                 </Typography>
                                 <ReleaseDate>{movie.release_date}</ReleaseDate>
                             </Box>
-                            <Typography variant="body1" color="textSecondary" component="p">
-                                {movie.overview.slice(0,200) + "..."} 
-                                <Link className={classes.button} to={movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`}> Lire la suite</Link>
-                            </Typography>
+                            {movie.overview &&
+                                <Typography variant="body1" color="textSecondary" component="p">
+                                    {movie.overview.slice(0,200) + "..."} 
+                                    <Link className={classes.button} to={movie.name? `/serie/${movie.id}`: `/movie/${movie.id}`}> Lire la suite</Link>
+                                </Typography>
+                            }
                         </CardContent>
                         <div className={classes.rating}>
-                            <Rating name="size-medium" value={(movie.vote_average * 5) / 10} readOnly/>
+                            {movie.vote_average && 
+                                <Rating name="size-medium" value={(movie.vote_average * 5) / 10}readOnly/>
+                            }
                             <Button 
                                 size="large" 
                                 variant="outlined" 
@@ -105,4 +109,4 @@ function GenrePage(props) {
     );
 }
 
-export default GenrePage;
+export default MovieSerieCardList;
