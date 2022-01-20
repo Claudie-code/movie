@@ -8,7 +8,7 @@ export default function MoviePage(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR`, {
+        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}&language=fr-FR&append_to_response=credits`, {
         "method": "GET",
         "headers": {
             "Content-type": "application/json",
@@ -28,7 +28,7 @@ export default function MoviePage(props) {
         },
     );
     }, [id])
-
+    console.log(movie, "movie")
     return (
         <>
             {loading ? 

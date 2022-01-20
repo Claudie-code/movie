@@ -6,6 +6,7 @@ import GenreListButton from "./GenreListButton";
 import FavoriteCheckBox from './FavoriteCheckbox';
 import ReleaseDate from './ReleaseDate';
 import { useAuth } from '../contexts/AuthContext';
+import CastCard from './CastCard';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -13,7 +14,8 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         overflowX: "auto",
         flexDirection: "column",
-        minHeight: 500
+        minHeight: 500,
+        gap: theme.spacing(3),
     },
     rating: {
         display: "flex",
@@ -24,7 +26,13 @@ const useStyles = makeStyles(theme => ({
         '@media (max-width:800px)': {
             flexDirection: "column",
         },
-    }
+    },
+    flex: {
+        gap: theme.spacing(3),
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-evenly",
+    },
 }));
 
 export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }) {
@@ -47,9 +55,22 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
             <ReleaseDate>
                 {movieOrSerieData.release_date}
             </ReleaseDate>
+            <Typography component="h3" variant="h5" color="primary" gutterBottom>
+                SYNOPSIS
+            </Typography>
             <Typography variant="body1" gutterBottom>
                 {movieOrSerieData.overview || "Pas de résumé"}
             </Typography>
+            <Typography component="h3" variant="h5" color="primary" gutterBottom>
+                ACTEURS ET ACTRICES
+            </Typography>
+            <Box className={classes.flex}>
+                {movieOrSerieData && 
+                    movieOrSerieData.credits?.cast.slice(0, 5).map(movieOrSerieData => (
+                        <CastCard movieOrSerieData={movieOrSerieData} />
+                    ))
+                }
+            </Box>
         </Paper>
         }
         </>
