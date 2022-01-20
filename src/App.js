@@ -10,6 +10,7 @@ import Account from './containers/Account/Account';
 import SearchQueryPage from './containers/SearchQueryPage/SearchQueryPage';
 import MoviePage from './containers/MoviePage/MoviePage';
 import SeriePage from './containers/SeriePage/SeriePage';
+import PeoplePage from './containers/PeoplePage/PeoplePage';
 import Loader from './components/Loader/Loader';
 import ForgotPassword from './containers/ForgotPassword/ForgotPassword';
 import Container from '@material-ui/core/Container';
@@ -92,6 +93,7 @@ function App() {
                 <Route exact path="/genres/:id/:name" component={GenrePage} />
                 <Route exact path="/movie/:id" component={MoviePage} />
                 <Route exact path="/serie/:id" component={SeriePage} />
+                <Route exact path="/people/:id" component={PeoplePage} />
                 <Route exact path="/search/:search" component={SearchQueryPage} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />

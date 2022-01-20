@@ -15,23 +15,23 @@ const useStyles = makeStyles({
     },
 });
 
-export default function CastCard({ movieOrSerieData }) {
+export default function CastCard({ cast }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea href={`/people/${movieOrSerieData.credit_id}`} style={{textDecoration: "none"}}>
+      <CardActionArea href={`/people/${cast.id}`} style={{textDecoration: "none"}}>
         <CardMedia
           className={classes.media}
-          image={`https://image.tmdb.org/t/p/w500${movieOrSerieData.profile_path}`} 
-          title={movieOrSerieData.name} 
+          image={`https://image.tmdb.org/t/p/w500${cast.profile_path}`} 
+          title={cast.name} 
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {movieOrSerieData.name}
+            {cast.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Rôle : {movieOrSerieData.character}
+            Rôle : {cast.character}
           </Typography>
         </CardContent>
       </CardActionArea>

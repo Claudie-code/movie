@@ -1,6 +1,7 @@
 import { makeStyles, Paper, Typography, Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Title from "./Title";
+import Titleh3 from "./Titleh3";
 import BandeAnnonce from "./BandeAnnonce";
 import GenreListButton from "./GenreListButton";
 import FavoriteCheckBox from './FavoriteCheckbox';
@@ -61,13 +62,11 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
             <Typography variant="body1" gutterBottom>
                 {movieOrSerieData.overview || "Pas de résumé"}
             </Typography>
-            <Typography component="h3" variant="h5" color="primary" gutterBottom>
-                ACTEURS ET ACTRICES
-            </Typography>
+            <Titleh3>ACTEURS ET ACTRICES</Titleh3>
             <Box className={classes.flex}>
                 {movieOrSerieData && 
-                    movieOrSerieData.credits?.cast.slice(0, 5).map(movieOrSerieData => (
-                        <CastCard movieOrSerieData={movieOrSerieData} />
+                    movieOrSerieData.credits?.cast.slice(0, 5).map(cast => (
+                        <CastCard key={cast.id} cast={cast} />
                     ))
                 }
             </Box>
