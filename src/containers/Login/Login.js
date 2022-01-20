@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Grid, TextField, Button, Link, Paper } from '@material-ui/core';
+import { Grid, TextField, Button, Link, Paper, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
+import GoogleButton from 'react-google-button'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,7 +26,7 @@ function Login() {
     const classes = useStyles();
     const emailRef = useRef();
     const passwordRef = useRef();
-    const { login, getFavorites } = useAuth();
+    const { login, getFavorites, signupGoogle } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -44,6 +45,18 @@ function Login() {
         setLoading(false);
     };
 
+    async function handleClick(event) {
+        try {
+            setError('');
+            await signupGoogle();
+            history.push('/');
+        } catch(error) {
+            console.log(error, "erreur")
+            setError('Echec de la connexion');
+        }
+        setLoading(false);
+    };
+
     return (
         <Paper className={classes.root}>
             <Title>Connexion</Title>
@@ -52,6 +65,10 @@ function Login() {
                     <Grid item xs={12}>
                         {error && <Alert severity="error">{error}</Alert>}
                     </Grid>
+                    <Grid item xs={12}>
+                        <GoogleButton style={{margin: "auto"}} onClick={handleClick}></GoogleButton>
+                    </Grid>
+                    <Divider style={{width:'100%', margin: "1rem 0"}} />
                     <Grid item xs={12}>
                         <TextField
                             variant="outlined"

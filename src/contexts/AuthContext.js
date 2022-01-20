@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { auth, db, firestore } from '../firebase';
+import { auth, db, firestore, provider } from '../firebase';
 
 const AuthContext = React.createContext();
 
@@ -14,7 +14,7 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
     const [favorites, setFavorites] = useState();
-
+ 
     function updateDisplayName(newName) {
         return auth.currentUser.updateProfile({displayName: newName})
     };
@@ -50,6 +50,10 @@ export function AuthProvider({children}) {
 
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password)
+    };
+
+    function signupGoogle() {
+        return auth.signInWithPopup(provider);
     };
 
     function login(email, password) {
@@ -92,10 +96,11 @@ export function AuthProvider({children}) {
         updateDisplayName,
         login,
         signup,
+        signupGoogle,
         logout,
         resetPassword,
         updateEmail,
-        updatePassword
+        updatePassword,
     };
 
     return (

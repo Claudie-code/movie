@@ -115,7 +115,7 @@ function Signup() {
             errorPasswordConfirmation: !errorPasswordConfirmation,
             errorEmailConfirmation: !errorEmailConfirmation,
         }).some(element => element == false)
-    , [formValues, handleOnChange, errorPasswordConfirmation, errorPassword]);
+    , [formValues, handleOnChange, errorPasswordConfirmation, errorPassword, errorEmailConfirmation]);
 
     async function handleSubmit(event) {
         event.preventDefault();
