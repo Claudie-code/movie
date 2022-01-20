@@ -9,6 +9,7 @@ import { Alert, Autocomplete } from '@material-ui/lab';
 import { 
   TextField, AppBar, Toolbar, MenuItem, Menu, Typography, IconButton, Button, Switch 
 } from '@material-ui/core';
+import { useData } from '../contexts/DataContext';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkState}) {
+export default function PrimarySearchAppBar({ darkState, setDarkState}) {
   const classes = useStyles();
   const titleRef = useRef();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -85,6 +86,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
   const history = useHistory();
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState('');
+  const { popularMovies } = useData();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -152,7 +154,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
       <Autocomplete
         style={{paddingLeft: '20px'}}
         id="movies_select"
-        options={popularMovies}
+        options={popularMovies || []}
         getOptionLabel={option => option.title}
         className={classes.autocomplete}
         renderOption={(option) => (
@@ -243,7 +245,7 @@ export default function PrimarySearchAppBar({ popularMovies, darkState, setDarkS
             <Button className={classes.categories} onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
             <Autocomplete
               id="movies_select"
-              options={popularMovies}
+              options={popularMovies || []}
               getOptionLabel={option => option.title}
               className={classes.autocomplete}
               renderOption={(option) => (
