@@ -2,7 +2,7 @@ import React from 'react';
 import BandeAnnonce from "../../components/BandeAnnonce"
 import ButtonMovie from "./ButtonMovie"
 import Grid from '@material-ui/core/Grid';
-import ImageFilm from './ImageFilm';
+import ImageWithButton from '../../components/ImageWithButton';
 import "./accueil.css";
 import Title from "../../components/Title";
 import { Box, makeStyles } from '@material-ui/core';
@@ -70,7 +70,7 @@ function Sorties({ popularMovies }) {
                             <Grid key={popularMovie.id} item 
                                 xs={6} sm={3}
                                 className={classes.imageGrid}>
-                                <ImageFilm popularMovie={popularMovie}/>
+                                <ImageWithButton data={popularMovie}/>
                             </Grid>
                         ))}
                     </Grid>

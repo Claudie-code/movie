@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import PlayButton from '../../components/PlayButton';
+import PlayButton from './PlayButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,15 +23,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ImageFilm({ popularMovie }) {
+function ImageWithButton({ data }) {
     const classes = useStyles();
 
     return (
-      <CardActionArea className={classes.root} href={`/movie/${popularMovie.id}`}>
+      <CardActionArea className={classes.root} href={`/movie/${data.id}`}>
         <CardMedia
           className={classes.cover}
-          image={`https://image.tmdb.org/t/p/w780${popularMovie.poster_path}`}
-          title={popularMovie.title}
+          image={`https://image.tmdb.org/t/p/w780${data.poster_path}`}
+          title={data.title}
         >
           <div className={classes.content}>
             <PlayButton />
@@ -41,4 +41,4 @@ function ImageFilm({ popularMovie }) {
     );
 }
 
-export default ImageFilm;
+export default ImageWithButton;
