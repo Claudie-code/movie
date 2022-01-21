@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Paper, Grid, TextField, Button, Link, InputAdornment, IconButton } from '@material-ui/core';
+import { Paper, Grid, TextField, Button, Link, InputAdornment, IconButton, Avatar } from '@material-ui/core';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from '@material-ui/core/styles';
@@ -143,6 +143,17 @@ function Signup() {
             <Title>Inscription</Title>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <IconButton                 
+                            href=""
+                        >
+                            <Avatar
+                                alt="avatar"
+                                src=""
+                                sx={{ width: 56, height: 56 }}
+                            />
+                        </IconButton>
+                    </Grid>
                     <Grid item xs={12}>
                         {error && <Alert severity="error">{error}</Alert>}
                     </Grid>
