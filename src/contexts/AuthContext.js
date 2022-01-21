@@ -15,8 +15,11 @@ export function AuthProvider({children}) {
     const [loading, setLoading] = useState(true);
     const [favorites, setFavorites] = useState();
  
-    function updateDisplayName(newName) {
-        return auth.currentUser.updateProfile({displayName: newName})
+    function updateDisplayNameAndPhoto(newName, photoURL) {
+        return auth.currentUser.updateProfile({
+            displayName: newName,
+            photoURL
+        });
     };
 
     function createUserCollection() {
@@ -94,7 +97,7 @@ export function AuthProvider({children}) {
         addFavoritesUserCollection,
         removeFavoritesUserCollection,
         createUserCollection,
-        updateDisplayName,
+        updateDisplayNameAndPhoto,
         login,
         signup,
         signupGoogle,

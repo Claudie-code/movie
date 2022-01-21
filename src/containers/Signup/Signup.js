@@ -8,6 +8,8 @@ import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import { isEmail } from 'validator';
+import { useRef } from 'react';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Signup() {
     const classes = useStyles();
-    const { signup, updateDisplayName, createUserCollection, getFavorites } = useAuth();
+    const { signup, updateDisplayNameAndPhoto, createUserCollection, getFavorites } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [formValues, setFormValues] = useState({
@@ -126,7 +128,7 @@ function Signup() {
             setLoading(true);
             setError('');
             await signup(formValues.email, formValues.password);
-            await updateDisplayName(`${formValues.prenom} ${formValues.nom}`);
+            await updateDisplayNameAndPhoto(`${formValues.prenom} ${formValues.nom}`);
             await createUserCollection();
             getFavorites();
             history.push('/login');
@@ -138,19 +140,51 @@ function Signup() {
         setLoading(false);
     };
 
+    const fileInput = useRef();
+    const handleClick = () => {
+        fileInput.current.click()
+    };
+
+    const handleChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            fetch(`${process.env.REACT_APP_CLOUDINARY}`, 
+                {
+                    method: "POST",
+                    body: {"file": file}
+                }
+            )
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        }
+    };
+
     return (
         <Paper className={classes.root}>
             <Title>Inscription</Title>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <IconButton                 
-                            href=""
+                        <IconButton  
+                            onClick={handleClick}   
                         >
                             <Avatar
                                 alt="avatar"
                                 src=""
                                 sx={{ width: 56, height: 56 }}
+                            />
+                            <AddCircleOutlineIcon 
+                            />
+                            <input 
+                                ref={fileInput} 
+                                type="file" 
+                                style={{ display: 'none' }} 
+                                onChange={handleChange}
                             />
                         </IconButton>
                     </Grid>
