@@ -1,13 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Alert, Autocomplete } from '@material-ui/lab';
 import { 
-  TextField, AppBar, Toolbar, MenuItem, Menu, Typography, IconButton, Button, Switch 
+  TextField, AppBar, Toolbar, MenuItem, Menu, Typography, IconButton, Button, Switch, Avatar 
 } from '@material-ui/core';
 import { useData } from '../contexts/DataContext';
 
@@ -203,6 +202,8 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
     >
       <MenuItem onClick={() => handleMenuClick("/profile")}>Profile</MenuItem>
       <MenuItem onClick={() => handleMenuClick("/account")}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      {error && <Alert severity="error">{error}</Alert>}
     </Menu>
   );
 
@@ -293,10 +294,11 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+                <Avatar
+                  alt="avatar"
+                  src={currentUser?.photoURL}
+                />
               </IconButton> 
-              <Button onClick={handleLogout} color="inherit">Logout</Button>
-              {error && <Alert severity="error">{error}</Alert>}
             </> :
             <div>
               <Button onClick={() => handleMenuClick("/login")} color="inherit">Login</Button>

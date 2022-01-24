@@ -1,9 +1,10 @@
-import { makeStyles, Paper, Grid, Button, TextField, Link } from '@material-ui/core';
+import { makeStyles, Paper, Grid, Button, TextField, Link, Avatar, IconButton } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useRef, useState } from 'react';
 import Title from "../../components/Title";
 import { useAuth } from '../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +25,8 @@ export default function Account() {
     const [ error, setError ] = useState('');
     const [loading, setLoading] = useState(false);
     const classes = useStyles();
-    const { currentUser, updateEmail, updatePassword, updateDisplayName } = useAuth();
+    const { currentUser, updateEmail, updatePassword, updateDisplayNameAndPhoto } = useAuth();
+    const [url, setUrl] = useState(currentUser.photoURL);
     const emailRef = useRef();
     const lnameRef = useRef();
     const fnameRef = useRef();
@@ -49,9 +51,12 @@ export default function Account() {
         if(passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value))
         }
-
-        if(lnameRef.current.value !== lname || fnameRef.current.value !== fname) {
-            promises.push(updateDisplayName(`${fnameRef.current.value} ${lnameRef.current.value}`))
+        console.log('test',url && url)
+        if((lnameRef.current.value !== lname || fnameRef.current.value !== fname) || url !== currentUser.photoURL) {
+            promises.push(updateDisplayNameAndPhoto(
+                `${fnameRef.current.value} ${lnameRef.current.value}`, 
+                url
+            ));
         }
 
         Promise.all(promises).then(() => {
@@ -63,12 +68,60 @@ export default function Account() {
         })
     };
 
+    const fileInput = useRef();
+    const handleClick = () => {
+        fileInput.current.click()
+    };
+
+    const handleChange = (event) => {
+        const file = event.target.files[0];
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+        data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
+        if (file) {
+            fetch(`${process.env.REACT_APP_CLOUDINARY_API}`, 
+                {
+                    method: "POST",
+                    body: data
+                }
+            )
+            .then(response => response.json())
+            .then(data => {
+                setUrl(data.url)
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        }
+    };
+
     return (
 
         <Paper className={classes.root}>
             <Title>Compte de <br/>{currentUser.displayName}</Title>
             <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <IconButton  
+                                onClick={handleClick}   
+                            >
+                                {url ? 
+                                    <Avatar
+                                        alt="avatar"
+                                        src={url? url : currentUser.photoURL}
+                                        style={{ width: 70, height: 70 }}
+                                    /> :
+                                    <AddAPhotoOutlinedIcon style={{ width: 70, height: 70 }} />
+                                }
+                                <input 
+                                    ref={fileInput} 
+                                    type="file" 
+                                    style={{ display: 'none' }} 
+                                    onChange={handleChange}
+                                />
+                            </IconButton>
+                        </Grid>
                         <Grid item xs={12}>
                             {error && <Alert severity="error">{error}</Alert>}
                         </Grid>
