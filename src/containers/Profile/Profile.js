@@ -27,7 +27,15 @@ export default function Profile() {
                     Mes favoris
             </Typography>
             <Box display="flex">
-                <CardsWithTitleAndGenre seriesAndMovies={favorites} seriesGenres={seriesGenres} moviesGenres={moviesGenres}/> 
+                {favorites.length > 0 ?
+                    <CardsWithTitleAndGenre 
+                        seriesAndMovies={favorites} 
+                        seriesGenres={seriesGenres} 
+                        moviesGenres={moviesGenres}
+                    /> :
+                    "Pas de favoris"
+                }
+
             </Box>
         </Paper>
 
