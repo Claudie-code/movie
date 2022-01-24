@@ -9,6 +9,7 @@ import {
   TextField, AppBar, Toolbar, MenuItem, Menu, Typography, IconButton, Button, Switch, Avatar 
 } from '@material-ui/core';
 import { useData } from '../contexts/DataContext';
+import AuthModal from './AuthModal/AuthModal';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -82,6 +83,7 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [searchOpen, setSearchOpen] = useState(null);
+  const [modalOpen, setModalOpen] = useState(null);
   const history = useHistory();
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState('');
@@ -90,6 +92,7 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isSearchOpen = Boolean(searchOpen);
+  const isModalOpen = Boolean(modalOpen);
 
   async function handleLogout() {
     setError('');
@@ -113,6 +116,10 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
     setSearchOpen(null);
   };
 
+  const handleModalClose = () => {
+    setModalOpen(null);
+  };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -124,6 +131,10 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
 
   const handleSearchOpen = (event) => {
     setSearchOpen(event.currentTarget);
+  };
+
+  const handleModalOpen = (event) => {
+    setModalOpen(event.currentTarget);
   };
 
   const handleMenuClick = pageURL => {
@@ -222,11 +233,11 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
         <div>
           <MenuItem onClick={() => handleMenuClick("/profile")}>Profile</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/account")}>My account</MenuItem>
-          <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+          <MenuItem onClick={() => handleLogout}>Logout</MenuItem>
           {error && <Alert severity="error">{error}</Alert>}
         </div> :
         <div>
-          <MenuItem onClick={() => handleMenuClick("/login")}>Login</MenuItem>
+          <MenuItem onClick={() => handleModalOpen}>Login</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/signup")}>Signup</MenuItem>
         </div>
       }
@@ -301,8 +312,8 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
               </IconButton> 
             </> :
             <div>
-              <Button onClick={() => handleMenuClick("/login")} color="inherit">Login</Button>
-              <Button onClick={() => handleMenuClick("/signup")}  color="inherit">Signup</Button>
+              <Button onClick={handleModalOpen}>Login</Button>
+              <Button onClick={() => handleMenuClick("/signup")}>Signup</Button>
             </div>
           }
           </div>
@@ -330,6 +341,7 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
       {renderSearch}
       {renderMobileMenu}
       {renderMenu}
+      <AuthModal isModalOpen={isModalOpen} handleModalClose={handleModalClose} />
     </div>
   );
 }

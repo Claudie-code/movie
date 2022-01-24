@@ -35,7 +35,6 @@ export default function Profile() {
                     /> :
                     "Pas de favoris"
                 }
-
             </Box>
         </Paper>
 
