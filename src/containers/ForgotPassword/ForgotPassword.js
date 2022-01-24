@@ -1,27 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { Grid, TextField, Button, Link, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        textAlign: 'center',
-        maxWidth: 700,
-        margin: '2rem auto',
-        padding: theme.spacing(5)
-    },
-    margin: {
-        marginTop: theme.spacing(4)
-    }
-}));
-
 function ForgotPassword() {
-    const classes = useStyles();
     const emailRef = useRef();
     const { resetPassword } = useAuth();
     const [error, setError] = useState('');
@@ -43,7 +26,7 @@ function ForgotPassword() {
     };
 
     return (
-        <Paper className={classes.root}>
+        <>
                 <Title>Réinitialisation du mot de passe</Title>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
@@ -75,20 +58,8 @@ function ForgotPassword() {
                             </Button>
                         </Grid>
                     </Grid>
-                    <Grid container justifyContent="flex-end" alignItems="flex-end" direction="column" spacing={1}className={classes.margin}>
-                        <Grid item>
-                            <Link href="/login" variant="body2">
-                                Connexion
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="/signup" variant="body2">
-                                Pas de compte? S'inscrire ici
-                            </Link>
-                        </Grid>
-                    </Grid>
                 </form>
-        </Paper>
+        </>
     );
 }
 

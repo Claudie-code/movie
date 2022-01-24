@@ -238,7 +238,6 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
         </div> :
         <div>
           <MenuItem onClick={() => handleModalOpen}>Login</MenuItem>
-          <MenuItem onClick={() => handleMenuClick("/signup")}>Signup</MenuItem>
         </div>
       }
     </Menu>
@@ -313,7 +312,6 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
             </> :
             <div>
               <Button onClick={handleModalOpen}>Login</Button>
-              <Button onClick={() => handleMenuClick("/signup")}>Signup</Button>
             </div>
           }
           </div>

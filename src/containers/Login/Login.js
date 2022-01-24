@@ -1,29 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { Grid, TextField, Button, Link, Paper, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, TextField, Button, Divider } from '@material-ui/core';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import GoogleButton from 'react-google-button'
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        textAlign: 'center',
-        maxWidth: 500,
-        margin: '11rem auto',
-        padding: theme.spacing(5)
-    },
-    margin: {
-        marginTop: theme.spacing(4)
-    }
-}));
-
 function Login() {
-    const classes = useStyles();
     const emailRef = useRef();
     const passwordRef = useRef();
     const { login, getFavorites, signupGoogle } = useAuth();
@@ -58,7 +41,7 @@ function Login() {
     };
 
     return (
-        <Paper className={classes.root}>
+        <>
             <Title>Connexion</Title>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
@@ -106,20 +89,8 @@ function Login() {
                         </Button>
                     </Grid>
                 </Grid>
-                <Grid container justifyContent="flex-end" alignItems="flex-end" direction="column" spacing={1}className={classes.margin}>
-                    <Grid item>
-                        <Link href="/forgot-password" variant="body2">
-                            Mot de passe oublié?
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link href="/signup" variant="body2">
-                            Pas de compte? S'inscrire ici
-                        </Link>
-                    </Grid>
-                </Grid>
             </form>
-        </Paper>
+        </>
     );
 }
 

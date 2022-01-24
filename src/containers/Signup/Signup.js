@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Paper, Grid, TextField, Button, Link, InputAdornment, IconButton, Avatar } from '@material-ui/core';
+import { Grid, TextField, Button, InputAdornment, IconButton, Avatar } from '@material-ui/core';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,23 +11,7 @@ import { isEmail } from 'validator';
 import { useRef } from 'react';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        textAlign: 'center',
-        maxWidth: 500,
-        margin: '7rem auto',
-        padding: theme.spacing(5)
-    },
-    margin: {
-        marginTop: theme.spacing(4)
-    }
-}));
-
 function Signup() {
-    const classes = useStyles();
     const { signup, updateDisplayNameAndPhoto, createUserCollection, getFavorites } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
@@ -170,7 +154,7 @@ function Signup() {
     };
 
     return (
-        <Paper className={classes.root}>
+        <>
             <Title>Inscription</Title>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
@@ -256,7 +240,7 @@ function Signup() {
                             value={formValues.password}
                             onChange={passwordValidation}
                             helperText={textValidation}
-                            InputProps={{ // <-- This is where the toggle button is added.
+                            InputProps={{
                                 endAdornment: (
                                   <InputAdornment position="end">
                                     <IconButton
@@ -299,15 +283,8 @@ function Signup() {
                         </Button>
                     </Grid>
                 </Grid>
-                <Grid container justifyContent="flex-end" spacing={2} className={classes.margin}>
-                    <Grid item>
-                    <Link href="/login" variant="body2">
-                        Déjà inscrit? Se connecter ici
-                    </Link>
-                    </Grid>
-                </Grid>
             </form>
-        </Paper>
+        </>
     );
 }
 
