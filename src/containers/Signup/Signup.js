@@ -9,7 +9,7 @@ import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import { isEmail } from 'validator';
 import { useRef } from 'react';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,6 +45,7 @@ function Signup() {
     const [errorPasswordConfirmation, setErrorPasswordConfirmation] = useState(false);
     const [errorEmailConfirmation, setErrorEmailConfirmation] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [url, setUrl] = useState("");
     const history = useHistory();
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -128,10 +129,10 @@ function Signup() {
             setLoading(true);
             setError('');
             await signup(formValues.email, formValues.password);
-            await updateDisplayNameAndPhoto(`${formValues.prenom} ${formValues.nom}`);
+            await updateDisplayNameAndPhoto(`${formValues.prenom} ${formValues.nom}`, url);
             await createUserCollection();
             getFavorites();
-            history.push('/login');
+            history.push('/');
         } catch(error) {
             if(error.code === "auth/email-already-in-use") {
                 setError("L'adresse email est déjà utilisée");
@@ -147,16 +148,20 @@ function Signup() {
 
     const handleChange = (event) => {
         const file = event.target.files[0];
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+        data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
         if (file) {
-            fetch(`${process.env.REACT_APP_CLOUDINARY}`, 
+            fetch(`${process.env.REACT_APP_CLOUDINARY_API}`, 
                 {
                     method: "POST",
-                    body: {"file": file}
+                    body: data
                 }
             )
             .then(response => response.json())
-            .then(json => {
-                console.log(json)
+            .then(data => {
+                setUrl(data.url)
             })
             .catch(err => {
                 console.error(err);
@@ -173,13 +178,14 @@ function Signup() {
                         <IconButton  
                             onClick={handleClick}   
                         >
+                            {url ? 
                             <Avatar
                                 alt="avatar"
-                                src=""
-                                sx={{ width: 56, height: 56 }}
-                            />
-                            <AddCircleOutlineIcon 
-                            />
+                                src={url}
+                                style={{ width: 70, height: 70 }}
+                            /> :
+                            <AddAPhotoOutlinedIcon style={{ width: 70, height: 70 }} />
+                            }
                             <input 
                                 ref={fileInput} 
                                 type="file" 
