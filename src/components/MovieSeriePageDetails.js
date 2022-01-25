@@ -8,6 +8,7 @@ import FavoriteCheckBox from './FavoriteCheckbox';
 import ReleaseDate from './ReleaseDate';
 import { useAuth } from '../contexts/AuthContext';
 import CastCard from './CastCard';
+import { useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -34,11 +35,21 @@ const useStyles = makeStyles(theme => ({
         flexWrap: "wrap",
         justifyContent: "space-evenly",
     },
+    comment: {
+        display: "flex",
+        gap: theme.spacing(2),
+        flexDirection: "column",
+    }
 }));
 
 export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }) {
+    const [ newComment, setNewComment ] = useState("");
     const { currentUser } = useAuth();
     const classes = useStyles();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    };
 
     return (
         <>
@@ -70,13 +81,24 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
             </Box>
             <Titleh3>Commentaires</Titleh3>
             {currentUser ?
-                <TextField
-                    placeholder="Ecrire un commentaire"
-                    multiline
-                    rows={2}
-                    maxRows={4}
-                /> :
-                <Button>Ecrire un commentaire</Button>
+                <form onSubmit={handleSubmit} className={classes.comment}>
+                    <TextField
+                        label="Écrire un commentaire"
+                        multiline
+                        rows={4}
+                        maxRows={4}
+                        variant="outlined"
+                        size="small"
+                        color="secondary"
+                        value={newComment}
+                        onChange={event => setNewComment(event.target.value)}
+                    />
+                    <div>
+                    <Button color="secondary" variant="contained" fullWidth={false}>Valider</Button>
+
+                    </div>
+                </form> :
+                <Button>Écrire un commentaire</Button>
             }
         </Paper>
         }
