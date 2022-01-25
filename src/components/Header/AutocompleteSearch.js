@@ -36,7 +36,7 @@ function AutocompleteSearch(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         history.push(`/search/${event.target[0].value}`);
-    }
+    };
 
     return (
         <Autocomplete

@@ -137,15 +137,15 @@ export default function PeoplePage(props) {
                             </Box>
                         </Box>
                     </Box>
-                    <Titleh3>CELEBRE POUR</Titleh3>
+                    <Titleh3>Célèbre pour</Titleh3>
                     <Box className={classes.list}>
                         {people.combined_credits.cast.slice(0,6).map(cast => (
-                            <Box style={{width: 200}}>
+                            <Box style={{width: 200}} key={cast.id}>
                                 <ImageWithButton data={cast}/>
                             </Box>
                         ))}
                     </Box>
-                    <Titleh3>BIOGRAPHIE</Titleh3>
+                    <Titleh3>Biographie</Titleh3>
                     <Typography variant="body1" gutterBottom>
                         {people.biography || "Pas de biographie"}
                     </Typography>

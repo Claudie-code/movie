@@ -1,4 +1,4 @@
-import { makeStyles, Paper, Typography, Box } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Box, Button, TextField } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Title from "./Title";
 import Titleh3 from "./Titleh3";
@@ -69,6 +69,15 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                 }
             </Box>
             <Titleh3>Commentaires</Titleh3>
+            {currentUser ?
+                <TextField
+                    placeholder="Ecrire un commentaire"
+                    multiline
+                    rows={2}
+                    maxRows={4}
+                /> :
+                <Button>Ecrire un commentaire</Button>
+            }
         </Paper>
         }
         </>
