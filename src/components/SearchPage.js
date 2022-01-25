@@ -9,8 +9,7 @@ import Loader from './Loader/Loader';
 export default function SearchPage({apiURL, search, name}) {
     const [page, setPage] = useState(1);
     
-    const [ searchResults, loading ] = useApiData(apiURL(search, page), search, page
-    );
+    const [ searchResults, loading ] = useApiData(apiURL(search, page), search, page);
 
     return (
         <>
@@ -19,7 +18,7 @@ export default function SearchPage({apiURL, search, name}) {
                 <>
                     <Title>Résultats pour {name ||search}</Title>
                     <Grid container justifyContent="center" spacing={3}>
-                        {searchResults && <MovieSerieCardList data={searchResults} />}
+                        {searchResults && <MovieSerieCardList datas={searchResults} />}
                         <Pagination count={10} page={page} onChange={(event, value) => setPage(value)} />
                     </Grid>
                 </>

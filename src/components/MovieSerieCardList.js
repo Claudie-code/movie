@@ -56,16 +56,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function MovieSerieCardList({ data }) {
+function MovieSerieCardList({ datas }) {
     const classes = useStyles();
     const history = useHistory();
-
+    console.log("datas", datas)
     return (
         <>
-        {data.map(data => (
+        {datas.map(data => (
             <Grid item xs={12} key={data.id}>
                 <Card className={classes.root}>
-                    <CardActionArea href={
+                    {console.log('data', data.media_type === "tv" ? 
+                            `/serie/${data.id}` : 
+                            data.media_type === "person" ?
+                            `/people/${data.id}` :
+                            `/movie/${data.id}`)}
+                    <CardActionArea 
+                        href={
                             data.media_type === "tv" ? 
                             `/serie/${data.id}` : 
                             data.media_type === "person" ?
@@ -104,7 +110,13 @@ function MovieSerieCardList({ data }) {
                                 variant="outlined" 
                                 color="primary"
                                 gutterRight
-                                onClick={()=> {history.replace(`${data.name? `/serie/${data.id}`: `/movie/${data.id}`}`)}}
+                                onClick={()=> {history.replace(`${
+                                    data.media_type === "tv" ? 
+                                    `/serie/${data.id}` : 
+                                    data.media_type === "person" ?
+                                    `/people/${data.id}` :
+                                    `/movie/${data.id}`
+                                }`)}}
                             >
                                 Voir
                             </Button>

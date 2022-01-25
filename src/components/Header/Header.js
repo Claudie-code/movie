@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   fontSize: {
     fontWeight: 400,
     textTransform: "none",
@@ -87,9 +84,11 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
               <AutocompleteSearch />
             </div>
             <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
-            <Typography variant="subtitle1" component="h3">
-              Hi, {currentUser?.displayName?.split(' ')[0]}
-            </Typography>
+            {currentUser && 
+              <Typography variant="subtitle1" component="h3">
+                Hi, {currentUser?.displayName?.split(' ')[0]}
+              </Typography>
+            }
             <MenuHeader 
               handlePush={handlePush} 
               handleModalOpen={handleModalOpen}

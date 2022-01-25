@@ -28,7 +28,7 @@ export default function MoviePage(props) {
         },
     );
     }, [id])
-    console.log(movie, "movie")
+
     return (
         <>
             {loading ? 

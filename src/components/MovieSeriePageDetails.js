@@ -56,13 +56,11 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
             <ReleaseDate>
                 {movieOrSerieData.release_date}
             </ReleaseDate>
-            <Typography component="h3" variant="h5" color="primary" gutterBottom>
-                SYNOPSIS
-            </Typography>
+            <Titleh3>Synopsis</Titleh3>
             <Typography variant="body1" gutterBottom>
                 {movieOrSerieData.overview || "Pas de résumé"}
             </Typography>
-            <Titleh3>ACTEURS ET ACTRICES</Titleh3>
+            <Titleh3>Acteurs et actrices</Titleh3>
             <Box className={classes.flex}>
                 {movieOrSerieData && 
                     movieOrSerieData.credits?.cast.slice(0, 5).map(cast => (
@@ -70,6 +68,7 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                     ))
                 }
             </Box>
+            <Titleh3>Commentaires</Titleh3>
         </Paper>
         }
         </>
