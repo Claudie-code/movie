@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-  },
   fontSize: {
+    fontWeight: 400,
+    textTransform: "none",
     fontSize: "1.2rem",
     [theme.breakpoints.up('sm')]: {
       fontSize: "1.7rem"
@@ -248,13 +248,13 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h1">
-            <MenuItem className={classes.fontSize} onClick={() => handleMenuClick('/')}>MovieTrend</MenuItem>
+          <Typography component="h1">
+            <Button className={classes.fontSize} onClick={() => handleMenuClick('/')}>MovieTrend</Button>
           </Typography>
 
           <div className={classes.sectionDesktop}>
           <div className={classes.middleBar}>
-            <Button className={classes.categories} onClick={() => handleMenuClick('/genres')} color="inherit">Catégories</Button>
+            <Button className={classes.categories} onClick={() => handleMenuClick('/genres')}>Catégories</Button>
             <Autocomplete
               id="movies_select"
               options={popularMovies || []}
