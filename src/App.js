@@ -1,5 +1,5 @@
 import Genres from './containers/Genres/Genres';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Footer from './components/Footer';
 import Accueil from './containers/Accueil/Accueil';
 import GenrePage from './containers/GenrePage/GenrePage';
