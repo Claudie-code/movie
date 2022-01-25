@@ -5,6 +5,7 @@ import { auth, db, firestore, provider } from '../firebase';
 const AuthContext = React.createContext();
 
 const userCollection = db.collection('users');
+const topicsCollection = db.collection('topics');
 
 export function useAuth() {
     return useContext(AuthContext)
@@ -37,6 +38,22 @@ export function AuthProvider({children}) {
         } else {
             await createUserCollection()
             getFavorites();
+        }
+    };
+
+    function createTopicCollection(topicId) {
+        return topicsCollection.doc(topicId).set({comments:[]});
+    };
+
+    async function getTopic(topicId) {
+        let docRef;
+        docRef = await topicsCollection.doc(topicId).get();
+
+        if (docRef.exists) {
+            if (docRef.data().comments) return docRef.data().comments;
+        } else {
+            await createTopicCollection(topicId)
+            getTopic(topicId);
         }
     };
 
@@ -105,6 +122,7 @@ export function AuthProvider({children}) {
         resetPassword,
         updateEmail,
         updatePassword,
+        getTopic
     };
 
     return (

@@ -8,7 +8,7 @@ import FavoriteCheckBox from './FavoriteCheckbox';
 import ReleaseDate from './ReleaseDate';
 import { useAuth } from '../contexts/AuthContext';
 import CastCard from './CastCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -44,13 +44,28 @@ const useStyles = makeStyles(theme => ({
 
 export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }) {
     const [ newComment, setNewComment ] = useState("");
-    const { currentUser } = useAuth();
+    const [ comments, setComments ] = useState("");
+    const { currentUser, getTopic } = useAuth();
     const classes = useStyles();
 
     const handleSubmit = (event) => {
+        console.log("ok")
         event.preventDefault();
     };
 
+    useEffect(() => {
+        const addTopics = async () => {
+            try {
+                const result = await getTopic(`${movieOrSerie}${movieOrSerieData.id}`);
+                setComments(result);
+            } catch (error) {
+                console.log("error", error)
+            }
+        }
+        return addTopics();
+    }
+    ,[movieOrSerieData, movieOrSerie]);
+    console.log("les comments", comments)
     return (
         <>
         {movieOrSerieData &&
@@ -94,11 +109,10 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                         onChange={event => setNewComment(event.target.value)}
                     />
                     <div>
-                    <Button color="secondary" variant="contained" fullWidth={false}>Valider</Button>
-
+                        <Button color="secondary" variant="contained" fullWidth={false}>Valider</Button>
                     </div>
                 </form> :
-                <Button>Écrire un commentaire</Button>
+                <Button type="submit">Écrire un commentaire</Button>
             }
         </Paper>
         }
