@@ -21,6 +21,7 @@ function Login() {
             setError('');
             await login(emailRef.current.value, passwordRef.current.value);
             getFavorites();
+            window.location.reload();
             history.push('/');
         } catch {
             setError('Echec de la connexion');
@@ -28,11 +29,12 @@ function Login() {
         setLoading(false);
     };
 
-    async function handleClick(event) {
+    async function handleClick() {
         try {
             setError('');
             await signupGoogle();
             getFavorites();
+            window.location.reload();
             history.push('/');
         } catch(error) {
             setError('Echec de la connexion');

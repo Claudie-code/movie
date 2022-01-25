@@ -98,7 +98,8 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
     setError('');
     try {
       await logout();
-      history.push('/login')
+      window.location.reload();
+      history.push('/');
     } catch {
       setError('Failed to log out')
     }
@@ -233,11 +234,11 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
         <div>
           <MenuItem onClick={() => handleMenuClick("/profile")}>Profile</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/account")}>My account</MenuItem>
-          <MenuItem onClick={() => handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
           {error && <Alert severity="error">{error}</Alert>}
         </div> :
         <div>
-          <MenuItem onClick={() => handleModalOpen}>Login</MenuItem>
+          <MenuItem onClick={handleModalOpen}>Login</MenuItem>
         </div>
       }
     </Menu>

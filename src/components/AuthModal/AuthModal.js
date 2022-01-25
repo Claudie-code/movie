@@ -47,7 +47,7 @@ const AuthModal = ({ isModalOpen, handleModalClose}) => {
                     <Paper className={classes.root}>
 
                         {openSignup === "signup" && 
-                            // <Slide direction="right" in={openSignup === "signup" ? true : false} mountOnEnter unmountOnExit>
+                            <Slide direction="right" in={openSignup === "signup" ? true : false} mountOnEnter unmountOnExit>
                                 <>
                                     <Signup />
                                     <Box className={classes.flex}>
@@ -56,7 +56,7 @@ const AuthModal = ({ isModalOpen, handleModalClose}) => {
                                         </Link>
                                     </Box>
                                 </>
-                            // </Slide>
+                            </Slide>
                         }
                         {openSignup === "login" && 
                             <>

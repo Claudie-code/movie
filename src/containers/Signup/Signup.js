@@ -116,6 +116,7 @@ function Signup() {
             await updateDisplayNameAndPhoto(`${formValues.prenom} ${formValues.nom}`, url);
             await createUserCollection();
             getFavorites();
+            window.location.reload();
             history.push('/');
         } catch(error) {
             if(error.code === "auth/email-already-in-use") {
