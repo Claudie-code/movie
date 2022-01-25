@@ -57,6 +57,17 @@ export function AuthProvider({children}) {
         }
     };
 
+    function newCommentTopicsCollection(newComment, topicId) {
+        return topicsCollection.doc(topicId).update({
+            comments: firestore.FieldValue.arrayUnion({
+                firstName: currentUser?.displayName?.split(' ')[0],
+                lastName: currentUser?.displayName?.split(' ')[1],
+                photoUrl: currentUser.photoURL,
+                comment: newComment
+            })
+        });
+    };
+
     function addFavoritesUserCollection(movieId) {
         return userCollection.doc(auth.currentUser.uid).update({
             favorites: firestore.FieldValue.arrayUnion(movieId)
@@ -122,7 +133,8 @@ export function AuthProvider({children}) {
         resetPassword,
         updateEmail,
         updatePassword,
-        getTopic
+        getTopic,
+        newCommentTopicsCollection
     };
 
     return (

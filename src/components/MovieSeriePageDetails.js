@@ -9,6 +9,7 @@ import ReleaseDate from './ReleaseDate';
 import { useAuth } from '../contexts/AuthContext';
 import CastCard from './CastCard';
 import { useEffect, useState } from 'react';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -43,20 +44,31 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }) {
+    const topicId = `${movieOrSerie}${movieOrSerieData.id}`;
     const [ newComment, setNewComment ] = useState("");
-    const [ comments, setComments ] = useState("");
-    const { currentUser, getTopic } = useAuth();
+    const [ comments, setComments ] = useState([]);
+    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
+    const { currentUser, getTopic, newCommentTopicsCollection } = useAuth();
     const classes = useStyles();
 
-    const handleSubmit = (event) => {
-        console.log("ok")
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        if(newComment === "") {
+            return setError("Veuillez insérer un caractère minimum.");
+        }
+        try {
+            await newCommentTopicsCollection(newComment, topicId);
+            setMessage("Commentaire posté!")
+        } catch (error) {
+            console.log(error, "error")
+        }
     };
 
     useEffect(() => {
         const addTopics = async () => {
             try {
-                const result = await getTopic(`${movieOrSerie}${movieOrSerieData.id}`);
+                const result = await getTopic(topicId);
                 setComments(result);
             } catch (error) {
                 console.log("error", error)
@@ -64,8 +76,8 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
         }
         return addTopics();
     }
-    ,[movieOrSerieData, movieOrSerie]);
-    console.log("les comments", comments)
+    ,[movieOrSerieData, movieOrSerie, comments]);
+
     return (
         <>
         {movieOrSerieData &&
@@ -100,7 +112,6 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                     <TextField
                         label="Écrire un commentaire"
                         multiline
-                        rows={4}
                         maxRows={4}
                         variant="outlined"
                         size="small"
@@ -109,11 +120,16 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                         onChange={event => setNewComment(event.target.value)}
                     />
                     <div>
-                        <Button color="secondary" variant="contained" fullWidth={false}>Valider</Button>
+                        <Button color="secondary" variant="contained" type="submit">Valider</Button>
                     </div>
+                    {error && <Alert severity="error">{error}</Alert>}
+                    {message && <Alert severity="success">{message}</Alert>}
                 </form> :
-                <Button type="submit">Écrire un commentaire</Button>
+                <Button >Écrire un commentaire</Button>
             }
+            {comments.map(comment => (
+                <p>{comment?.comment}</p>
+            ))}
         </Paper>
         }
         </>
