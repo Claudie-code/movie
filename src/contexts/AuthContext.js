@@ -60,10 +60,10 @@ export function AuthProvider({children}) {
     function newCommentTopicsCollection(newComment, topicId) {
         return topicsCollection.doc(topicId).update({
             comments: firestore.FieldValue.arrayUnion({
-                firstName: currentUser?.displayName?.split(' ')[0],
-                lastName: currentUser?.displayName?.split(' ')[1],
-                photoUrl: currentUser.photoURL,
-                comment: newComment
+                name: currentUser.displayName,
+                photoURL: currentUser.photoURL,
+                comment: newComment,
+                date: ""
             })
         });
     };

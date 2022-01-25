@@ -1,4 +1,4 @@
-import { makeStyles, Paper, Typography, Box, Button, TextField } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Box, Button, TextField, Divider, Avatar } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Title from "./Title";
 import Titleh3 from "./Titleh3";
@@ -36,10 +36,20 @@ const useStyles = makeStyles(theme => ({
         flexWrap: "wrap",
         justifyContent: "space-evenly",
     },
-    comment: {
+    newComment: {
         display: "flex",
         gap: theme.spacing(2),
         flexDirection: "column",
+    },
+    comment: {
+        display: "flex",
+        gap: theme.spacing(5),
+    },
+    profil: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: theme.spacing(2),
     }
 }));
 
@@ -59,7 +69,8 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
         }
         try {
             await newCommentTopicsCollection(newComment, topicId);
-            setMessage("Commentaire posté!")
+            setMessage("Commentaire posté!");
+            setNewComment("");
         } catch (error) {
             console.log(error, "error")
         }
@@ -108,11 +119,11 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
             </Box>
             <Titleh3>Commentaires</Titleh3>
             {currentUser ?
-                <form onSubmit={handleSubmit} className={classes.comment}>
+                <form onSubmit={handleSubmit} className={classes.newComment}>
                     <TextField
                         label="Écrire un commentaire"
                         multiline
-                        maxRows={4}
+                        maxRows={5}
                         variant="outlined"
                         size="small"
                         color="secondary"
@@ -127,8 +138,29 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                 </form> :
                 <Button >Écrire un commentaire</Button>
             }
-            {comments.map(comment => (
-                <p>{comment?.comment}</p>
+            {comments?.map(comment => (
+                <>
+                    <Divider style={{width:'100%', margin: "1rem 0"}} />
+                    <Box className={classes.comment}>
+                        <Box className={classes.profil}>
+                            <Avatar
+                                alt="avatar"
+                                src={comment.photoURL}
+                                style={{ width: 70, height: 70 }}
+                            />
+                            <Typography variant="body2" gutterBottom>
+                                {comment.name}
+                            </Typography>
+                            <Typography variant="body2" gutterBottom>
+                                le /
+                            </Typography>
+                        </Box>
+                        <Typography variant="body1" gutterBottom>
+                            {comment.comment}
+                        </Typography>
+                    </Box>
+                </>
+
             ))}
         </Paper>
         }
