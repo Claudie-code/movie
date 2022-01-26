@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         width: 220,
+        '@media (max-width:800px)': {
+            width: 150,
+        },
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -20,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     cover: {
         width: 220,
         height: 318,
+        '@media (max-width:800px)': {
+            width: 150,
+            height: 220,
+        },
         borderRadius: ".2rem .2rem 0 0",
         display: "flex",
         alignItems: "flex-end"

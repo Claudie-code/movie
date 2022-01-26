@@ -29,12 +29,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   cover: {
-    width: 120,
-    height: 200,
-    '@media (min-width:650px)': {
-      width: 100,
-      height: 150,
-    },
+    width: 200,
+    height: 280,
     '@media (min-width:850px)': {
       width: 200,
       height: 280,
@@ -46,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MediaControlCard({ popularMovie }) {
+export default function MovieWithReleaseDate({ popularMovie }) {
   const classes = useStyles();
   
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import BandeAnnonce from "../../components/BandeAnnonce"
-import ButtonMovie from "./ButtonMovie"
+import MovieWithReleaseDate from "./MovieWithReleaseDate"
 import Grid from '@material-ui/core/Grid';
 import ImageWithButton from '../../components/ImageWithButton';
 import "./accueil.css";
@@ -23,30 +23,15 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     secondItem: {
-        height: "880px",
+        height: "570px",
         overflow: "hidden",
-        '@media (min-width:750px)': {
-            height: "100%",
-        },
         '@media (min-width:850px)': {
             width: '100%',
-            overflow: "hidden",
-            height: "550px",
+            height: "570px",
         },
         '@media (min-width:1200px)': {
             width: '39%',
             height: "655px",
-        },
-    },
-    grid: {
-        '@media (max-width:430px)': {
-            flexDirection: "column",
-            alignItems: "center"
-        },
-    },
-    imageGrid: {
-        '@media (max-width:430px)': {
-            width: '100%',
         },
     },
     trailer: {
@@ -62,14 +47,12 @@ function Sorties({ popularMovies }) {
             <Title>Bandes annonces à ne pas manquer</Title>
             <Box className={classes.flex}>
                 <Box className={classes.firstItem}>
-                    <Grid container spacing={2} className={classes.grid}>
+                    <Grid container spacing={2} >
                         <Grid item xs={12} className={classes.trailer}>
                             <BandeAnnonce movieOrSerieData={popularMovies[4]} movieOrSerie="movie"/>
                         </Grid>
                         {popularMovies.slice(4, 8).map(popularMovie => (
-                            <Grid key={popularMovie.id} item 
-                                xs={6} sm={3}
-                                className={classes.imageGrid}>
+                            <Grid key={popularMovie.id} item xs={6} sm={3}>
                                 <ImageWithButton data={popularMovie}/>
                             </Grid>
                         ))}
@@ -78,7 +61,7 @@ function Sorties({ popularMovies }) {
                 <Box className={classes.secondItem}>
                     <div className="slides">
                         {popularMovies.slice(8, 14).map(popularMovie => (
-                            <ButtonMovie key={popularMovie.id} popularMovie={popularMovie}/>
+                            <MovieWithReleaseDate key={popularMovie.id} popularMovie={popularMovie}/>
                         ))}
                     </div>
                 </Box>
