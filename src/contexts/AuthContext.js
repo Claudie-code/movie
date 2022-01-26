@@ -14,9 +14,19 @@ export function useAuth() {
 }
 
 export function AuthProvider({children}) {
+    const [modalOpen, setModalOpen] = useState(null);
+    const isModalOpen = Boolean(modalOpen);
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
     const [favorites, setFavorites] = useState();
+
+    const handleModalClose = () => {
+        setModalOpen(null);
+      };
+    
+    const handleModalOpen = (event) => {
+        setModalOpen(event.currentTarget);
+    };
  
     function updateDisplayNameAndPhoto(newName, photoURL) {
         return auth.currentUser.updateProfile({
@@ -125,6 +135,7 @@ export function AuthProvider({children}) {
     const value = {
         favorites,
         currentUser,
+        isModalOpen,
         getFavorites,
         addFavoritesUserCollection,
         removeFavoritesUserCollection,
@@ -138,7 +149,9 @@ export function AuthProvider({children}) {
         updateEmail,
         updatePassword,
         getTopic,
-        newCommentTopicsCollection
+        newCommentTopicsCollection,
+        handleModalClose,
+        handleModalOpen,
     };
 
     return (

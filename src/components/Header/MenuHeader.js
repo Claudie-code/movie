@@ -4,11 +4,11 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Alert } from '@material-ui/lab';
 import { useHistory } from 'react-router-dom';
 
-function MenuHeader({ handlePush, handleModalOpen, currentUser }) {
+function MenuHeader({ handlePush, currentUser }) {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
     const [error, setError] = useState('');
-    const { logout } = useAuth();
+    const { logout, handleModalOpen } = useAuth();
     const isMenuOpen = Boolean(anchorEl);
     const menuId = 'account-menu';
 
@@ -64,7 +64,7 @@ function MenuHeader({ handlePush, handleModalOpen, currentUser }) {
                 <>
                     <IconButton
                         edge="end"
-                        aria-label="account of current user"
+                        aria-label="compte de l'utilisateur"
                         aria-controls={menuId}
                         aria-haspopup="true"
                         onClick={handleMenuOpen}

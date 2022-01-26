@@ -3,16 +3,18 @@ import Signup from '../../containers/Signup/Signup';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
-import { Box, Link, makeStyles, Paper } from '@material-ui/core';
+import { Box, IconButton, Link, makeStyles, Paper } from '@material-ui/core';
 import { useState } from 'react';
 import ForgotPassword from '../../containers/ForgotPassword/ForgotPassword';
+import { useAuth } from '../../contexts/AuthContext';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         position: "absolute",
         textAlign: 'center',
         maxWidth: 400,
-        padding: theme.spacing(5),
+        padding: theme.spacing(3),
         top: `50%`,
         left: `50%`,
         transform: `translate(-50%, -50%)`,
@@ -26,9 +28,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AuthModal = ({ isModalOpen, handleModalClose }) => {
+const AuthModal = () => {
     const classes = useStyles();
     const [openSignup, setOpenSignup] = useState("login");
+    const { isModalOpen, handleModalClose } = useAuth();
 
     return (
         <Modal
@@ -44,6 +47,11 @@ const AuthModal = ({ isModalOpen, handleModalClose }) => {
         >
             <Fade in={isModalOpen}>
                 <Paper className={classes.root}>
+                    <Box display="flex" justifyContent="flex-end">
+                        <IconButton aria-label="fermer la modale" onClick={() => handleModalClose()}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                     {openSignup === "signup" && 
                         <>
                             <Signup />

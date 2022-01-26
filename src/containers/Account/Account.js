@@ -104,7 +104,8 @@ export default function Account() {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <IconButton  
-                                onClick={handleClick}   
+                                onClick={handleClick}
+                                aria-label="modifier la photo"   
                             >
                                 {url ? 
                                     <Avatar

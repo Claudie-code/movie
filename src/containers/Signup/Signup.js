@@ -161,7 +161,8 @@ function Signup() {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <IconButton  
-                            onClick={handleClick}   
+                            onClick={handleClick} 
+                            aria-label="ajouter une photo"  
                         >
                             {url ? 
                             <Avatar
@@ -245,7 +246,7 @@ function Signup() {
                                 endAdornment: (
                                   <InputAdornment position="end">
                                     <IconButton
-                                      aria-label="toggle password visibility"
+                                      aria-label="mot de passe visible"
                                       onClick={handleClickShowPassword}
                                       onMouseDown={handleMouseDownPassword}
                                     >

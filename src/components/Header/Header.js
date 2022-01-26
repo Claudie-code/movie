@@ -52,22 +52,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar({ darkState, setDarkState}) {
-  const [modalOpen, setModalOpen] = useState(null);
-  const isModalOpen = Boolean(modalOpen);
   const classes = useStyles();
   const history = useHistory();
   const { currentUser } = useAuth();
 
   const handlePush = pageURL => {
     history.push(pageURL);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(null);
-  };
-
-  const handleModalOpen = (event) => {
-      setModalOpen(event.currentTarget);
   };
 
   return (
@@ -91,7 +81,6 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
             }
             <MenuHeader 
               handlePush={handlePush} 
-              handleModalOpen={handleModalOpen}
               currentUser={currentUser}
             />
           </div>
@@ -101,13 +90,12 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
             <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
             <MenuHeader 
               handlePush={handlePush} 
-              handleModalOpen={handleModalOpen}
               currentUser={currentUser}
             />
           </div>
         </Toolbar>
       </AppBar>
-      <AuthModal isModalOpen={isModalOpen} handleModalClose={handleModalClose} />
+      <AuthModal />
     </div>
   );
 }

@@ -21,7 +21,7 @@ function PlayButton() {
     const classes = useStyles();
 
     return (
-        <IconButton aria-label="play/pause">
+        <IconButton aria-label="lien">
             <PlayArrowIcon className={classes.playIcon} />
         </IconButton>
     );
