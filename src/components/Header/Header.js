@@ -75,7 +75,7 @@ export default function PrimarySearchAppBar({ darkState, setDarkState}) {
             <Switch checked={darkState} onChange={() => setDarkState(!darkState)} />
             {currentUser && 
               <Typography variant="subtitle1" component="h3">
-                Hi, {currentUser?.displayName?.split(' ')[0]}
+                Bonjour, {currentUser?.displayName?.split(' ')[0]}
               </Typography>
             }
             <MenuHeader 
