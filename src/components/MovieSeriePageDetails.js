@@ -60,7 +60,7 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [rating, setRating] = useState(0);
-    const { currentUser, getTopic, newCommentTopicsCollection } = useAuth();
+    const { currentUser, getTopic, newCommentTopicsCollection, handleModalOpen } = useAuth();
     const classes = useStyles();
 
     const handleSubmit = async (event) => {
@@ -146,11 +146,17 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                     {message && <Alert severity="success">{message}</Alert>}
                 </form> :
                 <Box>
-                    <Button color="secondary" variant="contained">Écrire un commentaire</Button>
+                    <Button 
+                        color="secondary" 
+                        variant="contained" 
+                        onClick={handleModalOpen}
+                    >
+                        Écrire un commentaire
+                    </Button>
                 </Box>
             }
-            {comments?.map(comment => (
-                <>
+            {comments?.map((comment, index) => (
+                <Box key={index}>
                     <Divider style={{width:'100%', margin: "1rem 0"}} />
                     <Box className={classes.comment}>
                         <Box className={classes.profil}>
@@ -173,7 +179,7 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                             </Typography>
                         </Box>
                     </Box>
-                </>
+                </Box>
             ))}
         </Paper>
         }

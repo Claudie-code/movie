@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { Grid, TextField, Button, InputAdornment, IconButton, Avatar } from '@material-ui/core';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';
@@ -102,7 +101,7 @@ function Signup() {
             errorPasswordConfirmation: !errorPasswordConfirmation,
             errorEmailConfirmation: !errorEmailConfirmation,
         }).some(element => element == false)
-    , [formValues, handleOnChange, errorPasswordConfirmation, errorPassword, errorEmailConfirmation]);
+    , [formValues, errorPasswordConfirmation, errorPassword, errorEmailConfirmation]);
 
     async function handleSubmit(event) {
         event.preventDefault();

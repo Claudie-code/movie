@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Grid, TextField, Button, Link, Paper } from '@material-ui/core';
+import { Grid, TextField, Button } from '@material-ui/core';
 import { useAuth } from '../../contexts/AuthContext';
 import Title from "../../components/Title";
 import Alert from '@material-ui/lab/Alert';

@@ -21,10 +21,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "flex-start"
     },
     cover: {
-        width: 220,
         height: 318,
         '@media (max-width:800px)': {
-            width: 150,
             height: 220,
         },
         borderRadius: ".2rem .2rem 0 0",
