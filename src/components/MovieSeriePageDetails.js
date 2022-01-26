@@ -59,6 +59,7 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
     const [ comments, setComments ] = useState([]);
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
+    const [rating, setRating] = useState(0);
     const { currentUser, getTopic, newCommentTopicsCollection } = useAuth();
     const classes = useStyles();
 
@@ -68,9 +69,10 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
             return setError("Veuillez insérer un caractère minimum.");
         }
         try {
-            await newCommentTopicsCollection(newComment, topicId);
+            await newCommentTopicsCollection(newComment, topicId, rating);
             setMessage("Commentaire posté!");
             setNewComment("");
+            setRating(0);
         } catch (error) {
             console.log(error, "error")
         }
@@ -87,7 +89,7 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
         }
         return addTopics();
     }
-    ,[movieOrSerieData, movieOrSerie, comments]);
+    ,[movieOrSerieData, movieOrSerie, rating]);
 
     return (
         <>
@@ -120,6 +122,13 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
             <Titleh3>Commentaires</Titleh3>
             {currentUser ?
                 <form onSubmit={handleSubmit} className={classes.newComment}>
+                    <Rating
+                        name="évaluation"
+                        value={rating}
+                        onChange={(event, newValue) => {
+                            setRating(newValue);
+                        }}
+                    />
                     <TextField
                         label="Écrire un commentaire"
                         multiline
@@ -136,7 +145,9 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                     {error && <Alert severity="error">{error}</Alert>}
                     {message && <Alert severity="success">{message}</Alert>}
                 </form> :
-                <Button >Écrire un commentaire</Button>
+                <Box>
+                    <Button color="secondary" variant="contained">Écrire un commentaire</Button>
+                </Box>
             }
             {comments?.map(comment => (
                 <>
@@ -148,19 +159,21 @@ export default function MovieSeriePageDetails({ movieOrSerieData, movieOrSerie }
                                 src={comment.photoURL}
                                 style={{ width: 70, height: 70 }}
                             />
-                            <Typography variant="body2" gutterBottom>
+                            <Typography variant="body2">
                                 {comment.name}
                             </Typography>
                             <Typography variant="body2" gutterBottom>
-                                le /
+                                le {comment.date}
                             </Typography>
                         </Box>
-                        <Typography variant="body1" gutterBottom>
-                            {comment.comment}
-                        </Typography>
+                        <Box>
+                            <Rating name={`évaluation ${comment.name}`} value={comment.rating} readOnly />
+                            <Typography variant="body1" gutterBottom>
+                                {comment.comment}
+                            </Typography>
+                        </Box>
                     </Box>
                 </>
-
             ))}
         </Paper>
         }

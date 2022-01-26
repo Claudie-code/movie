@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { auth, db, firestore, provider } from '../firebase';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
 
 const AuthContext = React.createContext();
 
@@ -57,13 +59,15 @@ export function AuthProvider({children}) {
         }
     };
 
-    function newCommentTopicsCollection(newComment, topicId) {
+    function newCommentTopicsCollection(newComment, topicId, rating) {
+        const today = dayjs().locale('fr').format("DD MMMM YYYY")
         return topicsCollection.doc(topicId).update({
             comments: firestore.FieldValue.arrayUnion({
                 name: currentUser.displayName,
                 photoURL: currentUser.photoURL,
                 comment: newComment,
-                date: ""
+                date: today,
+                rating: rating
             })
         });
     };

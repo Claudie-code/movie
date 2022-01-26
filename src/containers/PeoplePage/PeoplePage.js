@@ -41,6 +41,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PeoplePage(props) {
+    const today = new Date();
     const classes = useStyles();
     const { id } = props.match.params;
     const [ people, setPeople ] = useState(null);
@@ -101,7 +102,7 @@ export default function PeoplePage(props) {
                                         </> :
                                         <>
                                             <strong>Age </strong> 
-                                            {new Date().getFullYear() - people.birthday.split('-')[0] + " ans"}
+                                            {String(today.getFullYear() - people.birthday.split('-')[0]) + " ans"}
                                         </>
 
                                     } 
