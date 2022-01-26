@@ -9,7 +9,7 @@ import GoogleButton from 'react-google-button'
 function Login() {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const { login, getFavorites, signupGoogle } = useAuth();
+    const { login, getFavorites, signupGoogle, handleModalClose } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -21,7 +21,7 @@ function Login() {
             setError('');
             await login(emailRef.current.value, passwordRef.current.value);
             getFavorites();
-            window.location.reload();
+            handleModalClose();
             history.push('/');
         } catch {
             setError('Echec de la connexion');
@@ -34,7 +34,7 @@ function Login() {
             setError('');
             await signupGoogle();
             getFavorites();
-            window.location.reload();
+            handleModalClose();
             history.push('/');
         } catch(error) {
             setError('Echec de la connexion');

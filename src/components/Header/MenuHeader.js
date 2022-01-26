@@ -8,7 +8,7 @@ function MenuHeader({ handlePush, currentUser }) {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
     const [error, setError] = useState('');
-    const { logout, handleModalOpen } = useAuth();
+    const { logout, handleModalOpen, handleModalClose } = useAuth();
     const isMenuOpen = Boolean(anchorEl);
     const menuId = 'account-menu';
 
@@ -16,7 +16,7 @@ function MenuHeader({ handlePush, currentUser }) {
         setError('');
         try {
           await logout();
-          window.location.reload();
+          handleModalClose();
           history.push('/');
         } catch {
           setError('Failed to log out')

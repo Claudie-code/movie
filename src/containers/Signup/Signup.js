@@ -12,7 +12,7 @@ import { useRef } from 'react';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 
 function Signup() {
-    const { signup, updateDisplayNameAndPhoto, createUserCollection, getFavorites } = useAuth();
+    const { signup, updateDisplayNameAndPhoto, createUserCollection, getFavorites, handleModalClose } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [formValues, setFormValues] = useState({
@@ -116,7 +116,7 @@ function Signup() {
             await updateDisplayNameAndPhoto(`${formValues.prenom} ${formValues.nom}`, url);
             await createUserCollection();
             getFavorites();
-            window.location.reload();
+            handleModalClose();
             history.push('/');
         } catch(error) {
             if(error.code === "auth/email-already-in-use") {
