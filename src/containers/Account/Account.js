@@ -32,7 +32,7 @@ export default function Account() {
     const fnameRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const [ fname, lname ] = currentUser.displayName.split(' ');
+    const [ fname, lname ] = currentUser.displayName?.split(' ');
     const history = useHistory();
 
     function handleSubmit(event) {

@@ -102,7 +102,7 @@ export default function PeoplePage(props) {
                                         </> :
                                         <>
                                             <strong>Age </strong> 
-                                            {String(today.getFullYear() - people.birthday.split('-')[0]) + " ans"}
+                                            {String(today.getFullYear() - people.birthday?.split('-')[0]) + " ans"}
                                         </>
 
                                     } 

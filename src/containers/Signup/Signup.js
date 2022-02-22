@@ -45,24 +45,7 @@ function Signup() {
     const passwordValidation = (event, value) => {
         const password = value?.toLowerCase() ?? event.target.value;
         handleOnChange(event, value);
-        const pattern = new RegExp(
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
-        );
-        if(password.length === 0) {
-            setTextValidation('');
-            setErrorPassword(false);
-            return;
-        }
-        if (password.length < 8) {
-            setTextValidation('Le mot de passe doit faire plus de 8 caractères.');
-            setErrorPassword(true);
-        } else if (!pattern.test(password)) {
-            setTextValidation('Le mot de passe doit contenir au moins une lettre minuscule et une lettre majuscule, un caractère spécial et un chiffre.');
-            setErrorPassword(true);
-        } else {
-            setTextValidation('');
-            setErrorPassword(false);
-        }
+        
     };
 
     const passwordConfirmation = (event, value) => {
